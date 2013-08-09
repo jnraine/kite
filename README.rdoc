@@ -1,0 +1,1 @@
+This is an events web application built with Ruby on Rails by Brian Holt.
