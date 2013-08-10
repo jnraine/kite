@@ -3,18 +3,20 @@
 <head>
   <title>Kite</title>
   <%= stylesheet_link_tag "//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css", "application", :media => "all" %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= csrf_meta_tags %>
 </head>
 <body>
 	<%= render 'layouts/header' %>
+	<div class="container">
 
-	<% flash.each do |name, msg| %>
-    <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
-  <% end %>
-  
-	<%= yield %>
+		<% flash.each do |name, msg| %>
+	    <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
+	  <% end %>
+	  
+		<%= yield %>
 
-	<%= render 'layouts/footer' %>
-
+		<%= render 'layouts/footer' %>
+	</div>
 </body>
 </html>
