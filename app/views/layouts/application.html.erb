@@ -7,8 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<%= render 'layouts/header' %>
 
-<%= yield %>
+	<%= yield %>
 
+
+	<footer>
+		<small>By Brian Holt</small>
+	</footer>
 </body>
 </html>
