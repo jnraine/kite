@@ -25,6 +25,11 @@
   <%= @event.fav %>
 </p>
 
+<p>
+  <%= number_to_currency(@event.cost) %>
+</p>
+
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
+
