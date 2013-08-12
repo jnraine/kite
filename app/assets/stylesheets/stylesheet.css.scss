@@ -1,7 +1,16 @@
-.form-control {
-	width: 50%;
-}
-
+.form-control {	width: 50%; }
+.auto-width {	width: auto; }
 @media (max-width: 768px) {
 	.form-control {	width: 100%; }
+}
+.form-control-time {
+  display: block;
+  width: auto;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
 }
