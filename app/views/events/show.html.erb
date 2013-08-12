@@ -1,4 +1,3 @@
-
 <p>
   <b>Title:</b>
   <%= @event.title %>
@@ -10,8 +9,19 @@
 </p>
 
 <p>
+  <b>Cost:</b>
+  <%= number_to_currency(@event.cost) %>
+</p>
+
+<p>
   <b>Address:</b>
   <%= @event.address %>
+</p>
+
+<p>
+  <b>Date:</b>
+  From <%= @event.start_time %> to <%= @event.end_time %>
+  <%= @event.date %>
 </p>
 
 <p>
@@ -24,16 +34,5 @@
   <%= @event.fav %>
 </p>
 
-<p>
-  <b>Date:</b>
-  <%= @event.date %>
-</p>
-
-<p>
-  <%= number_to_currency(@event.cost) %>
-</p>
-
-
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>
-
