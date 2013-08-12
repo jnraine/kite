@@ -1,29 +1,20 @@
 <h1>Listing events</h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Venue</th>
-    <th>Address</th>
-    <th>Details</th>
-    <th>Fav</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Venue</th>
+        <th>Address</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+  </thead>
 
-<% @events.each do |event| %>
-  <tr>
-    <td><%= event.title %></td>
-    <td><%= event.venue %></td>
-    <td><%= event.address %></td>
-    <td><%= event.details %></td>
-    <td><%= event.fav %></td>
-    <td><%= link_to 'Show', event %></td>
-    <td><%= link_to 'Edit', edit_event_path(event) %></td>
-    <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+  <tbody>
+    <%= render @events %>    
+  </tbody>
 </table>
 
 <br />
