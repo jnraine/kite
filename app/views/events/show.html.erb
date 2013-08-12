@@ -1,38 +1,22 @@
-<p>
-  <b>Title:</b>
-  <%= @event.title %>
-</p>
+<div class="row">
+  <div class="well">
+    <div class="event-title">
+      <h4><%= @event.title %></h4>
+      <p>@ <%= @event.venue %>&emsp;<%= number_to_currency(@event.cost) %></p>
+    </div>
+    <p>
+      <%= @event.address %>
+    </p>
+    <p>
+      From <%= @event.start_time.to_s(:time) %> to <%= @event.end_time.to_s(:time) %> on 
+      <%= @event.date.strftime("%B %e") %>
+    </p>
+    <p>
+      <%= @event.details %>
+    </p>
 
-<p>
-  <b>Venue:</b>
-  <%= @event.venue %>
-</p>
-
-<p>
-  <b>Cost:</b>
-  <%= number_to_currency(@event.cost) %>
-</p>
-
-<p>
-  <b>Address:</b>
-  <%= @event.address %>
-</p>
-
-<p>
-  <b>Date:</b>
-  From <%= @event.start_time %> to <%= @event.end_time %>
-  <%= @event.date %>
-</p>
-
-<p>
-  <b>Details:</b>
-  <%= @event.details %>
-</p>
-
-<p>
-  <b>Fav:</b>
-  <%= @event.fav %>
-</p>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+    <br />
+    <%= link_to 'Edit', edit_event_path(@event) %> |
+    <%= link_to 'Back', events_path %>
+  </div>
+</div>
