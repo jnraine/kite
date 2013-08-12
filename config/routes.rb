@@ -1,12 +1,11 @@
 Kite::Application.routes.draw do
   resources :events
 
-
   devise_for :users
 
-  get 'about' => 'pages#about'
-
   root :to => 'pages#home'
+  get 'about' => 'pages#about'
+  get 'events' => 'events#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
