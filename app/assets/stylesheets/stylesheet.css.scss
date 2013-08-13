@@ -18,6 +18,9 @@
   min-height: 20px;
   padding: 19px;
   border-bottom: 2px solid #e3e3e3;
+  &:hover {
+    background-color: #f5f5f5;
+  };
 }
 .event-title {
   font-size: 16px;
