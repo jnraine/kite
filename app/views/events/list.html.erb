@@ -1,28 +1,31 @@
 <h1>Edit your events</h1>
 
-<table class="table table-striped">
+<table class="table table-hover">
     <thead>
       <tr>
         <th>Title</th>
         <th>Venue</th>
-        <th>Cost</th>
-        <th></th>
-        <td></th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Details</th>
         <th></th>
       </tr>
   </thead>
 
   <tbody>
     <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to event.title, event %></td>
-        <td><%= event.venue %></td>
-        <td><%= number_to_currency(event.cost) %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% edit = edit_event_path(event) %>
+    <tr>
+        <td><%= link_to event.title, edit %></td>
+        <td><%= link_to event.venue, edit %></td>
+        <td><%= link_to event.date.strftime("%B %e"), edit %></td>
+        <td><%= link_to "#{event.start_time.to_s(:time)} to #{event.end_time.to_s(:time)}", edit %></td>
+        <td><%= link_to event.details, edit %></td>
+        <td><%= link_to 'Delete', event, method: :delete, data: { confirm: 'Are you sure you want to delete this event?' } %></td>
       </tr>
     <% end %>   
   </tbody>
 </table>
 
 <br />
+

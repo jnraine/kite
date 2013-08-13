@@ -3,7 +3,7 @@ Kite::Application.routes.draw do
 
   devise_for :users
 
-  root :to => 'pages#home'
+  root :to => 'events#index'
   get 'about' => 'pages#about'
   get 'events' => 'events#index'
   get 'list' => 'events#list'
