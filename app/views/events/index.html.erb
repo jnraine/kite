@@ -5,11 +5,11 @@
     <div class="event-div">
       <div class="event-title">
         <h4>
-          <%= link_to_function event.title, "$('##{event.id}').toggle()" %>
+          <%= event.title %>
         </h4>
         <p>@ <%= event.venue %>&emsp;<%= number_to_currency(event.cost) %></p>
       </div>
-      <div class="event-details" id="<%= event.id %>">
+      <div class="event-details">
         <p>
           <%= event.address %>
         </p>
