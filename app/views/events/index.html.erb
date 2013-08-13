@@ -18,7 +18,7 @@
           <%= event.date.strftime("%B %e") %>
         </p>
         <p>
-          <%= event.details %>
+          <%= auto_link(event.details, :urls, :target => "_blank" ) %>
         </p>
       </div>
     </div>
