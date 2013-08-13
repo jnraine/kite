@@ -11,6 +11,17 @@ class EventsController < ApplicationController
     end
   end
 
+  # GET /list
+  # GET /list.json  
+  def list
+    @events = current_user.events.all
+
+    respond_to do |format|
+      format.html # list.html.erb
+      format.json { render json: @events }
+    end
+  end
+
   # GET /events/1
   # GET /events/1.json
   def show

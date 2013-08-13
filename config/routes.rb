@@ -6,6 +6,7 @@ Kite::Application.routes.draw do
   root :to => 'pages#home'
   get 'about' => 'pages#about'
   get 'events' => 'events#index'
+  get 'list' => 'events#list'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,28 @@
+<h1>Edit your events</h1>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Venue</th>
+        <th>Cost</th>
+        <th></th>
+        <td></th>
+        <th></th>
+      </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= link_to event.title, event %></td>
+        <td><%= event.venue %></td>
+        <td><%= number_to_currency(event.cost) %></td>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>   
+  </tbody>
+</table>
+
+<br />

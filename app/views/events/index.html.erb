@@ -1,32 +1,26 @@
 <h1>Listing events</h1>
 
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Venue</th>
-        <th>Cost</th>
-        <th></th>
-        <td></th>
-        <th></th>
-      </tr>
-  </thead>
-
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to event.title, event %></td>
-        <td><%= event.venue %></td>
-        <td><%= number_to_currency(event.cost) %></td>
-        <% if current_user == event.user %>
-          <td><%= link_to 'Edit', edit_event_path(event) %></td>
-          <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>   
-  </tbody>
-</table>
-
-<br />
-
-<%= link_to 'New Event', new_event_path %>
+<% @events.each do |event| %>
+  <div class="row">
+    <div class="event-div">
+      <div class="event-title">
+        <h4>
+          <%= link_to_function event.title, "$('##{event.id}').toggle()" %>
+        </h4>
+        <p>@ <%= event.venue %>&emsp;<%= number_to_currency(event.cost) %></p>
+      </div>
+      <div class="event-details" id="<%= event.id %>">
+        <p>
+          <%= event.address %>
+        </p>
+        <p>
+          From <%= event.start_time.to_s(:time) %> to <%= event.end_time.to_s(:time) %> on 
+          <%= event.date.strftime("%B %e") %>
+        </p>
+        <p>
+          <%= event.details %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>
