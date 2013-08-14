@@ -5,6 +5,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'simple_form'
 gem "rails_autolink", "~> 1.1.0"
+gem "geocoder"
 
 group :production do
 	gem 'pg'

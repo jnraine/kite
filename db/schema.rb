@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130812182847) do
+ActiveRecord::Schema.define(:version => 20130814231835) do
 
   create_table "events", :force => true do |t|
     t.string   "title"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20130812182847) do
     t.datetime "created_at",                                                  :null => false
     t.datetime "updated_at",                                                  :null => false
     t.integer  "user_id"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
@@ -44,6 +46,8 @@ ActiveRecord::Schema.define(:version => 20130812182847) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
