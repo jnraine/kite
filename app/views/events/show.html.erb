@@ -2,7 +2,10 @@
   <div class="well">
     <div class="event-title">
       <h4><%= @event.title %></h4>
-      <p>@ <%= @event.venue %>&emsp;<%= number_to_currency(@event.cost) %></p>
+      <p>
+        @ <%= @event.venue %>&emsp;
+        <%= @event.cost == 0 ? "Free" : number_to_currency(@event.cost) %>
+      </p>
     </div>
     <p>
       <%= @event.address %>
