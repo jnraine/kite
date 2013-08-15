@@ -1,6 +1,6 @@
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
-  config.wrappers :bootstrap, :tag => 'div', :class => 'form-group', :error_class => 'error' do |b|
+  config.wrappers :bootstrap, :tag => 'div', :class => 'form-group', :error_class => 'has-error' do |b|
     config.form_class = "form-horizontal"
     b.use :html5
     b.use :placeholder
@@ -8,27 +8,27 @@ SimpleForm.setup do |config|
     b.use :label
     b.wrapper :tag => 'div', :class => 'col-lg-10' do |ba|
       ba.use :input # :class => "form-control"
-      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+      ba.use :error, :wrap_with => { :tag => 'span', :class => 'form-error' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end
   end
 
-  config.wrappers :bs_submit_button, :tag => 'div', :class => 'form-group', :error_class => 'error' do |b|
+  config.wrappers :bs_submit_button, :tag => 'div', :class => 'form-group', :error_class => 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.wrapper :bs_submit_button, :tag => 'div', :class => 'col-offset-2 col-lg-10' do |ba|
       ba.use :input
-      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+      ba.use :error, :wrap_with => { :tag => 'span', :class => 'form-error' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end
   end
 
-  config.wrappers :bs_checkbox, :tag => 'div', :class => 'form-group', :error_class => 'error' do |b|
+  config.wrappers :bs_checkbox, :tag => 'div', :class => 'form-group', :error_class => 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.wrapper :bs_checkbox, :tag => 'div', :class => 'col-offset-2 col-lg-10' do |ba|
       ba.use :input, :wrap_with => { :tag => 'div', :class => 'checkbox' }
-      ba.use :error, :wrap_with => { :tag => 'span', :class => 'help-inline' }
+      ba.use :error, :wrap_with => { :tag => 'span', :class => 'form-error' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
     end
   end
