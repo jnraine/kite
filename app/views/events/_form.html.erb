@@ -16,9 +16,13 @@
   <div class="form-group">
     <%= f.label "Date" %>
     <div class="col-lg-10">
-      <input type="date" class="form-control auto-width" name="event[date]">
+      <% unless @event.date? %>
+        <% @event.date = Date.today %>
+      <% end %>  
+      <input type="date" class="form-control auto-width" name="event[date]" value="<%= @event.date %>">
     </div>
   </div>
+
   <%= f.input :cost, as: :string %>
   <%= f.input :details, input_html: { rows: "3" } %>
 
