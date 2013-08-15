@@ -8,6 +8,16 @@
 
 		<%= link_to "eKite", root_path, :class => "navbar-brand" %>
 
+		<%= form_tag events_path, :class => "navbar-form navbar-right", :method => :get do %>
+		<div class="col-lg-4">
+		  <div class="input-group">
+		    <%= text_field_tag :searchCity, params[:searchCity], :class => "form-control", :value => request.location.city %>
+		    <span class="input-group-btn">
+		    	<%= button_tag "Change City", :name => nil, :class => "btn btn-default" %>
+		  	</span>
+		  </div>
+		</div>
+		<% end %>
 
 		<div class="nav-collapse collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav pull-right">
