@@ -3,11 +3,10 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    if params[:searchCity].present?
-      @events = Event.near(params[:searchCity], 20, :order => :distance).order(:date)
-    else
-      @events = Event.all(:order => :date)
+    unless params[:searchCity].present?
+      params[:searchCity] = request.location.city
     end
+    @events = Event.near(params[:searchCity], 20, :order => :distance).order(:date)
 
     respond_to do |format|
       format.html # index.html.erb
