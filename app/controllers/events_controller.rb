@@ -6,7 +6,7 @@ class EventsController < ApplicationController
     unless params[:searchCity].present?
       params[:searchCity] = request.location.city
     end
-    @events = Event.near(params[:searchCity], 20, :order => :distance).order(:date)
+    @events = Event.near(params[:searchCity], 20, :units => :km, :order => :distance).order(:date)
 
     respond_to do |format|
       format.html # index.html.erb
