@@ -5,12 +5,6 @@
   <%= f.input :venue %>
   <%= f.input :address %>
   <div class="form-group">
-    <%= f.label "Category" %>
-    <div class="col-lg-10">
-      <%= f.collection_select :category, Category.order('name ASC').all, :id, :name, {prompt: " "}, {class: "form-control auto-width"} %>
-    </div>
-  </div>
-  <div class="form-group">
     <%= f.label "Time" %>
     <div class="col-lg-10 form-control-time">
       From 
