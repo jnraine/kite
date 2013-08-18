@@ -1,5 +1,4 @@
 Kite::Application.routes.draw do
-  resources :categories
   resources :events
 
   devise_for :users

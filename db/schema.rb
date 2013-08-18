@@ -11,25 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130814231822) do
+ActiveRecord::Schema.define(:version => 20130818003604) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "events", :force => true do |t|
     t.string   "title"
     t.string   "venue"
     t.string   "address"
     t.text     "details"
-    t.boolean  "fav",                                      :default => false
+    t.boolean  "fav",                                       :default => false
     t.time     "start_time"
     t.time     "end_time"
     t.date     "date"
-    t.decimal  "cost",       :precision => 6, :scale => 2
-    t.datetime "created_at",                                                  :null => false
-    t.datetime "updated_at",                                                  :null => false
+    t.decimal  "cost",        :precision => 6, :scale => 2
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
     t.integer  "user_id"
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "category_id"
   end
 
+  add_index "events", ["category_id"], :name => "index_events_on_category_id"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
 
   create_table "users", :force => true do |t|
