@@ -1,9 +1,9 @@
 class CreateEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
-      t.string :title
-      t.string :venue
-      t.string :address
+      t.string :title, :limit => 70
+      t.string :venue, :limit => 70
+      t.string :address, :limit => 70
       t.text :details
       t.boolean :fav, :default => false
       t.time :start_time

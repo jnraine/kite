@@ -7,6 +7,6 @@ class CreateCategories < ActiveRecord::Migration
     end
 
     add_column :events, :category_id, :integer
-    add_index :events, :category_id
+    add_index :events, :category_id, :null => false
   end
 end

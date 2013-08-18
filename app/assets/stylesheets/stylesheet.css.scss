@@ -2,6 +2,7 @@
 /* This beautiful CSS-File has been crafted with LESS (lesscss.org) and compiled by simpLESS (wearekiss.com/simpless) */
 
 body { padding-top: 70px; }
+a:hover, a:focus { text-decoration: none; }
 .form-control {	width: 50%; }
 .auto-width {	width: auto; }
 @media (max-width: 768px) {
@@ -19,6 +20,17 @@ body { padding-top: 70px; }
   background-color: #ffffff;
 }
 .form-error { color: #b94a48; }
+.event-list {
+  min-height: 20px;
+  padding: 1.5em 19px;
+  border-bottom: 2px solid #e3e3e3;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  &:hover {
+    background-color: #f5f5f5;
+  };
+}
 .event-div {
   min-height: 20px;
   padding: 10px 19px;
