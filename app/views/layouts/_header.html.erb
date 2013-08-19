@@ -1,23 +1,27 @@
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
+	<div class="navbar-header">
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+	      <span class="sr-only">Toggle navigation</span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+	    <%= link_to "eKite", root_path, :class => "navbar-brand" %>
+	  </div>
 
-		<%= link_to "eKite", root_path, :class => "navbar-brand" %>
+		
 
-		<div class="nav-collapse collapse navbar-responsive-collapse">
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
 
-			<%= form_tag events_path, :class => "navbar-form navbar-left", :method => :get do %>
+<!--			<%= form_tag events_path, :class => "navbar-form navbar-left", :method => :get do %>
 			  <div class="col-lg-3 input-group input-group-sm">
 			    <%= text_field_tag :searchCity, params[:searchCity], :class => "form-control auto-width", :placeholder => "Change City" %>
 			    <span class="input-group-btn">
 			    	<%= button_tag content_tag(:span, " ", :class => "glyphicon glyphicon-chevron-right"), :name => nil, :class => "btn btn-default" %>
 			  	</span>
 			  </div>
-			<% end %>
+			<% end %> -->
 
 			<ul class="nav navbar-nav pull-right">
 			  <% if user_signed_in? %>
