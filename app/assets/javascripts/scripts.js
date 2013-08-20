@@ -5,6 +5,10 @@ $('.event-div').click( function() {
 	openEvent.toggle(200);
 });
 
+$('.event-details').click( function(event){
+  event.stopImmediatePropagation();
+});
+
 // $('.form-popover').popover( { placement: 'auto' })
 
 /* Hammer('.event-div').on("swipeleft", function() {
