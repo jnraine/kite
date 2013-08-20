@@ -6,3 +6,23 @@ $('.event-div').click( function() {
 });
 
 // $('.form-popover').popover( { placement: 'auto' })
+
+/* Hammer('.event-div').on("swipeleft", function() {
+	var swipeMenu = $(this).children('.event-menu');
+
+  console.log("You swiped");
+  swipeMenu.toggle("slide", { direction: "left" });
+}); */
+//for ( var a = 0; a < 10; a++ )
+//{
+    $(".event-submenu").mmenu({
+    		configuration: {
+			    menuNodetype: "div"
+				}, 
+        dragOpen :{
+            open: true,
+            threshold: 75,
+            pageNode: $(".event-div")
+        }
+    });
+//}
