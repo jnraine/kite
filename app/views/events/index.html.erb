@@ -1,13 +1,5 @@
 <% @events.each do |event| %>
   <div class="row">
-
-<div class="event-submenu">
-        <ul>
-          <li class="Selected"><a href="index.html">Basic example</a></li>
-          <li><a href="horizontal-submenus.html">Horizontal sliding submenus example</a></li>
-        </ul>
-    </div>
-
     <div class="event-div">
       <div class="event-title">
         <h4>
@@ -29,6 +21,20 @@
         <p>
           <%= auto_link(event.details, :urls, :target => "_blank" ) %>
         </p>
+        <ul>
+          <li>
+            <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-heart") : content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), events_path %>
+          </li>
+          <li>
+            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), events_path %>
+          </li>
+          <li>
+            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), about_path %>
+          </li>
+          <li>
+            <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-remove") : content_tag(:span, " ", :class => "glyphicon glyphicon-plus"), events_path %>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

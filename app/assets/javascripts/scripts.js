@@ -15,14 +15,16 @@ $('.event-div').click( function() {
 }); */
 //for ( var a = 0; a < 10; a++ )
 //{
-    $(".event-submenu").mmenu({
-    		configuration: {
-			    menuNodetype: "div"
-				}, 
-        dragOpen :{
-            open: true,
-            threshold: 75,
-            pageNode: $(".event-div")
-        }
-    });
+/*$(".event-menu").mmenu({
+  configuration: {
+	  menuNodetype: "div"
+	}, 
+  dragOpen :{
+    open: true,
+    threshold: 75,
+    pageNode: $(".event-div")
+  }
+});*/
 //}
+
+//$(".event-menu").trigger( "setPage.mm", [ $(".event-div") ] );

@@ -15,6 +15,12 @@ footer {
   padding: 40px;
 }
 .auto-width {	width: auto; }
+a > span {
+  color: $darkGrey;
+  &:hover {
+    color: $darkOrange;
+  };
+}
 @media (max-width: 768px) {
 	.form-control {	width: 100%; }
 }
@@ -53,9 +59,42 @@ footer {
   line-height: 1;
   margin-bottom: 1em;
 }
-.event-details {  display: none; }
-.event-menu {
-  background-color: red;
+.event-details {
   display: none;
-  height: 100%;
+  ul {
+    border-top: 1px solid $medGrey;
+    list-style: none;
+    margin-top: 1.5em;
+    padding: 1.5em .3em 0;
+  };
+  li {
+    display: inline-block;
+    line-height: 1em;
+    font-size: 1.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+  };
+  li:first-child {
+    padding-left: 0;
+  };
+  li:last-child {
+    padding-right: 0;
+  };
+}
+.event-menu {
+  ul {
+    list-style: none;
+  };
+  li {
+    display: inline-block;
+    font-size: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
+  };
+  li:first-child {
+    padding-left: 0;
+  };
+  li:last-child {
+    padding-right: 0;
+  };
 }
