@@ -23,16 +23,16 @@
         </p>
         <ul>
           <li>
-            <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-heart") : content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), events_path %>
+            <%= link_to event.fav ? content_tag(:span, "Fav", :class => "glyphicon glyphicon-heart") : content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), "#" %>
           </li>
           <li>
-            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), events_path %>
+            <%= link_to content_tag(:span, "Share", :class => "glyphicon glyphicon-share-alt"), "#" %>
           </li>
           <li>
-            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), about_path %>
+            <%= link_to content_tag(:span, "Flag", :class => "glyphicon glyphicon-flag"), "#" %>
           </li>
           <li>
-            <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-remove") : content_tag(:span, " ", :class => "glyphicon glyphicon-plus"), events_path %>
+            <%= link_to event.fav ? content_tag(:span, "Subscribe", :class => "glyphicon glyphicon-remove") : content_tag(:span, " ", :class => "glyphicon glyphicon-plus"), "#" %>
           </li>
         </ul>
       </div>
