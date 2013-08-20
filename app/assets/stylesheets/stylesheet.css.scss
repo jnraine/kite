@@ -16,6 +16,7 @@ footer {
 }
 .auto-width {	width: auto; }
 a > span {
+  display: block;
   color: $darkGrey;
   &:hover {
     color: $darkOrange;
