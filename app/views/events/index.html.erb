@@ -26,7 +26,7 @@
             <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-heart") : content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), "#" %>
           </li>
           <li>
-            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "#" %>
+            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "https://twitter.com/share", :'data-text' => "This looks fun!", :'data-url' => "http://ekite.herokuapp.com/#{event}" %>
           </li>
           <li>
             <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), "#" %>

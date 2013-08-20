@@ -1,27 +1,25 @@
 <div class="row">
-  <div class="well">
+  <div class="event-div">
     <div class="event-title">
-      <h4><%= @event.title %></h4>
+      <h4>
+        <%= @event.title %>
+      </h4>
       <p>
         @ <%= @event.venue %>&emsp;
         <%= @event.cost == 0 ? "Free" : number_to_currency(@event.cost) %>
       </p>
     </div>
-    <p>
-      <%= @event.address %>
-    </p>
-    <p>
-      From <%= @event.start_time.to_s(:time) %> to <%= @event.end_time.to_s(:time) %> on 
-      <%= @event.date.strftime("%B %e") %>
-    </p>
-    <p>
-      <%= @event.details %>
-    </p>
-
-    <br />
-    <% if current_user == @event.user %>
-      <%= link_to 'Edit', edit_event_path(@event) %> |
-    <% end %>
-    <%= link_to 'Back', list_path %>
+    <div class="event-details">
+      <p>
+        <%= @event.address %>
+      </p>
+      <p>
+        From <%= @event.start_time.to_s(:time) %> to <%= @event.end_time.to_s(:time) %> on 
+        <%= @event.date.strftime("%B %e") %>
+      </p>
+      <p>
+        <%= auto_link(@event.details, :urls, :target => "_blank" ) %>
+      </p>
+    </div>
   </div>
 </div>
