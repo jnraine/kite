@@ -32,7 +32,7 @@
             <%= mail_to "fake@ekite.ca", content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), :subject => "eKite Event flagged" %>
           </li>
           <li>
-            <%= link_to event.fav ? content_tag(:span, "Subscribe", :class => "glyphicon glyphicon-remove") : content_tag(:span, " ", :class => "glyphicon glyphicon-plus"), "#" %>
+            <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-remove") : content_tag(:span, " ", :class => "glyphicon glyphicon-plus"), "#" %>
           </li>
         </ul>
       </div>

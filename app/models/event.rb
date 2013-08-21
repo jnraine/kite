@@ -6,4 +6,6 @@ class Event < ActiveRecord::Base
   validates_length_of :title, :maximum => 70
   geocoded_by :address
   after_validation :geocode, :if => :address_changed?
+
+	scope :have_favs, where(:fav => true)
 end

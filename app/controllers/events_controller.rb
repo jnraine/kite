@@ -3,15 +3,19 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    #unless params[:searchCity].present?
-      #params[:searchCity] = "Victoria" #request.location.city
-    #end
+    unless params[:searchCity].present?
+      params[:searchCity] = "Victoria" #request.location.city
+    end
     
     if params[:category_id].present?
       @events = Event.where(:category_id => params[:category_id])
-      #@events = @events.near(params[:searchCity], 20, :units => :km, :order => :distance).order(:date)
+      @events = @events.near(params[:searchCity], 20, :units => :km, :order => :distance).order(:date)
     else
       @events = Event.all
+    end
+
+    if params[:favs].present?
+      @events = Event.have_favs
     end
 
     respond_to do |format|

@@ -9,6 +9,14 @@
 	</p>
 </div>
 
+<% if Event.have_favs %>
+	<div class="row">
+		<div class="event-list">
+			<%= link_to "Favourites", events_path(:favs => true) %><span class="badge pull-right"><%= Event.have_favs.size %></span>
+		</div>
+	</div>
+<% end %>
+
 <% @categories = Category.all %>
 <% @categories.each do |category| %>
 <div class="row">
