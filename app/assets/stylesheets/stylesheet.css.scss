@@ -83,21 +83,3 @@ a > span {
     padding-right: 0;
   };
 }
-.event-menu {
-  ul {
-    list-style: none;
-    text-align: center;
-  };
-  li {
-    display: inline-block;
-    font-size: 2em;
-    padding-left: 1em;
-    padding-right: 1em;
-  };
-  li:first-child {
-    padding-left: 0;
-  };
-  li:last-child {
-    padding-right: 0;
-  };
-}

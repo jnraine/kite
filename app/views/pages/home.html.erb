@@ -9,11 +9,13 @@
 	</p>
 </div>
 
-<% unless Event.have_favs.size == 0 %>
+<% unless Event.have_favs.is_today.size == 0 %>
 	<div class="row">
+		<%= link_to events_path(:favs => true) do %>
 		<div class="event-list">
-			<%= link_to "Favourites", events_path(:favs => true) %><span class="badge pull-right"><%= Event.have_favs.size %></span>
+			Favourites <span class="badge pull-right"><%= Event.have_favs.is_today.size %></span>
 		</div>
+		<% end %>
 	</div>
 <% end %>
 
@@ -22,7 +24,7 @@
 <div class="row">
 	<%= link_to events_path(:category_id => category.id) do %>
   <div class="event-list">
-  	<%= category.name %><span class="badge pull-right"><%= category.events.size %></span>
+  	<%= category.name %><span class="badge pull-right"><%= category.events.is_today.size %></span>
 	</div>
 	<% end %>
 </div>

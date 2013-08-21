@@ -14,9 +14,9 @@
     <%= f.label "Time" %>
     <div class="col-md-10 form-control-time">
       From 
-      <%= f.input_field :start_time, :class => " ", :minute_step => 15 %>
+      <%= f.time_select :start_time, :class => " ", :minute_step => 15 %>
        to 
-      <%= f.input_field :end_time, :class => " ", :minute_step => 15 %>
+      <%= f.time_select :end_time, :class => " ", :minute_step => 15 %>
     </div>
   </div>
   <div class="form-group">

@@ -8,4 +8,8 @@ class Event < ActiveRecord::Base
   after_validation :geocode, :if => :address_changed?
 
 	scope :have_favs, where(:fav => true)
+	#def self.is_today
+		#where(:date => Date.today)
+	#end
+	scope :is_today#, where(:date => Date.today)
 end

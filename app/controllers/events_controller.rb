@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
-  # GET /events
-  # GET /events.json
+
   def index
     unless params[:searchCity].present?
       params[:searchCity] = "Victoria" #request.location.city
@@ -9,13 +8,13 @@ class EventsController < ApplicationController
     
     if params[:category_id].present?
       @events = Event.where(:category_id => params[:category_id])
-      @events = @events.near(params[:searchCity], 20, :units => :km, :order => :distance).order(:date)
+      @events = @events.near(params[:searchCity], 20, :units => :km, :order => :distance)
     else
       @events = Event.all
     end
 
     if params[:favs].present?
-      @events = Event.have_favs
+      @events = Event.have_favs.is_today
     end
 
     respond_to do |format|
@@ -24,8 +23,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # GET /list
-  # GET /list.json  
   def list
     @events = current_user.events.all
 
@@ -35,8 +32,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # GET /events/1
-  # GET /events/1.json
   def show
     @event = Event.find(params[:id])
 
@@ -46,8 +41,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # GET /events/new
-  # GET /events/new.json
   def new
     @event = current_user.events.new
 
@@ -57,13 +50,10 @@ class EventsController < ApplicationController
     end
   end
 
-  # GET /events/1/edit
   def edit
     @event = current_user.events.find(params[:id])
   end
 
-  # POST /events
-  # POST /events.json
   def create
     @event = current_user.events.new(params[:event])
 
@@ -78,8 +68,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # PUT /events/1
-  # PUT /events/1.json
   def update
     @event = current_user.events.find(params[:id])
 
@@ -94,8 +82,6 @@ class EventsController < ApplicationController
     end
   end
 
-  # DELETE /events/1
-  # DELETE /events/1.json
   def destroy
     @event = current_user.events.find(params[:id])
     @event.destroy
