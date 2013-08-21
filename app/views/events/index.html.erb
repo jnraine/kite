@@ -26,10 +26,10 @@
             <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-heart") : content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), "#" %>
           </li>
           <li>
-            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "https://twitter.com/share", :'data-text' => "This looks fun!", :'data-url' => "http://ekite.herokuapp.com/#{event}" %>
+            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "https://twitter.com/share", :'data-url' => event %>
           </li>
           <li>
-            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), "#" %>
+            <%= mail_to "fake@ekite.ca", content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), :subject => "eKite Event flagged" %>
           </li>
           <li>
             <%= link_to event.fav ? content_tag(:span, "Subscribe", :class => "glyphicon glyphicon-remove") : content_tag(:span, " ", :class => "glyphicon glyphicon-plus"), "#" %>
