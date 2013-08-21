@@ -9,7 +9,7 @@
 	</p>
 </div>
 
-<% if Event.have_favs > 0 %>
+<% unless Event.have_favs.size == 0 %>
 	<div class="row">
 		<div class="event-list">
 			<%= link_to "Favourites", events_path(:favs => true) %><span class="badge pull-right"><%= Event.have_favs.size %></span>
