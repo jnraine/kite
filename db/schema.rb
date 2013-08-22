@@ -20,17 +20,17 @@ ActiveRecord::Schema.define(:version => 20130818003604) do
   end
 
   create_table "events", :force => true do |t|
-    t.string   "title"
-    t.string   "venue"
-    t.string   "address"
+    t.string   "title",       :limit => 70
+    t.string   "venue",       :limit => 70
+    t.string   "address",     :limit => 70
     t.text     "details"
-    t.boolean  "fav",                                       :default => false
+    t.boolean  "fav",                                                     :default => false
     t.time     "start_time"
     t.time     "end_time"
     t.date     "date"
-    t.decimal  "cost",        :precision => 6, :scale => 2
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
+    t.decimal  "cost",                      :precision => 6, :scale => 2
+    t.datetime "created_at",                                                                 :null => false
+    t.datetime "updated_at",                                                                 :null => false
     t.integer  "user_id"
     t.float    "latitude"
     t.float    "longitude"
