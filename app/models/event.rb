@@ -8,8 +8,16 @@ class Event < ActiveRecord::Base
   after_validation :geocode, :if => :address_changed?
 
 	scope :have_favs, where(:fav => true)
-	#def self.is_today
-		#where(:date => Date.today)
-	#end
-	scope :is_today#, where(:date => Date.today)
+	scope :is_today#, where(:date => Date.today).order(:start_time)
+
+	def set_start_time_date
+		self.start_time = DateTime.new(date.year, date.month, date.day, start_time.hour, start_time.min, start_time.sec)
+		return true
+	end
+	def set_end_time_date
+		self.end_time = DateTime.new(date.year, date.month, date.day, end_time.hour, end_time.min, end_time.sec)
+		return true
+	end
+	before_save :set_start_time_date
+	before_save :set_end_time_date
 end

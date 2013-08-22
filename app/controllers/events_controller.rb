@@ -7,7 +7,7 @@ class EventsController < ApplicationController
     end
     
     if params[:category_id].present?
-      @events = Event.where(:category_id => params[:category_id])
+      @events = Event.where(:category_id => params[:category_id]).is_today
       @events = @events.near(params[:searchCity], 20, :units => :km, :order => :distance)
     else
       @events = Event.all

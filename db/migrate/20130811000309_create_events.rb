@@ -6,8 +6,8 @@ class CreateEvents < ActiveRecord::Migration
       t.string :address, :limit => 70
       t.text :details
       t.boolean :fav, :default => false
-      t.time :start_time
-      t.time :end_time
+      t.datetime :start_time
+      t.datetime :end_time
       t.date :date
       t.decimal :cost, :precision => 6, :scale => 2
 
