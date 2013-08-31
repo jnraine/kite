@@ -4,23 +4,14 @@ class EventsController < ApplicationController
   def index
     if params[:category_id].present?
       @events = Event.where(:category_id => params[:category_id]).sort_today.is_near(session[:city])
-    end
-
-    if params[:favs].present?
+    elsif params[:favs].present?
       @events = Event.have_favs.sort_today
+    else
+      @events = Event.sort_today.is_near(session[:city])
     end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @events }
-    end
-  end
-
-  def list
-    @events = current_user.events.all
-
-    respond_to do |format|
-      format.html # list.html.erb
       format.json { render json: @events }
     end
   end
@@ -31,6 +22,15 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @event }
+    end
+  end
+
+  def list
+    @events = current_user.events.all
+
+    respond_to do |format|
+      format.html # list.html.erb
+      format.json { render json: @events }
     end
   end
 
