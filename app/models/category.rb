@@ -1,4 +1,4 @@
 class Category < ActiveRecord::Base
-  attr_accessible :name
+  attr_protected :name
   has_many :events
 end

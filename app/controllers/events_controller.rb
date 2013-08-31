@@ -2,19 +2,12 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
-    unless params[:searchCity].present?
-      params[:searchCity] = "Victoria" #request.location.city
-    end
-    
     if params[:category_id].present?
-      @events = Event.where(:category_id => params[:category_id]).is_today
-      @events = @events.near(params[:searchCity], 20, :units => :km, :order => :distance)
-    else
-      @events = Event.all
+      @events = Event.where(:category_id => params[:category_id]).is_near(session[:city]).sort_today
     end
 
     if params[:favs].present?
-      @events = Event.have_favs.is_today
+      @events = Event.have_favs.sort_today
     end
 
     respond_to do |format|

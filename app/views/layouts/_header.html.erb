@@ -10,20 +10,16 @@
 	    <%= link_to "eKite", root_path, :class => "navbar-brand" %>
 	  </div>
 
-			<!--<%= form_tag events_path, :class => "navbar-form navbar-left", :method => :get do %>
-			  <div class="col-xs-6">
-			  <div class="input-group input-group-sm">
-			    <%= text_field_tag :searchCity, params[:searchCity], :class => "form-control", :placeholder => "Change City" %>
-			    <span class="input-group-btn">
-			    	<%= button_tag content_tag(:span, " ", :class => "glyphicon glyphicon-chevron-right"), :name => nil, :class => "btn btn-default" %>
-			  	</span>
-			  </div>
-			  </div>
-			<% end %>	-->	
-
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
-
  			<ul class="nav navbar-nav pull-right">
+ 				<li>
+ 					<%= form_tag do %>
+						<div class="navbar-form navbar-left form-group">
+							<%= text_field_tag :city, params[:city], :class => "form-control auto-width", :placeholder => "#{session[:city]} : Change City" %>
+							<%= button_tag content_tag(:span, " ", :class => "glyphicon glyphicon-chevron-right"), :name => nil, :class => "btn btn-default" %>
+						</div>
+					<% end %>
+				</li>
 			  <% if user_signed_in? %>
 			  	<li><%= link_to "Add Event", new_event_path %></li>
 			  	<li><%= link_to "Edit Events", list_path %></li>

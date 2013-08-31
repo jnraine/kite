@@ -3,12 +3,14 @@ class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   validates :address, :cost, :title, :user_id, :venue, presence: true
-  validates_length_of :title, :maximum => 70
+  validates_length_of :title, :venue, :address, :maximum => 70
   geocoded_by :address
   after_validation :geocode, :if => :address_changed?
 
 	scope :have_favs, where(:fav => true)
-	scope :is_today#, where(:date => Date.today).order(:start_time)
+	scope :is_today#, where(:date => Date.today)
+	scope :sort_today, is_today.order(:start_time)
+	scope :is_near, lambda {|city| self.near(city, 20, :units => :km, :order => :distance)}
 
 	def set_start_time_date
 		self.start_time = DateTime.new(date.year, date.month, date.day, start_time.hour, start_time.min, start_time.sec)
