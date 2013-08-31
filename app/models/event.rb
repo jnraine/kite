@@ -8,7 +8,8 @@ class Event < ActiveRecord::Base
   after_validation :geocode, :if => :address_changed?
 
 	scope :have_favs, where(:fav => true)
-	scope :is_today, lambda {|now = Time.current| where("end_time > ?", now)} #.where(:date => Date.today)
+	scope :not_over, lambda {|now = Time.now| where("end_time > ?", now)}
+	scope :is_today#, where(:date => Date.today).not_over
 	scope :sort_today, is_today.order(:start_time)
 	scope :is_near, lambda {|city| self.near(city, 20, :units => :km)}
 
