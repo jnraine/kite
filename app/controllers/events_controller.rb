@@ -3,7 +3,7 @@ class EventsController < ApplicationController
 
   def index
     if params[:category_id].present?
-      @events = Event.where(:category_id => params[:category_id]).is_near(session[:city]).sort_today
+      @events = Event.where(:category_id => params[:category_id]).sort_today.is_near(session[:city])
     end
 
     if params[:favs].present?

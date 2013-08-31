@@ -8,9 +8,9 @@ class Event < ActiveRecord::Base
   after_validation :geocode, :if => :address_changed?
 
 	scope :have_favs, where(:fav => true)
-	scope :is_today#, where(:date => Date.today)
+	scope :is_today, lambda {|now = Time.current| where("end_time > ?", now)} #.where(:date => Date.today)
 	scope :sort_today, is_today.order(:start_time)
-	scope :is_near, lambda {|city| self.near(city, 20, :units => :km, :order => :distance)}
+	scope :is_near, lambda {|city| self.near(city, 20, :units => :km)}
 
 	def set_start_time_date
 		self.start_time = DateTime.new(date.year, date.month, date.day, start_time.hour, start_time.min, start_time.sec)

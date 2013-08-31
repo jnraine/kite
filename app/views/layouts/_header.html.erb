@@ -15,7 +15,7 @@
  				<li>
  					<%= form_tag do %>
 						<div class="navbar-form navbar-left form-group">
-							<%= text_field_tag :city, params[:city], :class => "form-control auto-width", :placeholder => "#{session[:city]} : Change City" %>
+							<%= text_field_tag :city, params[:city], :class => "form-control auto-width", :placeholder => "#{session[:city]}: Change City" %>
 							<%= button_tag content_tag(:span, " ", :class => "glyphicon glyphicon-chevron-right"), :name => nil, :class => "btn btn-default" %>
 						</div>
 					<% end %>
