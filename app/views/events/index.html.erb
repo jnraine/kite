@@ -26,7 +26,7 @@
             <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-heart") : content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), "#" %>
           </li>
           <li>
-            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "https://twitter.com/share", :'data-url' => event %>
+            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "https://twitter.com/share", :'data-url' => event_path(event.id) %>
           </li>
           <li>
             <%= mail_to "fake@ekite.ca", content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), :subject => "eKite Event flagged" %>
