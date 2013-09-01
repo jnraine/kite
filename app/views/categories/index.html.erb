@@ -1,0 +1,15 @@
+<%= render 'pages/home' %>
+<%= render 'favs' %>
+
+<% @categories.each do |category| %>
+	<div class="row">
+		<%= link_to events_path(:category_id => category.id) do %>
+	  <div class="event-list">
+	  	<%= category.name %>
+	  	<span class="badge pull-right">
+	  		<%= category.events.is_near(session[:city]).is_today.size %>
+	  	</span>
+		</div>
+		<% end %>
+	</div>
+<% end %>

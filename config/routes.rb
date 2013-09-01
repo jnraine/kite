@@ -6,7 +6,7 @@ Kite::Application.routes.draw do
   end
   devise_for :users
 
-  root :to => 'pages#home'
+  root :to => 'categories#index'
   get 'about' => 'pages#about'
   get 'list' => 'events#list'
 end
