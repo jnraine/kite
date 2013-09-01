@@ -9,14 +9,17 @@
 	</p>
 </div>
 
-<% unless Event.have_favs.is_today.size == 0 %>
-	<div class="row">
-		<%= link_to events_path(:favs => true) do %>
-		<div class="event-list">
-			Favourites <span class="badge pull-right"><%= Event.have_favs.is_today.size %></span>
+<% if user_signed_in? %>
+	<% unless current_user.flagged_events.is_today.size == 0 %>
+		<div class="row">
+			<%= link_to events_path(:favs => true) do %>
+			<div class="event-list">
+				Favourites <span class="badge pull-right">
+				<%= current_user.flagged_events.is_today.size %></span>
+			</div>
+			<% end %>
 		</div>
-		<% end %>
-	</div>
+	<% end %>
 <% end %>
 
 <% @categories = Category.all %>
@@ -25,7 +28,9 @@
 	<%= link_to events_path(:category_id => category.id) do %>
   <div class="event-list">
   	<%= category.name %>
-  	<span class="badge pull-right"><%= category.events.is_near(session[:city]).is_today.size %></span>
+  	<span class="badge pull-right">
+  		<%= category.events.is_near(session[:city]).is_today.size %>
+  	</span>
 	</div>
 	<% end %>
 </div>

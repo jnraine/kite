@@ -7,4 +7,7 @@ class User < ActiveRecord::Base
 
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   has_many :events, :dependent => :destroy
+  has_many :flagged_events, :through => :flaggings, :source => :flaggable, :source_type => 'Event'
+
+  make_flagger
 end

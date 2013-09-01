@@ -22,9 +22,15 @@
           <%= auto_link(event.details, :urls, :target => "_blank" ) %>
         </p>
         <ul>
-          <li>
-            <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-heart") : content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), "#" %>
-          </li>
+          <% if user_signed_in? %>
+            <li class="fav-heart">
+              <%= toggle_fav(event, current_user) %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), new_user_session_path %>
+            </li>
+          <% end %>
           <li>
             <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "https://twitter.com/share", :'data-url' => event_path(event.id) %>
           </li>

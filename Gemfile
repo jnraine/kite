@@ -6,6 +6,7 @@ gem 'devise'
 gem 'simple_form'
 gem "rails_autolink", "~> 1.1.0"
 gem "geocoder"
+gem 'make_flaggable', :git => 'git://github.com/cavneb/make_flaggable.git'
 
 group :production do
 	gem 'pg'

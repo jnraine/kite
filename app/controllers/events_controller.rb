@@ -5,7 +5,7 @@ class EventsController < ApplicationController
     if params[:category_id].present?
       @events = Event.where(:category_id => params[:category_id]).sort_today.is_near(session[:city])
     elsif params[:favs].present?
-      @events = Event.have_favs.sort_today
+      @events = current_user.flagged_events.sort_today
     else
       @events = Event.sort_today.is_near(session[:city])
     end
@@ -13,6 +13,15 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @events }
+    end
+  end
+
+  def fav
+    @event = Event.find(params[:id])
+    current_user.toggle_flag(@event, :fav)
+
+    respond_to do |format|
+      format.html { redirect_to :back }
     end
   end
 

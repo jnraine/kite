@@ -1,13 +1,17 @@
 class Event < ActiveRecord::Base
-  attr_accessible :address, :category_id, :cost, :date, :details, :end_time, :fav, :start_time, :title, :venue
+  attr_accessible :address, :category_id, :cost, :date, :details, :end_time, :start_time, :title, :venue
+ 
   belongs_to :user
   belongs_to :category
+ 
   validates :address, :cost, :title, :user_id, :venue, presence: true
   validates_length_of :title, :venue, :address, :maximum => 70
+ 
   geocoded_by :address
   after_validation :geocode, :if => :address_changed?
 
-	scope :have_favs, where(:fav => true)
+  make_flaggable :fav
+
 	scope :not_over, lambda {|now = Time.now| where("end_time > ?", now)}
 	scope :is_today#, where(:date => Date.today).not_over
 	scope :sort_today, is_today.order(:start_time)
