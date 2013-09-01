@@ -9,6 +9,8 @@ $('.event-details').click( function(event){
   event.stopImmediatePropagation();
 });
 
+//$('.fav-heart').html("<%= escape_javascript toggle_fav(event, current_user) %>");
+
 // $('.form-popover').popover( { placement: 'auto' })
 
 /* Hammer('.event-div').on("swipeleft", function() {
