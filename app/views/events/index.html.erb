@@ -6,13 +6,13 @@
           <%= event.title %>
         </h4>
         <p>
-          @ <%= event.venue %>&emsp;
+          @ <%= event.venue.name %>&emsp;
           <%= event.cost == 0 ? "Free" : number_to_currency(event.cost) %>
         </p>
       </div>
       <div class="event-details">
         <p>
-          <%= event.address %>
+          <%= event.venue.address %>
         </p>
         <p>
           From <%= event.start_time.to_s(:time) %> to <%= event.end_time.to_s(:time) %> on 
@@ -38,7 +38,7 @@
             <%= mail_to "fake@ekite.ca", content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), :subject => "eKite Event flagged" %>
           </li>
           <li>
-            <%= link_to event.fav ? content_tag(:span, " ", :class => "glyphicon glyphicon-remove") : content_tag(:span, " ", :class => "glyphicon glyphicon-plus"), "#" %>
+            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-remove"), "#" %>
           </li>
         </ul>
       </div>

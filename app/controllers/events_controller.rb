@@ -5,7 +5,7 @@ class EventsController < ApplicationController
     if params[:category_id].present?
       @events = Event.where(:category_id => params[:category_id]).sort_today.is_near(session[:city])
     elsif params[:favs].present?
-      @events = current_user.flagged_events.sort_today
+      @events = current_user.flagged_events.sort_today.is_near(session[:city])
     else
       @events = Event.sort_today.is_near(session[:city])
     end

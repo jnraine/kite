@@ -21,24 +21,21 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
 
   create_table "events", :force => true do |t|
     t.string   "title",       :limit => 70
-    t.string   "venue",       :limit => 70
-    t.string   "address",     :limit => 70
     t.text     "details"
-    t.boolean  "fav",                                                     :default => false
     t.datetime "start_time"
     t.datetime "end_time"
     t.date     "date"
     t.decimal  "cost",                      :precision => 6, :scale => 2
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
+    t.integer  "venue_id"
     t.integer  "user_id"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.integer  "category_id"
   end
 
   add_index "events", ["category_id"], :name => "index_events_on_category_id"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
+  add_index "events", ["venue_id"], :name => "index_events_on_venue_id"
 
   create_table "flaggings", :force => true do |t|
     t.string   "flaggable_type"
@@ -73,5 +70,17 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "venues", :force => true do |t|
+    t.string   "name",       :limit => 70
+    t.string   "address",    :limit => 70
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "user_id"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "venues", ["user_id"], :name => "index_venues_on_user_id"
 
 end

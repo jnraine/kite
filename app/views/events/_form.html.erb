@@ -2,12 +2,16 @@
   <%= f.error_notification %>
 
   <%= f.input :title %>
-  <%= f.input :venue %>
-  <%= f.input :address %>
+  <div class="form-group">
+    <%= f.label "Venue" %>
+    <div class="col-md-10">
+      <%= f.collection_select :venue_id, current_user.venues.order('name ASC'), :id, :name, {prompt: " "}, {class: "form-control auto-width"} %>
+    </div>
+  </div>
   <div class="form-group">
     <%= f.label "Category" %>
     <div class="col-md-10">
-      <%= f.collection_select :category_id, Category.order('name ASC').all, :id, :name, {prompt: " "}, {class: "form-control auto-width"} %>
+      <%= f.collection_select :category_id, Category.order('name ASC'), :id, :name, {prompt: " "}, {class: "form-control auto-width"} %>
     </div>
   </div>
   <div class="form-group">

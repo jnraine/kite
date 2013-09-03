@@ -5,13 +5,13 @@
         <%= @event.title %>
       </h4>
       <p>
-        @ <%= @event.venue %>&emsp;
+        @ <%= @event.venue.name %>&emsp;
         <%= @event.cost == 0 ? "Free" : number_to_currency(@event.cost) %>
       </p>
     </div>
     <div class="event-details">
       <p>
-        <%= @event.address %>
+        <%= @event.venue.address %>
       </p>
       <p>
         From <%= @event.start_time.to_s(:time) %> to <%= @event.end_time.to_s(:time) %> on 

@@ -2,13 +2,14 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 ["Live Music",
- "Store Sales",
- "Drink Specials",
+ "Night Clubs",
  "Theatre",
- "Sports",
  "Comedy",
+ "Sports",
  "Art Exhibitions",
- "Food Specials",
- "Night Clubs"].each do |category|
+ "Shopping Sales",
+ "Drink Specials",
+ "Food Specials"
+ ].each do |category|
     Category.find_or_create_by_name(category)
 end

@@ -7,7 +7,6 @@
         <th>Venue</th>
         <th>Date</th>
         <th>Time</th>
-        <th>Details</th>
         <th></th>
       </tr>
   </thead>
@@ -17,10 +16,9 @@
     <% edit = edit_event_path(event) %>
     <tr>
         <td><%= link_to event.title, edit %></td>
-        <td><%= link_to event.venue, edit %></td>
+        <td><%= link_to event.venue.name, edit %></td>
         <td><%= link_to event.date.strftime("%B %e"), edit %></td>
         <td><%= link_to "#{event.start_time.to_s(:time)} to #{event.end_time.to_s(:time)}", edit %></td>
-        <td><%= link_to event.details, edit %></td>
         <td><%= link_to 'Delete', event, method: :delete, data: { confirm: 'Are you sure you want to delete this event?' } %></td>
       </tr>
     <% end %>   

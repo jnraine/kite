@@ -6,4 +6,11 @@ module EventsHelper
 			fav_event_path(event)
 			#:remote => true
 	end
+
+	def toggle_subscribe(venue, user)
+		link_to user.flagged?(venue, :subscribe) ?
+			content_tag(:span, " ", :class => "glyphicon glyphicon-remove") :
+			content_tag(:span, " ", :class => "glyphicon glyphicon-plus"),
+			"#"
+	end
 end

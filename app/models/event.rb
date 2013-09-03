@@ -1,21 +1,18 @@
 class Event < ActiveRecord::Base
-  attr_accessible :address, :category_id, :cost, :date, :details, :end_time, :start_time, :title, :venue
+  attr_accessible :title, :details, :start_time, :end_time, :date, :cost, :venue_id, :category_id
  
   belongs_to :user
+  belongs_to :venue
   belongs_to :category
- 
-  validates :address, :cost, :title, :user_id, :venue, presence: true
-  validates_length_of :title, :venue, :address, :maximum => 70
- 
-  geocoded_by :address
-  after_validation :geocode, :if => :address_changed?
 
-  make_flaggable :fav
-
-	scope :not_over, lambda {|now = Time.now| where("end_time > ?", now)}
+  validates :title, :start_time, :end_time, :date, :cost, :venue_id, :category_id, presence: true
+  validates_length_of :title, :maximum => 70
+ 
+  scope :not_over, lambda {|now = Time.now| where("end_time > ?", now)}
 	scope :is_today#, where(:date => Date.today).not_over
 	scope :sort_today, is_today.order(:start_time)
-	scope :is_near, lambda {|city| self.near(city, 20, :units => :km)}
+
+	make_flaggable :fav
 
 	def set_start_time_date
 		self.start_time = DateTime.new(date.year, date.month, date.day, start_time.hour, start_time.min, start_time.sec)
@@ -27,4 +24,9 @@ class Event < ActiveRecord::Base
 	end
 	before_save :set_start_time_date
 	before_save :set_end_time_date
+  class << self
+  	def is_near(*args, &block)
+  		Venue.is_near(*args, &block)
+  	end
+	end
 end

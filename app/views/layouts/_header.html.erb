@@ -21,6 +21,7 @@
 					<% end %>
 				</li>
 			  <% if user_signed_in? %>
+			  	<li><%= link_to "Add Venue", new_venue_path %></li>
 			  	<li><%= link_to "Add Event", new_event_path %></li>
 			  	<li><%= link_to "Edit Events", list_path %></li>
 			    <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
