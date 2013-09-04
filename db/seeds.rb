@@ -9,7 +9,8 @@
  "Art Exhibitions",
  "Shopping Sales",
  "Drink Specials",
- "Food Specials"
+ "Food Specials",
+ "Community"
  ].each do |category|
     Category.find_or_create_by_name(category)
 end

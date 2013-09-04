@@ -24,6 +24,7 @@ class Event < ActiveRecord::Base
 	end
 	before_save :set_start_time_date
 	before_save :set_end_time_date
+
   class << self
   	def is_near(*args, &block)
   		Venue.is_near(*args, &block)

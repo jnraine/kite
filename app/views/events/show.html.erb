@@ -9,7 +9,6 @@
         <%= @event.cost == 0 ? "Free" : number_to_currency(@event.cost) %>
       </p>
     </div>
-    <div class="event-details">
       <p>
         <%= @event.venue.address %>
       </p>
@@ -20,6 +19,9 @@
       <p>
         <%= auto_link(@event.details, :urls, :target => "_blank" ) %>
       </p>
-    </div>
+      <br/>
+      <p>
+        <%= link_to "Edit", edit_event_path(@event) %> | <%= link_to "Back", list_path %>
+      </p>
   </div>
 </div>

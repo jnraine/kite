@@ -5,13 +5,14 @@
   <div class="form-group">
     <%= f.label "Venue" %>
     <div class="col-md-10">
-      <%= f.collection_select :venue_id, current_user.venues.order('name ASC'), :id, :name, {prompt: " "}, {class: "form-control auto-width"} %>
+      <%= f.collection_select :venue_id, current_user.venues.order('name ASC'), :id, :name, {prompt: " "}, {class: "form-control"} %>
     </div>
+    <div class="col-md-offset-2 col-md-10"><br/><%= link_to "Add a venue", new_venue_path %></div>
   </div>
   <div class="form-group">
     <%= f.label "Category" %>
     <div class="col-md-10">
-      <%= f.collection_select :category_id, Category.order('name ASC'), :id, :name, {prompt: " "}, {class: "form-control auto-width"} %>
+      <%= f.collection_select :category_id, Category.order('name ASC'), :id, :name, {prompt: " "}, {class: "form-control"} %>
     </div>
   </div>
   <div class="form-group">
