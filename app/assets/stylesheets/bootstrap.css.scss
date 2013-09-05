@@ -18,7 +18,7 @@ $medGrey: #e3e3e3;
 $darkGrey: #666666;
 $lightBlue: #a3ebf1;
 $darkBlue: #00b2c2;
-$transWhite: rgba(255, 255, 255, 0.85);
+$transWhite: rgba(255, 255, 255, 0.8);
 
 footer, header, hgroup, nav, { display: block; }
 audio, canvas, video { display: inline-block; }
@@ -365,7 +365,7 @@ small { font-size: 85%; }
 .text-warning { color: #c09853; }
 .text-danger { color: #b94a48; }
 .text-success { color: #468847; }
-.text-info { color: $darkRed; }
+.text-info { color: $medGrey; }
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 .text-center { text-align: center; }
@@ -377,7 +377,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small {
   font-weight: normal;
   line-height: 1;
-  color: $mutedGrey;
+  color: $medGrey;
 }
 h1, h2, h3 {
   margin-top: 20px;
@@ -1002,18 +1002,18 @@ fieldset[disabled] .btn {
   box-shadow: none;
 }
 .btn-default {
-  color: #333333;
-  background-color: #ffffff;
-  border-color: #cccccc;
+  color: $darkGrey;
+  background-color: #fff;
+  border-color: #fff;
 }
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-  color: #333333;
-  background-color: #ebebeb;
-  border-color: #adadad;
+  color: $darkGrey;
+  background-color: $lightGrey;
+  border-color: $lightGrey;
 }
 .btn-default:active,
 .btn-default.active,
@@ -1035,8 +1035,8 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #ffffff;
-  border-color: #cccccc;
+  background-color: #fff;
+  border-color: #fff;
 }
 .btn-primary {
   color: #ffffff;
@@ -1917,7 +1917,7 @@ td.visible-print {
 }
 @media (min-width: 768px) {
   .navbar-header {
-    float: right;
+    float: left;
     padding-left: 0;
     padding-right: 0;
   }
@@ -2020,7 +2020,7 @@ td.visible-print {
 }
 .navbar-toggle {
   position: relative;
-  float: left;
+  float: right;
   padding: 9px 10px;
   margin: 8px -15px;
   background-color: transparent;
@@ -2050,7 +2050,7 @@ td.visible-print {
   }
 }
 .navbar-nav {
-  margin: 7.5px -15px;
+  margin: 7.5px 0;
 }
 .navbar-nav > li > a {
   padding-top: 10px;

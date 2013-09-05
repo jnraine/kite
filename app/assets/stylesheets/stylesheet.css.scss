@@ -9,7 +9,7 @@ $medGrey: #e3e3e3;
 $darkGrey: #666666;
 $lightBlue: #a3ebf1;
 $darkBlue: #00b2c2;
-$transWhite: rgba(255, 255, 255, 0.85);
+$transWhite: rgba(255, 255, 255, 0.8);
 
 /* Application layout ==================== */
 footer {
@@ -50,6 +50,9 @@ a > span {
   .navbar-collapse {
     background-color: $red;
     margin: -15px;
+    ul {
+      width: 100%;
+    };
     .navbar-nav > li > a {
       color: #FFF;
       &:hover {
@@ -57,12 +60,17 @@ a > span {
       };
     };
   }
-  .navbar-brand {
-    margin:0 -65px 0 15px;
-    width: 83%;
-    text-align: center;
-  }
 	.form-control {	width: 100%; }
+}
+#front {
+  background-image: url("stripe.png");
+  background-color: $red;
+  margin: -17px -15px 5px;
+  padding: 20px;
+  color: #fff;
+  h1:first-child {
+    font-size: 3.4em;
+  };
 }
 
 /* Forms ======================================== */
