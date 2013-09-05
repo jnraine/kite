@@ -48,7 +48,7 @@ a > span {
 }
 @media (max-width: 767px) {
   .navbar-collapse {
-    background-color: $red;
+    background-color: $darkGrey;
     margin: -15px;
     ul {
       width: 100%;
@@ -56,7 +56,7 @@ a > span {
     .navbar-nav > li > a {
       color: #FFF;
       &:hover {
-        background-color: $darkRed;
+        color: $medGrey;
       };
     };
   }
@@ -69,7 +69,8 @@ a > span {
   padding: 20px;
   color: #fff;
   h1:first-child {
-    font-size: 3.4em;
+    font-size: 3.6em;
+    margin-bottom: -0.4em;
   };
 }
 
