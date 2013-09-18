@@ -1,5 +1,9 @@
 Kite::Application.routes.draw do
-  resources :venues
+  resources :venues do
+    member do
+      get 'unsubscribe'
+    end
+  end
   resources :events do
   	member do
   		get 'fav'

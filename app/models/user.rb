@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :venues, :dependent => :destroy
   has_many :events, :through => :venues
   has_many :flagged_events, :through => :flaggings, :source => :flaggable, :source_type => 'Event'
+  has_many :flagged_venues, :through => :flaggings, :source => :flaggable, :source_type => 'Venue'
 
   make_flagger
 end

@@ -10,12 +10,5 @@ class Venue < ActiveRecord::Base
   validates :name, :address, :user_id, presence: true
   validates_length_of :name, :address, :maximum => 70
 
-	def self.is_near(city)
-		venues_near_city(city).map(&:events).flatten 
-	end 
-
-	private 
-		def self.venues_near_city(city) 
-			self.near(city, 20, :units => :km) 
-		end
+  make_flaggable :unsubscribe
 end

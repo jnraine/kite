@@ -2,11 +2,20 @@ class VenuesController < ApplicationController
   before_filter :authenticate_user!, except: [:show]
 
   def index
-    @venues = current_user.venues.all
+    @venues = current_user.venues
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @venues }
+    end
+  end
+
+  def unsubscribe
+    @venue = Venue.find(params[:id])
+    current_user.toggle_flag(@venue, :unsubscribe)
+
+    respond_to do |format|
+      format.html { redirect_to :back }
     end
   end
 

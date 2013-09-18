@@ -3,12 +3,17 @@ class EventsController < ApplicationController
 
   def index
     if params[:category_id].present?
-      @events = Event.where(:category_id => params[:category_id]).sort_today.is_near(session[:city])
+      @events = Event.where(:category_id => params[:category_id])
+      if user_signed_in?
+        @events = @events.subscribed(current_user)
+      end
     elsif params[:favs].present?
-      @events = current_user.flagged_events.sort_today.is_near(session[:city])
+      @events = current_user.flagged_events
     else
-      @events = Event.sort_today.is_near(session[:city])
+      @events = Event.all
     end
+
+    @events = @events.sort_today.is_near(session[:city])
 
     respond_to do |format|
       format.html # index.html.erb

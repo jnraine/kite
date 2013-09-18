@@ -23,7 +23,7 @@
         </p>
         <ul>
           <% if user_signed_in? %>
-            <li class="fav-heart">
+            <li>
               <%= toggle_fav(event, current_user) %>
             </li>
           <% else %>
@@ -37,9 +37,15 @@
           <li>
             <%= mail_to "fake@ekite.ca", content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), :subject => "eKite Event flagged" %>
           </li>
-          <li>
-            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-remove"), "#" %>
-          </li>
+          <% if user_signed_in? %>
+            <li>
+              <%= toggle_subscribe(event.venue, current_user) %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-remove"), new_user_session_path %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>

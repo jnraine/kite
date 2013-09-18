@@ -11,8 +11,17 @@ class Event < ActiveRecord::Base
   scope :not_over, lambda {|now = Time.now| where("end_time > ?", now)}
 	scope :is_today#, where(:date => Date.today).not_over
 	scope :sort_today, is_today.order(:start_time)
+	scope :is_near, lambda {|city| Venue.near(city, 20, :units => :km).map(&:events).flatten }
 
 	make_flaggable :fav
+
+	def self.subscribed(user)
+		if user.flagged_venues.empty?
+			scoped
+		else
+			self.where("venue_id not in (?)", user.flagged_venues)
+		end
+	end
 
 	def set_start_time_date
 		self.start_time = DateTime.new(date.year, date.month, date.day, start_time.hour, start_time.min, start_time.sec)
@@ -24,10 +33,4 @@ class Event < ActiveRecord::Base
 	end
 	before_save :set_start_time_date
 	before_save :set_end_time_date
-
-  class << self
-  	def is_near(*args, &block)
-  		Venue.is_near(*args, &block)
-  	end
-	end
 end
