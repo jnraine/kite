@@ -51,3 +51,16 @@
     </div>
   </div>
 <% end %>
+
+<div class="row">
+  <div class="event-div">
+    <div class="event-missing">
+      <h4>
+        Something missing?
+      </h4>
+      <p>
+        If you're the host <%= link_to "sign up for a free account", new_user_registration_path %> to add your events otherwise  <%= mail_to "fake@ekite.ca", "send me an email", :subject => "eKite Missing Event" %> to let me know what you'd like to see!
+      </p>
+    </div>
+  </div>
+</div>

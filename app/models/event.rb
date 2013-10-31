@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
   scope :not_over, lambda {|now = Time.now| where("end_time > ?", now)}
 	scope :is_today#, where(:date => Date.today).not_over
 	scope :sort_today, is_today.order(:start_time)
-	scope :is_near, lambda {|city| Venue.near(city, 20, :units => :km).map(&:events).flatten }
+	scope :is_near, lambda {|city| Venue.near(city, 20, :units => :km).includes(:events).map(&:events).flatten }
 
 	make_flaggable :fav
 

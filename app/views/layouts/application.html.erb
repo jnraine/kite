@@ -8,6 +8,9 @@
 </head>
 <body>
 	<%= render 'layouts/header' %>
+	<% if root_path? %>
+		<%= render 'pages/landing' %>
+	<% end %>
 	<div class="container">
 
 		<% flash.each do |name, msg| %>

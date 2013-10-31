@@ -112,7 +112,7 @@ a > span {
 }
 .event-title {
   font-size: 16px;
-  line-height: 1;
+  line-height: 1em;
   margin-bottom: 1em;
 }
 .event-details {
@@ -137,4 +137,28 @@ a > span {
   li:last-child {
     padding-right: 0;
   };
+}
+.event-missing {
+  color: #AAA;
+  font-size: .85em;
+  h4 {
+    font-size: 16px;
+  };
+}
+
+/* Landing Page ================================== */
+.gradient-bg {
+  background-image: url("stripe.png");
+  background-color: $red;
+  min-height: 148px;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+  color: #fff;
+  font-size: 2.4em;
+  line-height: 118px;
+  padding: 20px;
+  margin-top: -20px;
+  text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
+  border-bottom: 3px solid $red; 
 }
