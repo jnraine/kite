@@ -12,12 +12,28 @@ $darkBlue: #00b2c2;
 $transWhite: rgba(255, 255, 255, 0.8);
 
 /* Application layout ==================== */
+a {
+  -o-transition: color .2s;
+  -ms-transition: color .2s;
+  -moz-transition: color .2s;
+  -webkit-transition: color .2s;
+  transition: color .2s;
+}
 footer {
+  font-size: .85em;
   color: #AAA;
   text-align: center;
   margin: 0 auto;
   padding: 40px 15px 15px;
   a { color: $darkGrey; };
+  ul {
+    list-style: none;
+    padding-left: 0;
+  };
+  li {
+    display: inline-block;
+    padding-right: 2em;
+  };
 }
 .auto-width {	width: auto; }
 .show { display: block; }
@@ -29,16 +45,15 @@ a > span {
   };
 }
 .blur-box {
-  height: 53px;
+  height: 50px;
   width: 100%;
-  margin-top: -70px;
+  margin-top: -60px;
   position: fixed;
   overflow: hidden;
 }
 .blur {
-  height: 70px;
+  height: 50px;
   width: 100%;
-  margin: -5px;
   background-color: $transWhite;
   -webkit-filter: blur(10px);
   -moz-filter: blur(10px);
@@ -98,6 +113,11 @@ a > span {
   font-size: 18px;
   font-weight: bold;
   line-height: 1;
+  -o-transition:background-color .2s;
+  -ms-transition:background-color .2s;
+  -moz-transition:background-color .2s;
+  -webkit-transition:background-color .2s;
+  transition:background-color .2s;
   &:hover {
     background-color: $lightGrey;
   };
@@ -106,6 +126,11 @@ a > span {
   min-height: 20px;
   padding: 10px 19px;
   border-bottom: 2px solid $medGrey;
+  -o-transition:background-color .2s;
+  -ms-transition:background-color .2s;
+  -moz-transition:background-color .2s;
+  -webkit-transition:background-color .2s;
+  transition:background-color .2s;
   &:hover {
     background-color: $lightGrey;
   };
@@ -158,7 +183,6 @@ a > span {
   font-size: 2.4em;
   line-height: 118px;
   padding: 20px;
-  margin-top: -20px;
   text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
   border-bottom: 3px solid $red; 
 }

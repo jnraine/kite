@@ -3,22 +3,27 @@
 <head>
   <title>eKite</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 	<%= render 'layouts/header' %>
-	<% if root_path? %>
-		<%= render 'pages/landing' %>
-	<% end %>
-	<div class="container">
 
+	<div class="container">
 		<% flash.each do |name, msg| %>
 	    <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
 	  <% end %>
-	  
+	</div>
+
+	<% if root_path? %>
+		<%= render 'pages/landing' %>
+	<% end %>
+
+	<div class="container">
 		<%= yield %>
 	</div>
+	
 	<%= render 'layouts/footer' %>
 </body>
 </html>

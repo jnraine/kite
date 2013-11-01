@@ -29,7 +29,7 @@ html {
   -ms-text-size-adjust: 100%;
 }
 body {
-  padding-top: 70px; /* Added for fixed-nav */
+  padding-top: 53px; /* Added for fixed-nav */
   margin: 0;
 }
 a:focus { outline: thin dotted; }
@@ -78,7 +78,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
   line-height: 1.428571429;
   color: $darkGrey;
@@ -370,8 +370,8 @@ small { font-size: 85%; }
 .text-right { text-align: right; }
 .text-center { text-align: center; }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  font-family: inherit;
+  font-weight: 700;
   line-height: 1.1;
 }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small {
@@ -1900,7 +1900,7 @@ td.visible-print {
   }
 }
 .navbar-header {
-  padding-left: 15px;
+  padding-left: 5px;
   padding-right: 15px;
 }
 .navbar-header:before,
@@ -1918,7 +1918,7 @@ td.visible-print {
 @media (min-width: 768px) {
   .navbar-header {
     float: left;
-    padding-left: 0;
+    padding-left: 5px;
     padding-right: 0;
   }
 }
@@ -2319,7 +2319,7 @@ td.visible-print {
 }
 .alert {
   padding: 15px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   color: #c09853;
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
