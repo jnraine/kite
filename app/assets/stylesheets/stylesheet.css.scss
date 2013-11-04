@@ -34,6 +34,9 @@ footer {
     display: inline-block;
     padding-right: 2em;
   };
+  li:last-child {
+    padding-right: 0;
+  };
 }
 .auto-width {	width: auto; }
 .show { display: block; }
@@ -180,7 +183,7 @@ a > span {
   text-align: center;
   vertical-align: middle;
   color: #fff;
-  font-size: 2.4em;
+  font-size: 2em;
   line-height: 118px;
   padding: 20px;
   text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
