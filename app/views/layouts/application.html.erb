@@ -14,13 +14,7 @@
 		<% flash.each do |name, msg| %>
 	    <%= content_tag(:div, msg, class: "alert alert-#{name}") %>
 	  <% end %>
-	</div>
 
-	<% if root_path? %>
-		<%= render 'pages/landing' %>
-	<% end %>
-
-	<div class="container">
 		<%= yield %>
 	</div>
 	

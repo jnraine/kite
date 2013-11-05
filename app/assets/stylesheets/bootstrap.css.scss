@@ -2293,20 +2293,20 @@ td.visible-print {
   border-top-right-radius: 3px;
 }
 .jumbotron {
-  padding: 30px;
-  margin-bottom: 30px;
+  padding: 30px 5px;
+  padding-bottom: 45px; 
+  margin-bottom: 20px;
   font-size: 21px;
   font-weight: 200;
-  line-height: 2.1428571435;
+  line-height: 2.2em;
   color: $red;
-  background-color: $medGrey;
+  background-color: $lightGrey;
 }
 .jumbotron h1 {
-  line-height: 1;
-  color: #fff;
+  line-height: 1.1;
 }
 .jumbotron p {
-  line-height: 1.4;
+  line-height: 1.4em;
 }
 @media screen and (min-width: 768px) {
   .jumbotron {
