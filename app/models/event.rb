@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   validates_length_of :title, :maximum => 70
  
   scope :not_over, lambda {|now = Time.now| where("end_time > ?", now)}
-	scope :is_today#, where(:date => Date.today).not_over
+	scope :is_today, where(:date => Date.today).not_over
 	scope :sort_today, is_today.order(:start_time)
 	scope :is_near, lambda {|city| Venue.near(city, 20, :units => :km).includes(:events).map(&:events).flatten }
 
