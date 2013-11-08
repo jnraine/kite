@@ -3,8 +3,7 @@
 		<div class="row">
 			<%= link_to events_path(:favs => true) do %>
 			<div class="event-list">
-				Favourites <!--<span class="badge pull-right">
-				<%= current_user.flagged_events.is_today.is_near(session[:city]).size %></span>-->
+				Favourites
 			</div>
 			<% end %>
 		</div>

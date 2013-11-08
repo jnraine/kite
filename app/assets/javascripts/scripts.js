@@ -8,29 +8,3 @@ $('.event-div').click( function() {
 $('.event-details').click( function(event){
   event.stopImmediatePropagation();
 });
-
-//$('.fav-heart').html("<%= escape_javascript toggle_fav(event, current_user) %>");
-
-// $('.form-popover').popover( { placement: 'auto' })
-
-/* Hammer('.event-div').on("swipeleft", function() {
-	var swipeMenu = $(this).children('.event-menu');
-
-  console.log("You swiped");
-  swipeMenu.toggle("slide", { direction: "left" });
-}); */
-//for ( var a = 0; a < 10; a++ )
-//{
-/*$(".event-menu").mmenu({
-  configuration: {
-	  menuNodetype: "div"
-	}, 
-  dragOpen :{
-    open: true,
-    threshold: 75,
-    pageNode: $(".event-div")
-  }
-});*/
-//}
-
-//$(".event-menu").trigger( "setPage.mm", [ $(".event-div") ] );

@@ -8,9 +8,6 @@
 		<%= link_to events_path(:category_id => category.id) do %>
 	  <div class="event-list">
 	  	<%= category.name %>
-	  	<!--<span class="badge glyphicon glyphicon-chevron-right pull-right">
-	  		<%= category.events.is_today.is_near(session[:city]).size %>
-	  	</span>-->
 		</div>
 		<% end %>
 	</div>

@@ -15,5 +15,8 @@ class CreateEvents < ActiveRecord::Migration
 
     add_index :events, :user_id, :null => false
     add_index :events, :venue_id, :null => false
+    add_index :events, :start_time
+    add_index :events, :end_time
+    add_index :events, :date
   end
 end
