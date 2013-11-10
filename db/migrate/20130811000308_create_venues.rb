@@ -11,7 +11,7 @@ class CreateVenues < ActiveRecord::Migration
     end
 
     add_index :venues, :user_id, :null => false
-    add_index :venues, :latitude
-    add_index :venues, :longitude
+    add_index :venues, :latitude, :null => false
+    add_index :venues, :longitude, :null => false
   end
 end

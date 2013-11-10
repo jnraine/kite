@@ -3,17 +3,14 @@ class EventsController < ApplicationController
 
   def index
     if params[:category_id].present?
-      @events = Event.where(:category_id => params[:category_id]) #filter events by category
+      @events = Event.categorize(params[:category_id]) #filter events by category
       if user_signed_in?
         @events = @events.subscribed(current_user) #only show subscribed events
       end
     elsif params[:favs].present? #is it the favourite category?
       @events = current_user.flagged_events #show favs
-    else
-      @events = Event.all #failsafe
     end
-
-    @events = @events.sort_today.is_near(session[:city]) #filter events by city
+    #@events = @events.is_near(session[:city]) #filter events by city
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,7 +46,9 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = current_user.events.new
+    @event = Event.new
+    @event.days.build
+    @event.user_id = current_user.id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -62,11 +61,12 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = current_user.events.new(params[:event])
+    @event = Event.new(params[:event])
+    @event.user_id = current_user.id
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to({action: "list"}, notice: 'Venue was successfully created.')}
+        format.html { redirect_to({action: "list"}, notice: 'Event was successfully created.')}
         format.json { render json: @event, status: :created, location: @event }
       else
         format.html { render action: "new" }
@@ -80,7 +80,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to({action: "list"}, notice: 'Venue was successfully updated.')}
+        format.html { redirect_to({action: "list"}, notice: 'Event was successfully updated.')}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

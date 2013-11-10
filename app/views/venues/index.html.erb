@@ -4,12 +4,21 @@
 </div>
 
 <table class="table table-hover">
-<% @venues.each do |venue| %>
-<% edit = edit_venue_path(venue) %>
-  <tr>
-    <td><%= link_to venue.name, edit %></td>
-    <td><%= link_to venue.address, edit %></td>
-    <td><%= link_to 'Destroy', venue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+	<thead>
+	  <tr>
+	    <th>Name</th>
+	    <th>Address</th>
+	    <th></th>
+	  </tr>
+  </thead>
+  <tbody>
+		<% @venues.each do |venue| %>
+		<% edit = edit_venue_path(venue) %>
+		  <tr>
+		    <td><%= link_to venue.name, edit %></td>
+		    <td><%= link_to venue.address, edit %></td>
+		    <td><%= link_to 'Destroy', venue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		  </tr>
+		<% end %>
+	</tbody>
 </table>

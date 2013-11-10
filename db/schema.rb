@@ -19,12 +19,21 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "days", :force => true do |t|
+    t.date     "date"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "days", ["date"], :name => "index_days_on_date"
+  add_index "days", ["event_id"], :name => "index_days_on_event_id"
+
   create_table "events", :force => true do |t|
     t.string   "title",       :limit => 70
-    t.text     "details"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.date     "date"
+    t.text     "details"
     t.decimal  "cost",                      :precision => 6, :scale => 2
     t.integer  "venue_id"
     t.integer  "user_id"
@@ -34,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
   end
 
   add_index "events", ["category_id"], :name => "index_events_on_category_id"
+  add_index "events", ["end_time"], :name => "index_events_on_end_time"
+  add_index "events", ["start_time"], :name => "index_events_on_start_time"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"
   add_index "events", ["venue_id"], :name => "index_events_on_venue_id"
 
@@ -53,9 +64,9 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
   add_index "flaggings", ["flagger_type", "flagger_id", "flaggable_type", "flaggable_id"], :name => "access_flaggings"
 
   create_table "users", :force => true do |t|
-    t.string   "name",                   :default => "", :null => false
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "name",                   :default => "",   :null => false
+    t.string   "email",                  :default => "",   :null => false
+    t.string   "encrypted_password",     :default => "",   :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -64,8 +75,9 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.boolean  "subscribed",             :default => true
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
@@ -81,6 +93,8 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
     t.datetime "updated_at",               :null => false
   end
 
+  add_index "venues", ["latitude"], :name => "index_venues_on_latitude"
+  add_index "venues", ["longitude"], :name => "index_venues_on_longitude"
   add_index "venues", ["user_id"], :name => "index_venues_on_user_id"
 
 end

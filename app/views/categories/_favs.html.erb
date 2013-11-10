@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-	<% unless current_user.flagged_events.is_today.size == 0 %>
+	<% unless current_user.flagged_events.size == 0 %>
 		<div class="row">
 			<%= link_to events_path(:favs => true) do %>
 			<div class="event-list">

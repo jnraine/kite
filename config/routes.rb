@@ -15,6 +15,6 @@ Kite::Application.routes.draw do
   get 'about' => 'pages#about'
   get 'blog' => 'pages#blog'
   get 'feedback' => 'pages#feedback'
-  get 'help' => 'pages#help'
+  get 'guidelines' => 'pages#guidelines'
   get 'list' => 'events#list'
 end
