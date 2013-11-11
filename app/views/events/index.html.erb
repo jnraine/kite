@@ -1,62 +1,29 @@
 <% @events.each do |event| %>
-  <div class="row">
-    <div class="event-div">
-      <div class="event-title">
-        <h4>
-          <%= event.title %>
-        </h4>
-        <p>
-          @ <%= event.venue.name %>&emsp;
-          <%= event.cost == 0 ? "Free" : number_to_currency(event.cost) %>
-        </p>
-      </div>
-      <div class="event-details">
-        <p>
-          <%= event.venue.address %>
-        </p>
-        <p>
-          From <%= event.start_time.strftime("%l:%M %P") %> to <%= event.end_time.strftime("%l:%M %P") %> on <%= event.days.first.date.strftime("%A, %B %e") %>
-        </p>
-        <p>
-          <%= auto_link(event.details, :urls, :target => "_blank" ) %>
-        </p>
-        <ul>
-          <% if user_signed_in? %>
-            <li>
-              <%= toggle_fav(event, current_user) %>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), new_user_session_path %>
-            </li>
-          <% end %>
-          <li>
-            <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "https://twitter.com/share", :'data-url' => event_path(event.id) %>
-          </li>
-          <li>
-            <%= mail_to "fake@ekite.ca", content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), :subject => "eKite Event flagged" %>
-          </li>
-          <% if user_signed_in? %>
-            <li>
-              <%= toggle_subscribe(event.venue, current_user) %>
-            </li>
-          <% else %>
-            <li>
-              <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-remove"), new_user_session_path %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
+  <%= render 'each_event', :event => event %>
+<% end %>
+
+<% unless @tomorrow.size == 0 %>
+  <div class="row red container">
+    <h4>Tomorrow</h4>
   </div>
+  <% @tomorrow.each do |event| %>
+    <%= render 'each_event', :event => event %>
+  <% end %>
+<% end %>
+
+<% unless @upcoming.size == 0 %>
+  <div class="row red container">
+    <h4>Later this week</h4>
+  </div>
+  <% @upcoming.each do |event| %>
+    <%= render 'each_event', :event => event %>
+  <% end %>
 <% end %>
 
 <div class="row">
   <div class="event-div">
     <div class="event-missing">
-      <h4>
-        Something missing?
-      </h4>
+      <h4>Something missing?</h4>
       <p>
         <%= link_to "Sign up for a free account", new_user_registration_path %> to add your own events, or <%= link_to "get in touch", feedback_path %> to let me know what you'd like to see.
       </p>

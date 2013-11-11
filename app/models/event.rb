@@ -8,7 +8,6 @@ class Event < ActiveRecord::Base
   belongs_to :category
   has_many :days
   accepts_nested_attributes_for :days
-  delegate :date, :to => :days
  
   validates :title, :start_time, :end_time, :cost, :venue_id, :category_id, presence: true
   validates_length_of :title, :maximum => 70
@@ -18,11 +17,10 @@ class Event < ActiveRecord::Base
 
 	scope :is_near, lambda {|city| Venue.near(city, 20, :units => :km).includes(:events).map(&:events).flatten }
 	scope :categorize, lambda { |category| where(:category_id => category) }
+	scope :occurs_on, lambda {|date| joins(:days).where("days.date = ?", date).sort_days}
+	scope :occurs_between, lambda {|from, to| joins(:days).where("days.date BETWEEN ? and ?", from, to).sort_days}
 	scope :not_over, lambda {|now = Time.now| where("end_time > ?", now)}
-	scope :is_today, where(:date => Date.today).not_over
-	scope :sort_today, is_today.order(:start_time)
-	scope :occurs_on#, lambda {|datetime| blah blah } # write a scope that queryies against dates
-  scope :occurs_between#, lambda {|from, to| blah blah } # write a scope that queries against a range of dates
+	scope :sort_days, order(:date, :start_time)
 
 	def self.subscribed(user)
 		if user.flagged_venues.empty?
@@ -45,18 +43,18 @@ class Event < ActiveRecord::Base
   end
 
   # Update the days this occurs on before saving if the schedule_hash changed
-  #def update_days
-  #  return unless schedule_hash_changed?
-  #  end_time = Date.today + 90.days # more or less depending on how many we want to cache
-  #  occurences = schedule.occurences(end_time).map(&:to_datetime) # this returns an array of datetime objects
-  #  days ||= build_days_for(occurrences)
-  #end
+  def update_days
+    return unless schedule_hash_changed?
+    end_time = Date.today + 32.days # more or less depending on how many we want to cache
+    occurences = schedule.occurences(end_time).map(&:to_datetime) # this returns an array of datetime objects
+    days ||= build_days_for(occurrences)
+  end
 
-  #def build_days_for(datetimes)
-  #  datetimes.map |datetime| do
-  #    days.build.tap {|day| day.datetime = datetime }
-  #  end
-  #end
+  def build_days_for(datetimes)
+    #datetimes.map |datetime| do
+      days.build.tap {|day| day.datetime = datetime }
+    #end
+  end
 
 	#def set_start_time_date
 	#	self.start_time = DateTime.new(start_date.year, start_date.month, start_date.day, start_time.hour, start_time.min, start_time.sec)
