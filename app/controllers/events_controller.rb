@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     elsif params[:favs].present? #is it the favourite category?
       @events = current_user.flagged_events #show favs
     end
-    @upcoming = @events.occurs_between(Date.tomorrow+1, Date.tomorrow+5)#.not_over
+    @upcoming = @events.occurs_between(Date.tomorrow+1, Date.tomorrow+5)
     @tomorrow = @events.occurs_on(Date.tomorrow)
     @events = @events.occurs_on(Date.today).not_over
     #.is_near(session[:city]) #filter events by city

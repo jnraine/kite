@@ -55,28 +55,4 @@ class Event < ActiveRecord::Base
       days.build.tap {|day| day.datetime = datetime }
     #end
   end
-
-	#def set_start_time_date
-	#	self.start_time = DateTime.new(start_date.year, start_date.month, start_date.day, start_time.hour, start_time.min, start_time.sec)
-	#	return true
-	#end
-	#def set_end_time_date
-	#	self.end_time = DateTime.new(start_date.year, start_date.month, start_date.day, end_time.hour, end_time.min, end_time.sec)
-	#	return true
-	#end
-	#before_save :set_start_time_date
-	#before_save :set_end_time_date
 end
-
-# I need events for today.
-#Event.occurs_on(Date.today)
-
-# I need events for the next week
-#Event.occurs_between(Date.today, Date.today + 7.days)
-
-# So now we can find all events that occur on a specific day
-# or a range of day.
-# All the work happens in the database so this is damn fast.
-# The catch is building the "cache" of days. The futher in the
-# future you go, the longer it takes to save an event after
-# changing the schedule. Watch out for this.
