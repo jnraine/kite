@@ -1,22 +1,50 @@
 <div class="row form-header">
-	<h3 class="col-md-offset-2 col-md-10">Edit <%= current_user.name %>'s settings</h3>
+  <h3 class="col-md-offset-2 col-md-10">Manage content</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-offset-2 col-md-10">
+    <ul class="nav-list" role="navigation"><%= render 'pages/nav' %></ul>
+  </div>
+</div>
+</div> <!--close container-->
+
+<div class="top-pad lightGrey"> </div>
+<div class="container">
+  
+<div class="row form-header">
+  <h3 class="col-md-offset-2 col-md-10">Update account</h3>
 </div>
 
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), defaults: { input_html: { class: "form-control" }}, :html => { :method => :put }) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.input :name %>
   <%= f.input :email %>
   <%= f.input :password, label: "New Password", autocomplete: "off" %>
   <%= f.input :password_confirmation, label: "Confirm Password", autocomplete: "off" %>
   <%= f.input :current_password %>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+       <%= f.input_field :subscribed, :class => "", inline_label: "Only show subscribed venues" %>
+    </div>
+  </div>
 
   <%= f.input :submit, :wrapper => :bs_submit_button do %>
     <%= f.submit "Update", :class => "btn btn-primary" %>
   <% end %>
 <% end %>
 <br />
-<p>
-	<%= link_to "Back", :back %> | 
-	<%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>
-</p>
+<div class="row col-md-offset-2 col-md-10">
+  <p>
+	 <%= link_to "Close my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>
+  </p>
+</div>
+
+<!--<li>
+    <% # form_tag root_path do %>
+    <div class="navbar-form">
+      <% # text_field_tag :city, params[:city], :class => "form-control auto-width", :placeholder => "#{session[:city]}: Change City" %>
+    </div>
+  <% # end %>
+</li>-->

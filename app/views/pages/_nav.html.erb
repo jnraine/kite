@@ -1,0 +1,11 @@
+<!--<li>
+		<% # form_tag root_path do %>
+		<div class="navbar-form">
+			<% # text_field_tag :city, params[:city], :class => "form-control auto-width", :placeholder => "#{session[:city]}: Change City" %>
+		</div>
+	<% # end %>
+</li>-->
+<li><%= link_to "Add Event", new_event_path %></li>
+<li><%= link_to "Add Venue", new_venue_path %></li>
+<li><%= link_to "Manage Events", list_path %></li>
+<li><%= link_to "Manage Venues", venues_path %></li>

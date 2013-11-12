@@ -1,38 +1,26 @@
-<nav class="navbar navbar-fixed-top" role="navigation">
+<nav class="nav navbar navbar-fixed-top">
 	<div class="container">
-	<div class="navbar-header">
-	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-menu">
-	      <span class="sr-only">Toggle navigation</span>
-	      <span class="icon-bar"></span>
-	      <span class="icon-bar"></span>
-	      <span class="icon-bar"></span>
-	    </button>
-	    <% if root_path? %>
-	    		<%= link_to "eKite", root_path, :class => "navbar-brand" %>
-	    	<% else %>
-		  	  <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-arrow-left"), root_path, :class => "navbar-brand" %>
-	    <% end %>
-	  </div>
-		<div class="collapse navbar-collapse navbar-collapse-menu">
-			<ul class="nav navbar-nav pull-right">
- 				<!--<li>
- 					<%= form_tag root_path do %>
-						<div class="navbar-form">
-							<%= text_field_tag :city, params[:city], :class => "form-control auto-width", :placeholder => "#{session[:city]}: Change City" %>
-						</div>
-					<% end %>
-				</li>-->
-			  <% if user_signed_in? %>
-			  	<li><%= link_to "Add Event", new_event_path %></li>
-			  	<li><%= link_to "Add Venue", new_venue_path %></li>
-			  	<li><%= link_to "Edit Events", list_path %></li>
-			    <li><%= link_to "Settings", edit_user_registration_path %></li>
-			    <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-			  <% else %>
-					<li><%= link_to "Login", new_user_session_path %></li>
-			  <% end %>
-			</ul>
+	  <% if root_path? %>
+ 			<%= link_to "eKite", root_path, :class => "navbar-brand" %>
+  	<% else %>
+	 	  <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-arrow-left navbar-brand"), root_path %>
+	  <% end %>
+
+		<div class="navbar-right">
+		  <% if user_signed_in? %>
+		   	<%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-cog navbar-brand"), edit_user_registration_path %>
+		  <% else %>
+				<%= link_to "Login", new_user_session_path, :class => "navbar-brand size-14" %>
+			<% end %>
 		</div>
+
+		<% if user_signed_in? %>
+			<ul class="nav navbar-nav navbar-right hidden-xs" role="navigation">
+				<%= render 'pages/nav' %>
+		    <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+		  </ul>
+		<% end %>
 	</div>
 </nav>
+
 <div class="blur-box"><div class="blur"></div></div>

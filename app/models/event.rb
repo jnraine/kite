@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
 	scope :categorize, lambda { |category| where(:category_id => category) }
 	scope :occurs_on, lambda {|date| joins(:days).where("days.date = ?", date).sort_days}
 	scope :occurs_between, lambda {|from, to| joins(:days).where("days.date BETWEEN ? and ?", from, to).sort_days}
-	scope :not_over, lambda {|now = Time.now| where("end_time > ?", now)}
+	scope :not_over, lambda {|now = Time.now| where("CAST(end_time AS time) > ?", now)}
 	scope :sort_days, order(:date, :start_time)
 
 	def self.subscribed(user)

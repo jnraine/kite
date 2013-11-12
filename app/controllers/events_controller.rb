@@ -5,7 +5,9 @@ class EventsController < ApplicationController
     if params[:category_id].present?
       @events = Event.categorize(params[:category_id]) #filter events by category
       if user_signed_in?
-        @events = @events.subscribed(current_user) #only show subscribed events
+        if current_user.subscribed #does the user want to see all or subscribed events only?
+          @events = @events.subscribed(current_user) #only show subscribed events
+        end
       end
     elsif params[:favs].present? #is it the favourite category?
       @events = current_user.flagged_events #show favs
