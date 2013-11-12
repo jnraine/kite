@@ -33,16 +33,19 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
     t.string   "title",       :limit => 70
     t.datetime "start_time"
     t.datetime "end_time"
+    t.datetime "end_date"
     t.text     "details"
     t.decimal  "cost",                      :precision => 6, :scale => 2
     t.integer  "venue_id"
     t.integer  "user_id"
+    t.text     "schedule"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
     t.integer  "category_id"
   end
 
   add_index "events", ["category_id"], :name => "index_events_on_category_id"
+  add_index "events", ["end_date"], :name => "index_events_on_end_date"
   add_index "events", ["end_time"], :name => "index_events_on_end_time"
   add_index "events", ["start_time"], :name => "index_events_on_start_time"
   add_index "events", ["user_id"], :name => "index_events_on_user_id"

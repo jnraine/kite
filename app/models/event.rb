@@ -1,7 +1,8 @@
 class Event < ActiveRecord::Base
 	include IceCube
 
-	attr_accessible :title, :start_time, :end_time, :details, :cost, :venue_id, :category_id, :days_attributes
+	attr_accessible :title, :start_time, :end_time, :end_date, :details, :cost, :schedule, :venue_id, :category_id, :days_attributes
+  serialize :schedule
 
   belongs_to :user
   belongs_to :venue
@@ -11,6 +12,7 @@ class Event < ActiveRecord::Base
  
   validates :title, :start_time, :end_time, :cost, :venue_id, :category_id, presence: true
   validates_length_of :title, :maximum => 70
+  validates_presence_of :end_date, :if => :schedule?
   #before_save :update_days
 
   make_flaggable :fav
@@ -30,17 +32,17 @@ class Event < ActiveRecord::Base
 		end
 	end
 
-  def schedule
-    @schedule ||= Schedule.new(schedule_hash)
-  end
+  #def schedule
+  #  @schedule ||= Schedule.new(schedule_hash)
+  #end
 
-  def schedule=(new_schedule)
-    self.schedule_hash = new_schedule.to_hash
-  end
+  #def schedule=(new_schedule)
+  #  self.schedule_hash = new_schedule.to_hash
+  #end
 
-  def occurs_on?(date)
-    schedule.occurs_on?(date)
-  end
+  #def occurs_on?(date)
+  #  schedule.occurs_on?(date)
+  #end
 
   # Update the days this occurs on before saving if the schedule_hash changed
   def update_days
@@ -51,8 +53,8 @@ class Event < ActiveRecord::Base
   end
 
   def build_days_for(datetimes)
-    #datetimes.map |datetime| do
+    datetimes.map do |datetime|
       days.build.tap {|day| day.datetime = datetime }
-    #end
+    end
   end
 end

@@ -7,10 +7,10 @@
 
   <div class="form-group">
     <%= f.label "Time" %>
-    <div class="col-md-10 form-control-time">
-      <%= f.time_select :start_time, :minute_step => 15 %>
+    <div class="col-md-10">
+      <%= f.input_field :start_time, as: :time, :minute_step => 15, :class => "form-control form-control-time" %>
        &mdash; 
-      <%= f.time_select :end_time, :minute_step => 15 %>
+      <%= f.input_field :end_time, as: :time, :minute_step => 15, :class => "form-control form-control-time" %>
     </div>
   </div>
 
@@ -18,7 +18,14 @@
     <%= date_field.input :date, label: "Date", as: :string, input_html: { type: "date", class: "form-control auto-width" } %>
   <% end %>
 
-  
+  <div class="form-group">
+    <%= f.label "Recurrence" %>
+    <div class="col-md-10">
+      <%= f.select_recurring(:schedule, {}, {}, { :class => "form-control" }) %>
+    </div>
+  </div>
+
+  <%= f.input :end_date, label: "End Date", as: :string, input_html: { type: "date", class: "form-control auto-width" } %>
 
   <%= f.input :cost, as: :string %>
   <%= f.input :details, input_html: { rows: "3" } %>
