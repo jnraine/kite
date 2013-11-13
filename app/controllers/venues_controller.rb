@@ -2,7 +2,7 @@ class VenuesController < ApplicationController
   before_filter :authenticate_user!, except: [:show]
 
   def index
-    @venues = current_user.venues
+    @venues = current_user.venues #only show the user's venues
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,7 +12,7 @@ class VenuesController < ApplicationController
 
   def unsubscribe
     @venue = Venue.find(params[:id])
-    current_user.toggle_flag(@venue, :unsubscribe)
+    current_user.toggle_flag(@venue, :unsubscribe) #venues_helper.rb
 
     respond_to do |format|
       format.html { redirect_to :back }

@@ -12,9 +12,9 @@ class EventsController < ApplicationController
     elsif params[:favs].present? #is it the favourite category?
       @events = current_user.flagged_events #show favs
     end
-    @upcoming = @events.occurs_between(Date.tomorrow+1, Date.tomorrow+5)
-    @tomorrow = @events.occurs_on(Date.tomorrow)
-    @events = @events.occurs_on(Date.today).not_over
+    @upcoming = @events.occurs_between(Date.tomorrow+1, Date.tomorrow+5) #show events up to a week ahead
+    @tomorrow = @events.occurs_on(Date.tomorrow) #show events tomorrow
+    @events = @events.occurs_on(Date.today).not_over #show today's events that haven't ended
     #.is_near(session[:city]) #filter events by city
 
     respond_to do |format|
@@ -25,7 +25,7 @@ class EventsController < ApplicationController
 
   def fav
     @event = Event.find(params[:id])
-    current_user.toggle_flag(@event, :fav)
+    current_user.toggle_flag(@event, :fav) #events_helper.rb 
 
     respond_to do |format|
       format.html { redirect_to :back }
@@ -52,7 +52,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    @event.days.build
+    @event.days.build #allows days to be added to events via nested form
     @event.user_id = current_user.id
 
     respond_to do |format|

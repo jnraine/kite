@@ -19,9 +19,8 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label "Recurrence" %>
-    <div class="col-md-10">
-      <%= f.select_recurring(:schedule, {}, {}, { :class => "form-control" }) %>
+    <div class="col-md-offset-2 col-md-10">
+       <%= f.input_field :schedule, as: :boolean, :class => "", inline_label: "Everyday until" %>
     </div>
   </div>
 

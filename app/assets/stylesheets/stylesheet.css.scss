@@ -47,6 +47,13 @@ a > span {
     color: $darkRed;
   };
 }
+.size-14 {
+  font-size: 14px;
+}
+.right-pad {
+  padding-right: 15px;
+}
+/* Translucent header =========================== */
 .blur-box {
   height: 50px;
   width: 100%;
@@ -64,12 +71,6 @@ a > span {
   -o-filter: blur(10px);
   -ms-filter: blur(10px);
   filter: blur(10px);
-}
-.size-14 {
-  font-size: 14px;
-}
-.right-pad {
-  padding-right: 15px;
 }
 /* Forms ======================================== */
 @media (min-width: 768px ) {
@@ -101,7 +102,7 @@ a > span {
   padding-right: 8px;
 }
 /* Events ======================================== */
-.event-list {
+.category-list {
   min-height: 20px;
   padding: 1.5em 19px;
   border-bottom: 2px solid $medGrey;

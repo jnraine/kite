@@ -6,7 +6,7 @@
 <% @categories.each do |category| %>
 	<div class="row">
 		<%= link_to events_path(:category_id => category.id) do %>
-	  <div class="event-list">
+	  <div class="category-list">
 	  	<%= category.name %>
 		</div>
 		<% end %>
