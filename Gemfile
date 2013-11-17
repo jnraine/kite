@@ -11,6 +11,10 @@ gem 'make_flaggable', :git => 'git://github.com/cavneb/make_flaggable.git'
 gem 'ice_cube' #for recurrence calculation
 gem 'recurring_select' #for recurrence ui via select box
 
+group :development, :test do
+  gem "rspec-rails", "~> 2.14.0"
+end
+
 group :production do
 	gem 'pg'
 	gem 'rails_12factor'

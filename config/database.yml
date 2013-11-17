@@ -9,7 +9,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: db/test
+  database: kite_test
   pool: 5
   username: brianholt
   password:

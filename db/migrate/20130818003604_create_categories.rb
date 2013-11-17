@@ -5,8 +5,5 @@ class CreateCategories < ActiveRecord::Migration
 
       t.timestamps
     end
-
-    add_column :events, :category_id, :integer
-    add_index :events, :category_id, :null => false
   end
 end

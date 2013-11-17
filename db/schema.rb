@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130901022654) do
+ActiveRecord::Schema.define(:version => 20131116234128) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -29,27 +29,25 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
   add_index "days", ["date"], :name => "index_days_on_date"
   add_index "days", ["event_id"], :name => "index_days_on_event_id"
 
-  create_table "events", :force => true do |t|
-    t.string   "title",       :limit => 70
+  create_table "event_occurrences", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"
-    t.datetime "end_date"
-    t.text     "details"
-    t.decimal  "cost",                      :precision => 6, :scale => 2
-    t.integer  "venue_id"
-    t.integer  "user_id"
-    t.text     "schedule"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
-    t.integer  "category_id"
+    t.integer  "event_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "events", ["category_id"], :name => "index_events_on_category_id"
-  add_index "events", ["end_date"], :name => "index_events_on_end_date"
-  add_index "events", ["end_time"], :name => "index_events_on_end_time"
-  add_index "events", ["start_time"], :name => "index_events_on_start_time"
-  add_index "events", ["user_id"], :name => "index_events_on_user_id"
-  add_index "events", ["venue_id"], :name => "index_events_on_venue_id"
+  create_table "events", :force => true do |t|
+    t.string   "title",         :limit => 70
+    t.decimal  "cost",                        :precision => 6, :scale => 2
+    t.text     "details"
+    t.text     "schedule_hash"
+    t.integer  "venue_id"
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+  end
 
   create_table "flaggings", :force => true do |t|
     t.string   "flaggable_type"
@@ -67,7 +65,6 @@ ActiveRecord::Schema.define(:version => 20130901022654) do
   add_index "flaggings", ["flagger_type", "flagger_id", "flaggable_type", "flaggable_id"], :name => "access_flaggings"
 
   create_table "users", :force => true do |t|
-    t.string   "name",                   :default => "",   :null => false
     t.string   "email",                  :default => "",   :null => false
     t.string   "encrypted_password",     :default => "",   :null => false
     t.string   "reset_password_token"
