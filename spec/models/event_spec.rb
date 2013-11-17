@@ -134,8 +134,4 @@ describe Event do
       Event.on(next_monday + 1.day + 7.day).count.should == 3 # next tuesday + a week
     end
   end
-
-  # event has many occurrences — those are created from the schedule, up to 7 days in advance
-  # query for occurrence for event_id between happening on certain dates...is fast
-  # Occurrence: start_time, end_time, event_id
 end
