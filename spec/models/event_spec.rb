@@ -134,4 +134,68 @@ describe Event do
       Event.on(next_monday + 1.day + 7.day).count.should == 3 # next tuesday + a week
     end
   end
+
+  describe "html form schedule API" do
+    describe "#recurrence_type" do
+      it "returns :none when not using recurrence" do
+        event.recurrence_type.should == :none
+      end
+
+      it "returns :daily when using a daily rule" do
+        event.schedule.add_recurrence_rule(IceCube::Rule.daily)
+        event.recurrence_type.should == :daily
+      end
+
+      it "returns :weekly when using a weekly rule" do
+        event.schedule.add_recurrence_rule(IceCube::Rule.weekly)
+        event.recurrence_type.should == :weekly
+      end
+    end
+
+    describe "#recurrence_type=" do
+      it "forces recurrence_type return value as symbol" do
+        event.recurrence_type.should == :none
+        event.recurrence_type = "daily"
+        event.recurrence_type.should == :daily
+      end
+    end
+
+    describe "days_of_week=" do
+      it "sets recurrence for named days of week" do
+        next_tuesday = Chronic.parse("next tuesday")
+        next_thursday = Chronic.parse("next thursday")
+        event.start_time = Date.today
+        event.end_time = Date.today + 1.hour
+        event.days_of_week = [:tuesday, :thursday]
+        event.occurs_on?(next_tuesday).should be_true
+        event.occurs_on?(next_thursday).should be_true
+      end
+
+      it "raise error on bad day of week" do
+        next_tuesday = Chronic.parse("next tuesday")
+        next_thursday = Chronic.parse("next thursday")
+        event.start_time = Date.today
+        event.end_time = Date.today + 1.hour
+        expect { event.days_of_week = [:tuesday, :humpday] }.to raise_error(ArgumentError)
+      end
+    end
+
+    describe "days_of_week" do
+      it "returns the days of week this event occurs on, when repeating weekly" do
+        event.start_time = Date.today
+        event.end_time = Date.today + 1.hour
+        event.days_of_week = [:tuesday, :thursday]
+        event.days_of_week.should == [:tuesday, :thursday]
+      end
+    end
+  end
+
+  describe "#remove_scheduled_recurrence" do
+    it "removes all recurrence events from schedule" do
+      event.schedule.add_recurrence_rule(IceCube::Rule.daily)
+      event.schedule.recurrence_rules.should_not be_empty
+      event.remove_scheduled_recurrence
+      event.schedule.recurrence_rules.should be_empty
+    end
+  end
 end

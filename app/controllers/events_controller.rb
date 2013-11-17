@@ -52,7 +52,6 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    @event.days.build #allows days to be added to events via nested form
     @event.user_id = current_user.id
 
     respond_to do |format|

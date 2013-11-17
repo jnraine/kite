@@ -12,6 +12,7 @@ gem 'ice_cube' #for recurrence calculation
 gem 'recurring_select' #for recurrence ui via select box
 
 group :development, :test do
+  gem "chronic"
   gem "rspec-rails", "~> 2.14.0"
 end
 
