@@ -4,9 +4,10 @@ module VenuesHelper
 			link_to user.flagged?(venue, :unsubscribe) ?
 				content_tag(:span, " ", :class => "glyphicon glyphicon-plus") :
 				content_tag(:span, " ", :class => "glyphicon glyphicon-remove"),
-				unsubscribe_venue_path(venue)
+				unsubscribe_venue_path(venue),
+				:remote => true
 		else
-			link_to content_tag(:span, " ", :class => "glyphicon glyphicon-remove"), new_user_session_path #prompt user to sign in
+			link_to content_tag(:span, " ", :class => "glyphicon glyphicon-remove"), unsubscribe_venue_path(venue) #prompt user to sign in
 		end
 	end
 end

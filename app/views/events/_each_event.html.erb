@@ -20,12 +20,12 @@
         <%= auto_link(event.details, :urls, :target => "_blank" ) %>
       </p>
       <ul>
-        <li><%= toggle_fav(event, current_user) %></li>
+        <li><%= render 'fav_li', :event => event %></li>
         <li>
-          <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "https://twitter.com/share", :'data-url' => event_path(event.id) %>
+          <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-share-alt"), "https://twitter.com/share", :'data-url' => event_path(event) %>
         </li>
         <li>
-          <%= mail_to "fake@ekite.ca", content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), :subject => "eKite Event flagged" %>
+          <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-flag"), feedback_path %>
         </li>
         <li><%= toggle_subscribe(event.venue, current_user) %></li>
       </ul>

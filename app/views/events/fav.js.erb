@@ -1,0 +1,5 @@
+//$('.fav-li').html('<%=j render 'events/fav_li', :event => event, :layout => false %>');
+$('#fav-li').bind('ajax:success', function() {
+//    $(this).closest('.btn').addClass('.btn-success').removeClass('.btn-warning');
+	alert("success!");
+});

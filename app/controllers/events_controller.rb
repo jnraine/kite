@@ -25,7 +25,7 @@ class EventsController < ApplicationController
 
   def fav
     @event = Event.find(params[:id])
-    current_user.toggle_flag(@event, :fav) #events_helper.rb 
+    current_user.toggle_flag(@event, :fav) #toggle :fav flag via flaggable gem
 
     respond_to do |format|
       format.html { redirect_to :back }
@@ -71,7 +71,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to({action: "list"}, notice: 'Event was successfully created.')}
+        format.html { redirect_to({action: "list"}, notice: 'Yay! A new event!')}
         format.json { render json: @event, status: :created, location: @event }
       else
         format.html { render action: "new" }
@@ -85,7 +85,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to({action: "list"}, notice: 'Event was successfully updated.')}
+        format.html { redirect_to({action: "list"}, notice: 'Cool. Got it.')}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

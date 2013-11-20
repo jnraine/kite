@@ -4,7 +4,7 @@
 <%= render 'favs' %>
 
 <% @categories.each do |category| %>
-	<div class="row">
+	<div class="row category-row">
 		<%= link_to events_path(:category_id => category.id) do %>
 	  <div class="category-list">
 	  	<%= category.name %>

@@ -18,14 +18,6 @@
     <%= date_field.input :date, label: "Date", as: :string, input_html: { type: "date", class: "form-control auto-width" } %>
   <% end %>
 
-  <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-       <%= f.input_field :schedule, as: :boolean, :class => "", inline_label: "Everyday until" %>
-    </div>
-  </div>
-
-  <%= f.input :end_date, label: "End Date", as: :string, input_html: { type: "date", class: "form-control auto-width" } %>
-
   <%= f.input :cost, as: :string %>
   <%= f.input :details, input_html: { rows: "3" } %>
 

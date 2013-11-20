@@ -4,10 +4,10 @@ module EventsHelper
 			link_to user.flagged?(event, :fav) ?
 				content_tag(:span, " ", :class => "glyphicon glyphicon-heart") :
 				content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"),
-				fav_event_path(event)
-				#:remote => true
+				fav_event_path(event),
+				:remote => true
 		else
-			link_to content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), new_user_session_path #prompt user to sign in
+			link_to content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), fav_event_path(event) #prompt user to sign in
 		end
 	end
 end
