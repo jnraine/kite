@@ -5,6 +5,7 @@ module EventsHelper
 				content_tag(:span, " ", :class => "glyphicon glyphicon-heart") :
 				content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"),
 				fav_event_path(event),
+				:data => { :fav => event.id },
 				:remote => true
 		else
 			link_to content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), fav_event_path(event) #prompt user to sign in
