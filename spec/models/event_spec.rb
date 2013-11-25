@@ -249,4 +249,25 @@ describe Event do
       event.repeat.should == :weekly
     end
   end
+
+  describe "#upcoming_dates" do
+    before do
+      Timecop.travel(Time.parse("January 1, 2000"))
+    end
+
+    after do
+      Timecop.return
+    end
+
+    it "returns the next 7 dates in a readable way" do
+      event.repeat = :daily
+      event.save
+      event.upcoming_dates.should == "January 1, 2, 3, 4, 5, 6, 7"
+      event.repeat = :weekly
+      event.build_future_occurrences until_time: Time.now + 3.months
+      event.upcoming_dates.should == "January 1, 8, 15, 22, 29, February 5, 12"
+    end
+
+
+  end
 end

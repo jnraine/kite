@@ -154,8 +154,18 @@ class Event < ActiveRecord::Base
   end
 
   def upcoming_dates
-    occurrences.take(7).map do |occurrence|
-      occurrence.start_time.strftime("%B %e")
-    end.join(", ")
+    start_times = occurrences.take(7).map(&:start_time)
+
+    current_month = nil
+    formatted_dates = start_times.map do |start_time|
+      if current_month == start_time.month
+        start_time.strftime("%-d")
+      else
+        current_month = start_time.month
+        start_time.strftime("%B %-d")
+      end
+    end
+
+    formatted_dates.join(", ")
   end
 end

@@ -13,6 +13,7 @@ gem 'recurring_select' #for recurrence ui via select box
 
 group :development, :test do
   gem "chronic"
+  gem "timecop", "~> 0.6.3"
   gem "rspec-rails", "~> 2.14.0"
 end
 
