@@ -14,7 +14,7 @@
         <%= event.venue.address %>
       </p>
       <p>
-        From <%= event.start_time.strftime("%l:%M %P") %> to <%= event.end_time.strftime("%l:%M %P") %> on <%= event.days.first.date.strftime("%A, %B %e") %>
+        From <%= event.occurrences.first.start_time.strftime("%l:%M %P") %> to <%= event.end_time.strftime("%l:%M %P") %>
       </p>
       <p>
         <%= auto_link(event.details, :urls, :target => "_blank" ) %>

@@ -10,13 +10,6 @@ describe Event do
     end
   end
 
-  it "has occurs on different days" do
-    event = Event.new.tap do |e|
-      e.title = "Brian's party"
-      e.schedule = IceCube::Schedule.new(Time.parse("7pm"), duration: 3.hours)
-    end
-  end
-
   describe "#schedule" do
     it "returns a default schedule when schedule_hash is nil" do
       event = Event.new
@@ -36,7 +29,7 @@ describe Event do
     end
 
     it "is serialized to the schedule_hash upon create save" do
-      isolated_schedule = IceCube::Schedule.new(Date.tomorrow, duration: 1.hour)
+      isolated_schedule = Event.new.default_schedule
       event = Event.new.tap {|e| e.cost = 0; e.category_id = 1; e.venue_id = 1; e.title = "foo" }
       [isolated_schedule, event.schedule].each do |schedule|
         schedule.add_recurrence_rule(IceCube::Rule.daily.until(Date.today + 1.year))
@@ -65,14 +58,24 @@ describe Event do
   end
 
   describe "#build_future_occurrences" do
-    it "creates occurence records until a given end date" do
-      event.save # so we can build occurrences using this ID
+    it "builds occurence records until a given end date" do
+      event.save
+      
       every_day_forever = IceCube::Rule.daily.until(Time.parse("January 1, 2020"))
       event.schedule.add_recurrence_rule(every_day_forever)
-      end_date = Date.today + 7.days
+      
+      seven_days_from_now = Date.today + 7.days
 
-      event.build_future_occurrences(until_time: end_date)
-      event.occurrences.count.should == event.schedule.occurrences(end_date).count
+      event.build_future_occurrences(until_time: seven_days_from_now)
+      event.occurrences.to_a.count.should == event.schedule.occurrences(seven_days_from_now).count
+    end
+
+    it "only creates one occurrence for a non-repeating event" do
+      event.occurrences.length.should == 0
+      event.save
+      event.occurrences.length.should == 1
+      event.build_future_occurrences
+      event.occurrences.length.should == 1
     end
   end
 
@@ -135,60 +138,60 @@ describe Event do
     end
   end
 
-  describe "html form schedule API" do
-    describe "#recurrence_type" do
-      it "returns :none when not using recurrence" do
-        event.recurrence_type.should == :none
-      end
+  # describe "html form schedule API" do
+  #   describe "#recurrence_type" do
+  #     it "returns :none when not using recurrence" do
+  #       event.recurrence_type.should == :none
+  #     end
 
-      it "returns :daily when using a daily rule" do
-        event.schedule.add_recurrence_rule(IceCube::Rule.daily)
-        event.recurrence_type.should == :daily
-      end
+  #     it "returns :daily when using a daily rule" do
+  #       event.schedule.add_recurrence_rule(IceCube::Rule.daily)
+  #       event.recurrence_type.should == :daily
+  #     end
 
-      it "returns :weekly when using a weekly rule" do
-        event.schedule.add_recurrence_rule(IceCube::Rule.weekly)
-        event.recurrence_type.should == :weekly
-      end
-    end
+  #     it "returns :weekly when using a weekly rule" do
+  #       event.schedule.add_recurrence_rule(IceCube::Rule.weekly)
+  #       event.recurrence_type.should == :weekly
+  #     end
+  #   end
 
-    describe "#recurrence_type=" do
-      it "forces recurrence_type return value as symbol" do
-        event.recurrence_type.should == :none
-        event.recurrence_type = "daily"
-        event.recurrence_type.should == :daily
-      end
-    end
+  #   describe "#recurrence_type=" do
+  #     it "forces recurrence_type return value as symbol" do
+  #       event.recurrence_type.should == :none
+  #       event.recurrence_type = "daily"
+  #       event.recurrence_type.should == :daily
+  #     end
+  #   end
 
-    describe "days_of_week=" do
-      it "sets recurrence for named days of week" do
-        next_tuesday = Chronic.parse("next tuesday")
-        next_thursday = Chronic.parse("next thursday")
-        event.start_time = Date.today
-        event.end_time = Date.today + 1.hour
-        event.days_of_week = [:tuesday, :thursday]
-        event.occurs_on?(next_tuesday).should be_true
-        event.occurs_on?(next_thursday).should be_true
-      end
+  #   describe "days_of_week=" do
+  #     it "sets recurrence for named days of week" do
+  #       next_tuesday = Chronic.parse("next tuesday")
+  #       next_thursday = Chronic.parse("next thursday")
+  #       event.start_time = Date.today
+  #       event.end_time = Date.today + 1.hour
+  #       event.days_of_week = [:tuesday, :thursday]
+  #       event.occurs_on?(next_tuesday).should be_true
+  #       event.occurs_on?(next_thursday).should be_true
+  #     end
 
-      it "raise error on bad day of week" do
-        next_tuesday = Chronic.parse("next tuesday")
-        next_thursday = Chronic.parse("next thursday")
-        event.start_time = Date.today
-        event.end_time = Date.today + 1.hour
-        expect { event.days_of_week = [:tuesday, :humpday] }.to raise_error(ArgumentError)
-      end
-    end
+  #     it "raise error on bad day of week" do
+  #       next_tuesday = Chronic.parse("next tuesday")
+  #       next_thursday = Chronic.parse("next thursday")
+  #       event.start_time = Date.today
+  #       event.end_time = Date.today + 1.hour
+  #       expect { event.days_of_week = [:tuesday, :humpday] }.to raise_error(ArgumentError)
+  #     end
+  #   end
 
-    describe "days_of_week" do
-      it "returns the days of week this event occurs on, when repeating weekly" do
-        event.start_time = Date.today
-        event.end_time = Date.today + 1.hour
-        event.days_of_week = [:tuesday, :thursday]
-        event.days_of_week.should == [:tuesday, :thursday]
-      end
-    end
-  end
+  #   describe "days_of_week" do
+  #     it "returns the days of week this event occurs on, when repeating weekly" do
+  #       event.start_time = Date.today
+  #       event.end_time = Date.today + 1.hour
+  #       event.days_of_week = [:tuesday, :thursday]
+  #       event.days_of_week.should == [:tuesday, :thursday]
+  #     end
+  #   end
+  # end
 
   describe "#remove_scheduled_recurrence" do
     it "removes all recurrence events from schedule" do
@@ -196,6 +199,54 @@ describe Event do
       event.schedule.recurrence_rules.should_not be_empty
       event.remove_scheduled_recurrence
       event.schedule.recurrence_rules.should be_empty
+    end
+  end
+
+  describe "occurrence generation" do
+    it "generates occurrences after new record is saved" do
+      event = Event.new.tap do |e|
+        e.title = "Brian's birthday"
+        e.cost = "Free"
+        e.details = "This is a party"
+      end
+
+      event.occurrences.should be_empty
+      event.save
+      event.occurrences.should_not be_empty
+    end
+
+    it "generates occurrences after the schedule has been changed" do
+      event = Event.new.tap do |e|
+        e.title = "Brian's birthday"
+        e.cost = "Free"
+        e.details = "This is a party"
+        e.save!
+      end
+
+      event.occurrences.length.should == 1
+      event.schedule.add_recurrence_rule(IceCube::Rule.daily)
+      event.save
+      event.occurrences.length.should > 1
+    end
+  end
+
+  describe "repeating API" do
+    it "allows repeating daily" do
+      event.repeats = :daily
+      event.build_future_occurrences(until_time: Date.today + 7.days).count.should == 7
+    end
+
+    it "allows repeating weekly on a specific day" do
+      event.repeats = :weekly
+      event.build_future_occurrences(until_time: Date.today + 14.days).count.should == 2
+    end
+
+    it "returns the appropriate value" do
+      event.repeats.should be_nil
+      event.repeat_daily
+      event.repeats.should == :daily
+      event.repeat_weekly
+      event.repeats.should == :weekly
     end
   end
 end

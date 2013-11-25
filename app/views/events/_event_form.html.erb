@@ -5,18 +5,10 @@
   <%= f.input :venue_id, collection: current_user.venues.order('name ASC') %>
   <%= f.input :category_id, collection: Category.order('name ASC') %>
 
-  <div class="form-group">
-    <%= f.label "Time" %>
-    <div class="col-md-10">
-      <%= f.input_field :start_time, as: :time, :minute_step => 15, :class => "form-control form-control-time" %>
-       &mdash; 
-      <%= f.input_field :end_time, as: :time, :minute_step => 15, :class => "form-control form-control-time" %>
-    </div>
-  </div>
+  <%= f.input :local_start_time, label: "From", as: :datetime_local %>
+  <%= f.input :local_end_time, label: "To", as: :datetime_local %>
 
-  <%= f.simple_fields_for :days do |date_field| %>
-    <%= date_field.input :date, label: "Date", as: :string, input_html: { type: "date", class: "form-control auto-width" } %>
-  <% end %>
+  <%= f.input :repeat, label: "Repeat", collection: @event.repeat_options, prompt: "Never" %>
 
   <%= f.input :cost, as: :string %>
   <%= f.input :details, input_html: { rows: "3" } %>

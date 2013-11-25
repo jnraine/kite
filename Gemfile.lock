@@ -164,5 +164,5 @@ DEPENDENCIES
   recurring_select
   rspec-rails (~> 2.14.0)
   sass-rails (~> 3.2.3)
-  simple_form
+  simple_form (~> 2.1.0)
   uglifier (>= 1.0.3)

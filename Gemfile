@@ -4,7 +4,7 @@ ruby '2.0.0'
 gem 'rails', '3.2.13'
 gem 'jquery-rails'
 gem 'devise' #for user accounts
-gem 'simple_form'
+gem "simple_form", "~> 2.1.0"
 gem 'rails_autolink', '~> 1.1.0' #allows user text containing links to be active links
 gem 'geocoder'
 gem 'make_flaggable', :git => 'git://github.com/cavneb/make_flaggable.git'

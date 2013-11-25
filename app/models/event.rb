@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
 	include IceCube
 
-	attr_accessible :title, :details, :cost, :schedule, :venue_id, :category_id
+	attr_accessible :title, :details, :cost, :schedule, :venue_id, :category_id, :local_start_time, :local_end_time, :repeat
   delegate :end_time, :end_time=, :start_time, :start_time=, :occurs_on?, to: :schedule
 
   belongs_to :user
@@ -14,7 +14,8 @@ class Event < ActiveRecord::Base
   validates_length_of :title, :maximum => 70
   # validates_presence_of :end_date, :if => :schedule? # all repeating events need an ending date
 
-  before_save :serialize_schedule
+  before_save :serialize_schedule_and_generate_occurrences
+  after_create :create_future_occurrences # these are generated for a new record once it has an ID
 
   make_flaggable :fav
 
@@ -22,9 +23,7 @@ class Event < ActiveRecord::Base
 
 	scope :is_near, lambda {|city| Venue.near(city, 20, :units => :km).includes(:events).map(&:events).flatten } #checks geocoded venue address against user location
 	scope :categorize, lambda { |category| where(:category_id => category) }
-	scope :occurs_on, lambda {|date| joins(:days).where("days.date = ?", date).sort_days}
-	scope :occurs_between, lambda {|from, to| joins(:days).where("days.date BETWEEN ? and ?", from, to).sort_days}
-	scope :not_over, lambda {|now = Time.now| includes(:occurrences).where("event_occurrences.end_time > ?", now)}
+	scope :not_over, lambda { includes(:occurrences).where("event_occurrences.end_time > ?", Time.now) }
 	scope :sort_days, order(:date, "CAST(start_time AS time)")
   
   scope :on, lambda {|date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', date.beginning_of_day, date.end_of_day) }
@@ -42,8 +41,13 @@ class Event < ActiveRecord::Base
     self.schedule_hash = schedule.to_hash
   end
 
+  def serialize_schedule_and_generate_occurrences
+    serialize_schedule
+    build_future_occurrences if schedule_hash_changed? and !new_record?
+  end
+
   def default_schedule
-    Schedule.new(Date.tomorrow, duration: 1.hour)
+    Schedule.new(Time.parse("tomorrow, 7pm"), duration: 1.hour)
   end
 
   def schedule
@@ -54,17 +58,23 @@ class Event < ActiveRecord::Base
     @schedule = new_schedule
   end
 
-  def build_future_occurrences(until_time: Date.today + 7.days)
+  def build_future_occurrences(until_time: Date.today + 30.days)
     self.occurrences = []
 
+    new_occurrences = []
     schedule.occurrences(until_time).each do |ice_cube_occurrence|
-      self.occurrences << occurrences.build.tap do |o|
+      new_occurrences << occurrences.build.tap do |o|
         o.start_time = ice_cube_occurrence.start_time
         o.end_time = ice_cube_occurrence.end_time
       end
     end
 
-    self.occurrences
+    self.occurrences = new_occurrences
+  end
+
+  def create_future_occurrences(until_time: Date.today + 7.days)
+    build_future_occurrences
+    save
   end
 
   def recurring_rule_hash=(recurring_rule_hash)
@@ -83,30 +93,62 @@ class Event < ActiveRecord::Base
     end
   end
 
-  # Here is a bunch of virtual attributes to be used in HTML forms to manipulate the schedule
-  # def recurrence_type
-  #   return @recurrence_type if @recurrence_type
+  def local_start_time
+    start_time.iso8601_no_timezone
+  end
 
-  #   recurrence_rule = schedule.recurrence_rules.first
-  #   if recurrence_rule.is_a? DailyRule
-  #     :daily
-  #   elsif recurrence_rule.is_a? WeeklyRule
-  #     :weekly
-  #   else
-  #     :none
-  #   end
-  # end
+  def local_start_time=(iso8601_no_timezone)
+    self.start_time = Time.parse(iso8601_no_timezone)
+  end
 
-  # def recurrence_type=(recurrence_type)
-  #   @recurrence_type = recurrence_type.to_sym
-  # end
+  def local_end_time
+    end_time.iso8601_no_timezone
+  end
 
-  # def days_of_week=(weekdays)
-  #   remove_scheduled_recurrence
-  #   schedule.add_recurrence_rule(Rule.weekly.day(weekdays))
-  # end
+  def local_end_time=(iso8601_no_timezone)
+    self.end_time = Time.parse(iso8601_no_timezone)
+  end
 
-  # def days_of_week
-    
-  # end
+  # Sets daily repeat on specific day, or everday
+  def repeat=(interval)
+    interval = interval.to_sym
+
+    if interval == :daily
+      repeat_daily
+    else interval == :weekly
+      repeat_weekly
+    end
+  end
+
+  def repeat
+    recurrence_rule = schedule.recurrence_rules.first
+    if recurrence_rule.is_a?(IceCube::DailyRule)
+      :daily
+    elsif recurrence_rule.is_a?(IceCube::WeeklyRule)
+      :weekly
+    end
+  end
+
+  def repeat_daily
+    remove_scheduled_recurrence
+    schedule.add_recurrence_rule(IceCube::Rule.daily)
+  end
+
+  def repeat_weekly
+    remove_scheduled_recurrence
+    schedule.add_recurrence_rule(IceCube::Rule.weekly)
+  end
+
+  def repeat_options
+    [
+      ["Daily", "daily"],
+      ["Weekly", "weekly"]
+    ]
+  end
+
+  def upcoming_dates
+    occurrences.take(7).map do |occurrence|
+      occurrence.start_time.strftime("%B %e")
+    end.join(", ")
+  end
 end

@@ -1,5 +1,5 @@
 <% @events.each do |event| %>
-  <%= render 'each_event', :event => event %>
+  <%= render 'each_event', event: event %>
 <% end %>
 
 <% unless @tomorrow.size == 0 %>
