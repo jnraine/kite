@@ -28,4 +28,3 @@ $(document).ready(function() {
 		$("#event_local_end_time").val(newEndTime);
 	});
 });
->>>>>>> You can create events with repetition and view them
