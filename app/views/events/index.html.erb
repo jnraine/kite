@@ -1,22 +1,29 @@
-<% @events.each do |event| %>
-  <%= render 'each_event', event: event %>
-<% end %>
-
-<% unless @tomorrow.size == 0 %>
+<% if @occurrences.fetch(:today).present? %>
   <div class="row red container">
-    <h4>Tomorrow</h4>
+    <h4>Today</h4>
   </div>
-  <% @tomorrow.each do |event| %>
-    <%= render 'each_event', :event => event %>
+  <% @occurrences.fetch(:today).each do |occurrence| %>
+    <%= render 'each_event', event: occurrence.event, occurrence: occurrence %>
   <% end %>
 <% end %>
 
-<% unless @upcoming.size == 0 %>
+<% if @occurrences.fetch(:tomorrow).present? %>
+  <div class="row red container">
+    <h4>Tomorrow</h4>
+  </div>
+  
+  <% @occurrences.fetch(:tomorrow).each do |occurrence| %>
+    <%= render 'each_event', event: occurrence.event, occurrence: occurrence %>
+  <% end %>
+<% end %>
+
+<% if @occurrences.fetch(:upcoming).present? %>
   <div class="row red container">
     <h4>Later this week</h4>
   </div>
-  <% @upcoming.each do |event| %>
-    <%= render 'each_event', :event => event %>
+  
+  <% @occurrences.fetch(:upcoming).each do |occurrence| %>
+    <%= render 'each_event', event: occurrence.event, occurrence: occurrence %>
   <% end %>
 <% end %>
 

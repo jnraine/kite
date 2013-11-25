@@ -9,13 +9,17 @@ class EventsController < ApplicationController
           @events = @events.subscribed(current_user) #only show subscribed events
         end
       end
-    elsif params[:favs].present? #is it the favourite category?
+    elsif params[:favs].present? # is it the favourite category?
       @events = current_user.flagged_events #show favs
     end
-    @upcoming = @events.between(Date.tomorrow+1, Date.tomorrow+5) #show events up to a week ahead
-    @tomorrow = @events.on(Date.tomorrow) #show events tomorrow
-    @events = @events.on(Date.today).not_over # show today's events that haven't ended
-    #.is_near(session[:city]) #filter events by city
+
+    occurrence_scope = EventOccurrence.category(Category.where(id: params[:category_id]).first).order(:start_time)
+
+    @occurrences = {
+      upcoming: occurrence_scope.upcoming,
+      tomorrow: occurrence_scope.tomorrow,
+      today: occurrence_scope.today
+    }
 
     respond_to do |format|
       format.html # index.html.erb

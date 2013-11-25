@@ -3,6 +3,14 @@
 <div class="container">
 <%= render 'favs' %>
 
+<div class="row">
+	<%= link_to events_path do %>
+  		<div class="category-list">
+  			All Events
+		</div>
+	<% end %>
+</div>
+
 <% @categories.each do |category| %>
 	<div class="row category-row">
 		<%= link_to events_path(:category_id => category.id) do %>

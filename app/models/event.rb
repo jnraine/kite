@@ -115,8 +115,10 @@ class Event < ActiveRecord::Base
 
     if interval == :daily
       repeat_daily
-    else interval == :weekly
+    elsif interval == :weekly
       repeat_weekly
+    else
+      repeat_never
     end
   end
 
@@ -139,8 +141,13 @@ class Event < ActiveRecord::Base
     schedule.add_recurrence_rule(IceCube::Rule.weekly)
   end
 
+  def repeat_never
+    remove_scheduled_recurrence
+  end
+
   def repeat_options
     [
+      ["Never", ""],
       ["Daily", "daily"],
       ["Weekly", "weekly"]
     ]

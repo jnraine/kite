@@ -8,16 +8,18 @@
       <tr>
         <th>Title</th>
         <th>Venue</th>
+        <th>Category</th>
         <th>Upcoming Dates</th>
         <th></th>
       </tr>
   </thead>
   <tbody>
-    <% @events.each do |event| %>
+    <% @events.sort_by(&:start_time).each do |event| %>
     <% edit = edit_event_path(event) %>
       <tr>
         <td><%= link_to event.title, edit %></td>
         <td><%= link_to event.venue.name, edit %></td>
+        <td><%= link_to event.category.name, edit %></td>
         <td><%= link_to event.upcoming_dates, edit %></td>
         <td>
           <%= link_to 'Edit', edit %>

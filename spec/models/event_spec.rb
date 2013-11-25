@@ -232,21 +232,21 @@ describe Event do
 
   describe "repeating API" do
     it "allows repeating daily" do
-      event.repeats = :daily
+      event.repeat = :daily
       event.build_future_occurrences(until_time: Date.today + 7.days).count.should == 7
     end
 
     it "allows repeating weekly on a specific day" do
-      event.repeats = :weekly
+      event.repeat = :weekly
       event.build_future_occurrences(until_time: Date.today + 14.days).count.should == 2
     end
 
     it "returns the appropriate value" do
-      event.repeats.should be_nil
+      event.repeat.should be_nil
       event.repeat_daily
-      event.repeats.should == :daily
+      event.repeat.should == :daily
       event.repeat_weekly
-      event.repeats.should == :weekly
+      event.repeat.should == :weekly
     end
   end
 end

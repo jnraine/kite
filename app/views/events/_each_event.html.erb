@@ -5,7 +5,9 @@
         <%= event.title %>
       </h4>
       <p>
-        @ <%= event.venue.name %>&emsp;
+        <%= occurrence.humanized_start_time %>
+        @
+        <%= event.venue.name %>&emsp;
         <%= event.cost == 0 ? "Free" : number_to_currency(event.cost) %>
       </p>
     </div>
@@ -14,7 +16,7 @@
         <%= event.venue.address %>
       </p>
       <p>
-        From <%= event.occurrences.first.start_time.strftime("%l:%M %P") %> to <%= event.end_time.strftime("%l:%M %P") %>
+        From <%= occurrence.start_time.strftime("%l:%M %P") %> to <%= occurrence.end_time.strftime("%l:%M %P") %>
       </p>
       <p>
         <%= auto_link(event.details, :urls, :target => "_blank" ) %>
