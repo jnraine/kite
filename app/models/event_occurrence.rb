@@ -18,7 +18,7 @@ class EventOccurrence < ActiveRecord::Base
     elsif happening_soon?
       "in #{distance_of_time_in_words_to_now(start_time)}"
     else
-      start_time.strftime("%Y-%-m-%-d")
+      start_time.strftime("%A")
     end
   end
 

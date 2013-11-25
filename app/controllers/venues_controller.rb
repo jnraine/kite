@@ -46,7 +46,7 @@ class VenuesController < ApplicationController
 
     respond_to do |format|
       if @venue.save
-        format.html { redirect_to({action: "index"}, notice: 'Venue was successfully created.')}
+        format.html { redirect_to({action: "index"}, notice: "New venue? I'll have to check it out.")}
         format.json { render json: @venue, status: :created, location: @venue }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class VenuesController < ApplicationController
 
     respond_to do |format|
       if @venue.update_attributes(params[:venue])
-        format.html { redirect_to({action: "index"}, notice: 'Venue was successfully updated.')}
+        format.html { redirect_to({action: "index"}, notice: 'Cool. Got it.')}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

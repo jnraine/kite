@@ -8,7 +8,7 @@ en:
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
     failure:
       already_authenticated: ""
-      inactive: "Your account was not activated yet."
+      inactive: "Your account wasn't activated yet."
       invalid: "Nope, something's not right here."
       invalid_token: "Invalid authentication token."
       locked: "Yikes! Your account is locked."
@@ -34,7 +34,7 @@ en:
       updated_not_active: "Your password was changed successfully."
     registrations:
       destroyed: "Goodbye for now, hopefully not forever. We had some good times, right?"
-      signed_up: "Hello! I don't think I've seen you here before. Take a look around. Let's have some fun."
+      signed_up: "Hey! I don't think I've seen you here before. Take a look around. Let's have some fun."
       signed_up_but_inactive: "You have signed up successfully. However, we could not sign you in because your account is not yet activated."
       signed_up_but_locked: "You have signed up successfully. However, we could not sign you in because your account is locked."
       signed_up_but_unconfirmed: "A message with a confirmation link has been sent to your email address. Please open the link to activate your account."

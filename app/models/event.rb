@@ -10,7 +10,7 @@ class Event < ActiveRecord::Base
 
   has_many :occurrences, class_name: "EventOccurrence", autosave: true, dependent: :destroy
  
-  # validates :title, :cost, :venue_id, :category_id, presence: true
+  validates :title, :cost, :venue_id, :category_id, :local_start_time, :local_end_time, presence: true
   validates_length_of :title, :maximum => 70
   # validates_presence_of :end_date, :if => :schedule? # all repeating events need an ending date
 
