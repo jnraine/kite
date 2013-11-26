@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
 	include IceCube
 
-	attr_accessible :title, :details, :cost, :schedule, :venue_id, :category_id, :local_start_time, :local_end_time, :repeat
+	attr_accessible :title, :details, :cost, :schedule, :venue_id, :category_id, :local_start_time, :local_end_time, :repeat, :repeat_until
   delegate :end_time, :end_time=, :start_time, :start_time=, :occurs_on?, to: :schedule
 
   belongs_to :user
@@ -120,15 +120,30 @@ class Event < ActiveRecord::Base
     else
       repeat_never
     end
+
+    dump_cached_schedule_attributes
+  end
+
+  def recurrence_rule
+    schedule.recurrence_rules.first
+  end
+
+  def dump_cached_schedule_attributes
+    return unless recurrence_rule
+    recurrence_rule.until repeat_until
   end
 
   def repeat
-    recurrence_rule = schedule.recurrence_rules.first
     if recurrence_rule.is_a?(IceCube::DailyRule)
       :daily
     elsif recurrence_rule.is_a?(IceCube::WeeklyRule)
       :weekly
     end
+  end
+
+  def repeat_until=(date)
+    write_attribute(:repeat_until, date)
+    dump_cached_schedule_attributes
   end
 
   def repeat_daily
