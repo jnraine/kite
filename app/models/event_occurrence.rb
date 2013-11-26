@@ -7,6 +7,10 @@ class EventOccurrence < ActiveRecord::Base
   scope :on, lambda {|date| between(date, date) }
   scope :not_over, lambda { includes(:event).where("end_time > ?", Time.now) }
   scope :category, lambda {|category| category.nil? ? scoped : includes(:event).where("events.category_id = ?", category.id) }
+  scope :only_favorited, lambda {|user|
+    return scoped unless user
+    includes(:event).where("events.id" => user.favourite_events.map(&:id))
+  }
 
   scope :upcoming, lambda { between(Date.tomorrow+1, Date.tomorrow+5) }
   scope :tomorrow, lambda { on(Date.tomorrow) }

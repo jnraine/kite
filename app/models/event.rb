@@ -37,10 +37,16 @@ class Event < ActiveRecord::Base
 		end
 	end
 
+  # Convert IceCube::Schedule object into hash for database. This is run as
+  # part of serialize_schedule_and_generate_occurrences will rarely need to 
+  # be called manually.
   def serialize_schedule
     self.schedule_hash = schedule.to_hash
   end
 
+  # Ensures future occurrences are built when schedule has changed. Called
+  # as a before_save callback and will rarely need to be called manually.
+  # Due to nil ID, future occurrences are not built for new records.
   def serialize_schedule_and_generate_occurrences
     serialize_schedule
     build_future_occurrences if schedule_hash_changed? and !new_record?
@@ -50,6 +56,8 @@ class Event < ActiveRecord::Base
     Schedule.new(Time.parse("tomorrow, 7pm"), duration: 1.hour)
   end
 
+  # Created from the schedule_hash, or default_schedule when schedule_hash is 
+  # nil.
   def schedule
     @schedule ||= schedule_hash.present? ? Schedule.from_hash(schedule_hash) : default_schedule
   end
@@ -58,6 +66,9 @@ class Event < ActiveRecord::Base
     @schedule = new_schedule
   end
 
+  # Builds associated occurrence records for this event. Specify until_time: 
+  # argument to specify how far in the future to create the occurrences for,
+  # otherwise, defaults to 30 days in the future.
   def build_future_occurrences(until_time: Date.today + 30.days)
     self.occurrences = []
 
@@ -72,39 +83,52 @@ class Event < ActiveRecord::Base
     self.occurrences = new_occurrences
   end
 
-  def create_future_occurrences(until_time: Date.today + 7.days)
+  # Builds and saves future occurrences. Called as an after_create callback and
+  # will rarely need to be called manually. This is done after record creation
+  # because the event record needs an ID to be properly associated to occurrence
+  # records.
+  def create_future_occurrences
     build_future_occurrences
     save
   end
 
+  # Remove all recurrence rules from schedule and add a new rule created from
+  # the passed hash.
   def recurring_rule_hash=(recurring_rule_hash)
     remove_scheduled_recurrence
     schedule.add_recurrence_rule(Rule.from_hash(recurring_rule_hash))
   end
 
+  # Return recurrence_rule serialized to hash.
   def recurring_rule_hash
-    return nil if schedule.recurrence_rules.empty?
-    schedule.recurrence_rules.first.to_hash
+    return nil if recurrence_rule
+    recurrence_rule.to_hash
   end
 
+  # Removes all recurrence rules from the schedule.
   def remove_scheduled_recurrence
     schedule.recurrence_rules.each do |rule|
       schedule.remove_recurrence_rule(rule)
     end
   end
 
+  # Used in the view. Conforms to datetime-local HTML5 input element. This
+  # could be moved to a decorator object in the future.
   def local_start_time
     start_time.iso8601_no_timezone
   end
 
+  # See local_start_time for more info.
   def local_start_time=(iso8601_no_timezone)
     self.start_time = Time.parse(iso8601_no_timezone)
   end
 
+  # See local_start_time for more info.
   def local_end_time
     end_time.iso8601_no_timezone
   end
 
+  # See local_start_time for more info.
   def local_end_time=(iso8601_no_timezone)
     self.end_time = Time.parse(iso8601_no_timezone)
   end
@@ -128,11 +152,15 @@ class Event < ActiveRecord::Base
     schedule.recurrence_rules.first
   end
 
+  # Dump any schedule attributes that happen to be stored in the event. At this
+  # time, only the repeat_until attribute is stored this way. This is done to
+  # allow us to apply aspects to new recurrence rules.
   def dump_cached_schedule_attributes
     return unless recurrence_rule
     recurrence_rule.until repeat_until
   end
 
+  # Returns what time of repeat this is. Possible values: :daily, :weekly, or nil.
   def repeat
     if recurrence_rule.is_a?(IceCube::DailyRule)
       :daily
@@ -141,25 +169,32 @@ class Event < ActiveRecord::Base
     end
   end
 
+  # Write attribute as per usual, then dump schedule attributes. This ensures
+  # the recurrence_rule has the proper attributes immediately after setting
+  # this value.
   def repeat_until=(date)
     write_attribute(:repeat_until, date)
     dump_cached_schedule_attributes
   end
 
+  # Replace existing recurrence_rule with a daily rule.
   def repeat_daily
     remove_scheduled_recurrence
     schedule.add_recurrence_rule(IceCube::Rule.daily)
   end
 
+  # Replace existing recurrence_rule with a weekly rule.
   def repeat_weekly
     remove_scheduled_recurrence
     schedule.add_recurrence_rule(IceCube::Rule.weekly)
   end
 
+  # Remove recurrence_rule
   def repeat_never
     remove_scheduled_recurrence
   end
 
+  # Used in the view; what appears in the "Repeat" select menu.
   def repeat_options
     [
       ["Never", ""],
@@ -168,6 +203,7 @@ class Event < ActiveRecord::Base
     ]
   end
 
+  # Format next 7 occurrences into a human readable date format.
   def upcoming_dates
     start_times = occurrences.take(7).map(&:start_time)
 
