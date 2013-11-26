@@ -12,6 +12,14 @@ class EventOccurrence < ActiveRecord::Base
     includes(:event).where("events.id" => user.favourite_events.map(&:id))
   }
 
+  scope :only_subscribed, lambda { |user|
+    if user.flagged_venues.blank?
+      scoped
+    else
+      where("venue_id not in (?)", user.flagged_venues) #filter unsubscribed venues from events
+    end
+  }
+
   scope :upcoming, lambda { between(Date.tomorrow+1, Date.tomorrow+5) }
   scope :tomorrow, lambda { on(Date.tomorrow) }
   scope :today, lambda { on(Date.today).not_over }

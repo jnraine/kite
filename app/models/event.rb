@@ -29,14 +29,6 @@ class Event < ActiveRecord::Base
   scope :on, lambda {|date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', date.beginning_of_day, date.end_of_day) }
   scope :between, lambda {|start_date, end_date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', start_date.beginning_of_day, end_date.end_of_day) }
 
-	def self.subscribed(user)
-		if user.flagged_venues.empty?
-			scoped #show all venues' events
-		else
-			self.where("venue_id not in (?)", user.flagged_venues) #filter unsubscribed venues from events
-		end
-	end
-
   # Convert IceCube::Schedule object into hash for database. This is run as
   # part of serialize_schedule_and_generate_occurrences will rarely need to 
   # be called manually.

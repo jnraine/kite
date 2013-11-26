@@ -2,18 +2,16 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
-    if params[:category_id].present?
-      @events = Event.categorize(params[:category_id]) #filter events by category
+    if params[:favs].present? # is it the favourite category?
+      occurrence_scope = EventOccurrence.only_favorited(current_user).order(:start_time) #show favs
+    else #filter events by category
+      occurrence_scope = EventOccurrence.category(Category.where(id: params[:category_id]).first).order(:start_time)
       if user_signed_in?
         if current_user.subscribed #does the user want to see all or subscribed events only?
-          @events = @events.subscribed(current_user) #only show subscribed events
+          occurrence_scope = EventOccurrence.category(Category.where(id: params[:category_id]).first).only_subscribed(current_user).order(:start_time)
         end
       end
-    elsif params[:favs].present? # is it the favourite category?
-      @events = current_user.flagged_events #show favs
     end
-
-    occurrence_scope = EventOccurrence.category(Category.where(id: params[:category_id]).first).order(:start_time)
 
     @occurrences = {
       upcoming: occurrence_scope.upcoming,
