@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   has_many :flagged_venues, :through => :flaggings, :source => :flaggable, :source_type => 'Venue'
 
   make_flagger
+
+  def favourite_events
+    flaggings.map(&:flaggable).delete_if {|flaggable| !flaggable.is_a? Event }
+  end
 end
