@@ -17,7 +17,10 @@
 		  <tr>
 		    <td><%= link_to venue.name, edit %></td>
 		    <td><%= link_to venue.address, edit %></td>
-		    <td><%= link_to 'Destroy', venue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		    <td>
+		    	<%= link_to 'Edit', edit %>&emsp;
+		    	<%= link_to 'Delete', venue, method: :delete, data: { confirm: 'Are you sure?' } %>
+		    </td>
 		  </tr>
 		<% end %>
 	</tbody>

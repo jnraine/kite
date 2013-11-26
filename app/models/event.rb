@@ -12,7 +12,7 @@ class Event < ActiveRecord::Base
  
   validates :title, :cost, :venue_id, :category_id, :local_start_time, :local_end_time, presence: true
   validates_length_of :title, :maximum => 70
-  # validates_presence_of :end_date, :if => :schedule? # all repeating events need an ending date
+  validates_presence_of :repeat_until, :if => :repeat # all repeating events need an ending date
 
   before_save :serialize_schedule_and_generate_occurrences
   after_create :create_future_occurrences # these are generated for a new record once it has an ID
