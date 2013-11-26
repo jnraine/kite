@@ -27,4 +27,15 @@ $(document).ready(function() {
 		var newEndTime = oneHourInFuture($startTime.val())
 		$("#event_local_end_time").val(newEndTime);
 	});
+
+	$("#event_repeat").change(function() {
+		var $repeatInput = $(this);
+		var $repeatUntilFormGroup = $("#event_repeat_until").parents(".form-group").first();
+		console.log($repeatInput, $repeatInput.val());
+		if($repeatInput.val() == "") {
+			$repeatUntilFormGroup.hide();
+		} else {
+			$repeatUntilFormGroup.show();
+		}
+	}).change();
 });

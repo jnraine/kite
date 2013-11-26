@@ -5,6 +5,7 @@ class CreateEvents < ActiveRecord::Migration
       t.decimal :cost, :precision => 6, :scale => 2
       t.text :details
       t.text :schedule_hash
+      t.datetime :repeat_until
 
       t.references :venue
       t.references :user
