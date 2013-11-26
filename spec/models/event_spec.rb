@@ -267,7 +267,30 @@ describe Event do
       event.build_future_occurrences until_time: Time.now + 3.months
       event.upcoming_dates.should == "January 1, 8, 15, 22, 29, February 5, 12"
     end
+  end
 
+  describe "#repeat_until" do
+    let(:next_month) { Time.now + 30.days }
 
+    it "stores this value in the model" do
+      event.repeat_until = next_month
+      event.save
+      event.reload
+      event.repeat_until.should == next_month
+    end
+
+    it "dumps this value to the schedule when set before repeat" do
+      event.repeat_until = next_month
+      event.repeat = :daily
+      event.recurrence_rule.to_hash.fetch(:until).should == next_month
+      event.repeat = :weekly
+      event.recurrence_rule.to_hash.fetch(:until).should == next_month
+    end
+
+    it "dumps this value to the schedule when set after repeat" do
+      event.repeat = :daily
+      event.repeat_until = next_month
+      event.recurrence_rule.to_hash.fetch(:until).should == next_month
+    end
   end
 end

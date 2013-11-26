@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20131116234128) do
     t.decimal  "cost",                        :precision => 6, :scale => 2
     t.text     "details"
     t.text     "schedule_hash"
+    t.datetime "repeat_until"
     t.integer  "venue_id"
     t.integer  "user_id"
     t.integer  "category_id"
