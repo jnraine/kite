@@ -19,16 +19,6 @@ ActiveRecord::Schema.define(:version => 20131116234128) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "days", :force => true do |t|
-    t.date     "date"
-    t.integer  "event_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "days", ["date"], :name => "index_days_on_date"
-  add_index "days", ["event_id"], :name => "index_days_on_event_id"
-
   create_table "event_occurrences", :force => true do |t|
     t.datetime "start_time"
     t.datetime "end_time"

@@ -53,6 +53,14 @@ a > span {
 .right-pad {
   padding-right: 15px;
 }
+.logo:after {
+  content: "now";
+  color: $red;
+  font-weight: bold;
+}
+a.logo:hover {
+  color: $red;
+}
 /* Translucent header =========================== */
 .blur-box {
   height: 50px;
