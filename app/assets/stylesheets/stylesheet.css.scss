@@ -54,7 +54,7 @@ a > span {
   padding-right: 15px;
 }
 .logo:after {
-  content: "now";
+  content: "Now";
   color: $red;
   font-weight: bold;
 }
@@ -243,4 +243,12 @@ a.logo:hover {
       padding-left: 162px;
     };
   };
+}
+/* Blog =============================================== */
+.blog-post {
+  padding-bottom: 2em;
+  border-bottom: 2px solid $medGrey;
+}
+.blog-date {
+  margin-top: -5px;
 }
