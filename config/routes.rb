@@ -1,9 +1,5 @@
 Kite::Application.routes.draw do
-  resources :venues do
-    member do
-      get 'unsubscribe'
-    end
-  end
+  resources :venues
   resources :events do
   	member do
   		get 'fav'
@@ -15,8 +11,6 @@ Kite::Application.routes.draw do
   root :to => 'categories#index'
   get 'about' => 'pages#about'
   get 'blog' => 'pages#blog'
-  get 'feedback' => 'pages#feedback'
-  get 'guidelines' => 'pages#guidelines'
   get 'help' => 'pages#help'
   get 'list' => 'events#list'
 end

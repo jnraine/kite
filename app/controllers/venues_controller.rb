@@ -10,15 +10,6 @@ class VenuesController < ApplicationController
     end
   end
 
-  def unsubscribe
-    @venue = Venue.find(params[:id])
-    current_user.toggle_flag(@venue, :unsubscribe) #venues_helper.rb
-
-    respond_to do |format|
-      format.html { redirect_to :back }
-    end
-  end
-
   def show
     @venue = Venue.find(params[:id])
 

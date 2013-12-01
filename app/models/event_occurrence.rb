@@ -13,10 +13,10 @@ class EventOccurrence < ActiveRecord::Base
   }
 
   scope :only_subscribed, lambda { |user|
-    if user.flagged_venues.blank?
+    if user.flagged_hosts.blank?
       scoped
     else
-      where("venue_id not in (?)", user.flagged_venues) #filter unsubscribed venues from events
+      where("host_id not in ?", user.flagged_hosts) #filter unsubscribed hosts from events
     end
   }
 
