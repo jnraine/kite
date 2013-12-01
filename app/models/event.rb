@@ -1,10 +1,10 @@
 class Event < ActiveRecord::Base
-	include IceCube
+  include IceCube
 
-	attr_accessible :title, :details, :cost, :schedule, :venue_id, :category_id, :local_start_time, :local_end_time, :repeat, :repeat_until
+  attr_accessible :title, :details, :cost, :schedule, :venue_id, :category_id, :local_start_time, :local_end_time, :repeat, :repeat_until
   delegate :end_time, :end_time=, :start_time, :start_time=, :occurs_on?, to: :schedule
 
-  belongs_to :user
+  belongs_to :host
   belongs_to :venue
   belongs_to :category
 
@@ -21,10 +21,10 @@ class Event < ActiveRecord::Base
 
   serialize :schedule_hash, Hash
 
-	scope :is_near, lambda {|city| Venue.near(city, 20, :units => :km).includes(:events).map(&:events).flatten } #checks geocoded venue address against user location
-	scope :categorize, lambda { |category| where(:category_id => category) }
-	scope :not_over, lambda { includes(:occurrences).where("event_occurrences.end_time > ?", Time.now) }
-	scope :sort_days, order(:date, "CAST(start_time AS time)")
+  scope :is_near, lambda {|city| Venue.near(city, 20, :units => :km).includes(:events).map(&:events).flatten } #checks geocoded venue address against user location
+  scope :categorize, lambda { |category| where(:category_id => category) }
+  scope :not_over, lambda { includes(:occurrences).where("event_occurrences.end_time > ?", Time.now) }
+  scope :sort_days, order(:date, "CAST(start_time AS time)")
   
   scope :on, lambda {|date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', date.beginning_of_day, date.end_of_day) }
   scope :between, lambda {|start_date, end_date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', start_date.beginning_of_day, end_date.end_of_day) }

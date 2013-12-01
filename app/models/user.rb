@@ -3,12 +3,12 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, #:recoverable,
-  			 :rememberable, :trackable, :validatable
+         :rememberable, :trackable, :validatable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :subscribed
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :subscribed, :type
   
-  has_many :venues, :dependent => :destroy
-  has_many :events, :through => :venues
+  #has_many :venues, :dependent => :destroy
+  #has_many :events, :through => :venues
   has_many :flagged_events, :through => :flaggings, :source => :flaggable, :source_type => 'Event'
   has_many :flagged_venues, :through => :flaggings, :source => :flaggable, :source_type => 'Venue'
 

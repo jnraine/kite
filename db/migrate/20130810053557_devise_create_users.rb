@@ -34,6 +34,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.string :authentication_token
 
       t.boolean :subscribed, :default => true
+      t.string :type
 
       t.timestamps
     end

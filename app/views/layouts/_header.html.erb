@@ -16,7 +16,9 @@
 
 		<% if user_signed_in? %>
 			<ul class="nav navbar-nav navbar-right hidden-xs right-pad" role="navigation">
-				<%= render 'pages/nav' %>
+				<% if host_signed_in? %>
+					<%= render 'pages/nav' %>
+				<% end %>
 		    <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
 		  </ul>
 		<% end %>

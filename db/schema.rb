@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(:version => 20131116234128) do
     t.text     "schedule_hash"
     t.datetime "repeat_until"
     t.integer  "venue_id"
-    t.integer  "user_id"
+    t.integer  "host_id"
     t.integer  "category_id"
     t.datetime "created_at",                                                :null => false
     t.datetime "updated_at",                                                :null => false
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20131116234128) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.boolean  "subscribed",             :default => true
+    t.string   "type"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
   end
@@ -79,13 +80,12 @@ ActiveRecord::Schema.define(:version => 20131116234128) do
     t.string   "address",    :limit => 70
     t.float    "latitude"
     t.float    "longitude"
-    t.integer  "user_id"
+    t.integer  "host_id"
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
   end
 
   add_index "venues", ["latitude"], :name => "index_venues_on_latitude"
   add_index "venues", ["longitude"], :name => "index_venues_on_longitude"
-  add_index "venues", ["user_id"], :name => "index_venues_on_user_id"
 
 end

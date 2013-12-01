@@ -8,7 +8,7 @@ class CreateEvents < ActiveRecord::Migration
       t.datetime :repeat_until
 
       t.references :venue
-      t.references :user
+      t.references :host
       t.references :category
 
       t.timestamps

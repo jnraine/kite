@@ -9,7 +9,8 @@ Kite::Application.routes.draw do
   		get 'fav'
   	end
   end
-  devise_for :users
+  devise_for :users, :controllers => { :sessions => 'sessions' }
+  devise_for :hosts#, :skip => :sessions
 
   root :to => 'categories#index'
   get 'about' => 'pages#about'

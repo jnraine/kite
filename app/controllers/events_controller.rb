@@ -54,7 +54,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    @event.user_id = current_user.id
+    @event.host_id = current_user.id
 
     respond_to do |format|
       format.html # new.html.erb
@@ -68,7 +68,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(params[:event])
-    @event.user_id = current_user.id
+    @event.host_id = current_user.id
 
     respond_to do |format|
       if @event.save
