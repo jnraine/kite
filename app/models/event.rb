@@ -45,7 +45,7 @@ class Event < ActiveRecord::Base
   end
 
   def default_schedule
-    Schedule.new(Time.parse("tomorrow, 7pm"), duration: 1.hour)
+    Schedule.new(Time.parse("tomorrow, 7pm"), duration: 3.hours)
   end
 
   # Created from the schedule_hash, or default_schedule when schedule_hash is 
@@ -165,7 +165,11 @@ class Event < ActiveRecord::Base
   # the recurrence_rule has the proper attributes immediately after setting
   # this value.
   def repeat_until=(date)
-    write_attribute(:repeat_until, date)
+    if date == ""
+      write_attribute(:repeat_until, date)
+    else
+      write_attribute(:repeat_until, Date.parse(date).end_of_day)
+    end
     dump_cached_schedule_attributes
   end
 
