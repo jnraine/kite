@@ -1,10 +1,6 @@
 <nav class="nav navbar navbar-fixed-top">
 	<div class="container">
-	  <% if root_path? %>
- 			<%= link_to "here", root_path, :class => "navbar-brand logo" %>
-  	<% else %>
-	 	  <%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-arrow-left navbar-brand"), root_path %>
-	  <% end %>
+	  <%= navigation_icon %>
 
 		<div class="navbar-right">
 		  <% if user_signed_in? %>

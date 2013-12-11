@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
 
   def index
+    @url_location = :back
     if params[:favs].present? # is it the favourite category?
       occurrence_scope = EventOccurrence.only_favorited(current_user).order(:start_time) #show favs
     else #filter events by category
@@ -53,6 +54,7 @@ class EventsController < ApplicationController
   end
 
   def new
+    @url_location = list_path
     @event = Event.new
     @event.host_id = current_user.id
 
@@ -63,6 +65,7 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @url_location = list_path
     @event = current_user.events.find(params[:id])
   end
 

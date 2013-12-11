@@ -20,6 +20,7 @@ class VenuesController < ApplicationController
   end
 
   def new
+    @url_location = venues_path
     @venue = current_user.venues.new
 
     respond_to do |format|
@@ -29,6 +30,7 @@ class VenuesController < ApplicationController
   end
 
   def edit
+    @url_location = venues_path
     @venue = current_user.venues.find(params[:id])
   end
 
