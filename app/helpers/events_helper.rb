@@ -11,4 +11,17 @@ module EventsHelper
 			link_to content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"), fav_event_path(event) #prompt user to sign in
 		end
 	end
+
+	def what_cost(cost)
+		case cost
+			when 0
+				"Free"
+			when 8888
+				"By donation"
+			when 9999
+				"Sold out"
+			else
+				number_to_currency(cost)
+		end
+	end
 end

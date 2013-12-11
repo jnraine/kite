@@ -6,7 +6,7 @@
       </h4>
       <p>
         @ <%= @event.venue.name %>&emsp;
-        <%= @event.cost == 0 ? "Free" : number_to_currency(@event.cost) %>
+        <%= what_cost(@event.cost) %>
       </p>
     </div>
       <p>
