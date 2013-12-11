@@ -13,7 +13,10 @@
 		<% if user_signed_in? %>
 			<ul class="nav navbar-nav navbar-right hidden-xs right-pad" role="navigation">
 				<% if host_signed_in? %>
-					<%= render 'pages/nav' %>
+					<li><%= link_to "Add Event", new_event_path %></li>
+					<li><%= link_to "Add Venue", new_venue_path %></li>
+					<li><%= link_to "Manage Events", list_path %></li>
+					<li><%= link_to "Manage Venues", venues_path %></li>
 				<% end %>
 		    <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
 		  </ul>

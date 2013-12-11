@@ -5,7 +5,15 @@
 		</div>
 	<% # end %>
 </li>-->
-<li><%= link_to "Add Event", new_event_path %></li>
-<li><%= link_to "Add Venue", new_venue_path %></li>
-<li><%= link_to "Manage Events", list_path %></li>
-<li><%= link_to "Manage Venues", venues_path %></li>
+<%= link_to new_event_path do %>
+	<li>Add Event</li>
+<% end %>
+<%= link_to new_venue_path do %>
+	<li>Add Venue</li>
+<% end %>
+<%= link_to list_path do %>
+	<li>Manage Events</li>
+<% end %>
+<%= link_to venues_path do %>
+	<li>Manage Venues</li>
+<% end %>

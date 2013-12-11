@@ -227,8 +227,11 @@ a.logo:hover {
       background-color: $lightGrey;
     };
   };
-  li:first-child {
+  a:first-child > li {
     border-top: 2px solid $medGrey;
+  };
+  a:hover {
+    color: $red;
   };
 }
 @media (min-width: 768px ) {
