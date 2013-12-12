@@ -20,7 +20,7 @@ class VenuesController < ApplicationController
   end
 
   def new
-    @url_location = venues_path
+    @url_location = :back
     @venue = current_user.venues.new
 
     respond_to do |format|

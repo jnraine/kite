@@ -54,7 +54,7 @@ class EventsController < ApplicationController
   end
 
   def new
-    @url_location = list_path
+    @url_location = :back
     @event = Event.new
     @event.host_id = current_user.id
 
