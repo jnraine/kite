@@ -4,7 +4,7 @@ module PagesHelper
 			when 3..5
 				"go home<br/>yr drunk"
 			when 6..10
-				"this city<br/>is built<br/>on breakfast"
+				"a city built<br/>on breakfast"
 			when 14..18
 				"things are<br/>happening"
 			when 19..24
