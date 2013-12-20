@@ -1,6 +1,9 @@
 <nav class="nav navbar navbar-fixed-top">
 	<div class="container">
 	  <%= navigation_icon %>
+	  <% if root_path? %>
+	  	<span class="beta">beta</span>
+	  <% end %>
 
 		<div class="navbar-right">
 		  <% if user_signed_in? %>

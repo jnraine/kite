@@ -2,9 +2,9 @@
 	<% unless current_user.flagged_events.size == 0 %>
 		<div class="row">
 			<%= link_to events_path(:favs => true) do %>
-			<div class="category-list">
-				Favourites
-			</div>
+				<div class="category-list">
+					Favourites
+				</div>
 			<% end %>
 		</div>
 	<% end %>

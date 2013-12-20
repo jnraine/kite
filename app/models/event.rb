@@ -26,7 +26,7 @@ class Event < ActiveRecord::Base
   scope :not_over, lambda { includes(:occurrences).where("event_occurrences.end_time > ?", Time.now) }
   scope :sort_days, order(:date, "CAST(start_time AS time)")
   
-  scope :on, lambda {|date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', date.beginning_of_day, date.end_of_day) }
+  scope :on, lambda {|date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', date.beginning_of_day, date.end_of_day + 4.hours) }
   scope :between, lambda {|start_date, end_date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', start_date.beginning_of_day, end_date.end_of_day) }
 
   # Convert IceCube::Schedule object into hash for database. This is run as

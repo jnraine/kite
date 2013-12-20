@@ -7,4 +7,7 @@ module ApplicationHelper
 			link_to content_tag(:span, " ", :class => "glyphicon glyphicon-arrow-left navbar-brand"), @url_location
 		end
 	end
+	def root_path?
+  	request.path == "/" ? true : false
+	end
 end
