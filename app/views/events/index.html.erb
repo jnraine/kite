@@ -27,6 +27,21 @@
   <% end %>
 <% end %>
 
+<% unless @occurrences.fetch(:today).present? || @occurrences.fetch(:tomorrow).present? || @occurrences.fetch(:upcoming).present? %>
+  <div class="row">
+    <div class="event-div">
+      <div class="event-empty">
+        <h4>
+          Looks like there's nothing going on around here.
+        </h4>
+        <p>
+          Try another category. There's bound to be something to do!
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <div class="row">
   <div class="event-div">
     <div class="event-missing">

@@ -1,13 +1,13 @@
 module PagesHelper
 	def time_of_day_greeting(current_time)
 		case current_time
-			when 3..5
+			when 3..4
 				"go home<br/>yr drunk"
-			when 6..10
+			when 6..9
 				"a city built<br/>on breakfast"
-			when 14..18
+			when 15..17
 				"things are<br/>happening"
-			when 19..24
+			when 20..24
 				"so long<br/>lame night"
 			else
 				"something<br/>cool, now"
