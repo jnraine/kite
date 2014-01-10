@@ -45,7 +45,7 @@ class Event < ActiveRecord::Base
   end
 
   def default_schedule
-    Schedule.new(Time.parse("tomorrow, 7pm"), duration: 1.hour)
+    Schedule.new(Time.parse("tomorrow, 7pm"), duration: 3.hours)
   end
 
   # Created from the schedule_hash, or default_schedule when schedule_hash is 

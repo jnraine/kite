@@ -5,7 +5,7 @@
     <%= link_to 'Add new venue', new_venue_path %>
   </p>
 </div>
-<table class="table table-hover">
+<table id="events-table" class="table table-hover tablesorter">
     <thead>
       <tr>
         <th>Title</th>
@@ -15,7 +15,7 @@
       </tr>
   </thead>
   <tbody>
-    <% @events.sort_by(&:venue).each do |event| %>
+    <% @events.each do |event| %>
     <% edit = edit_event_path(event) %>
       <tr>
         <td><%= link_to event.title, edit %></td>

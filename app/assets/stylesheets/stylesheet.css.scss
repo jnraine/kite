@@ -254,6 +254,16 @@ a.logo:hover {
     };
   };
 }
+/* Tables ============================================= */
+th.headerSortUp:after {
+  content: "\2003\25b4";
+}
+th.headerSortDown:after {
+  content: "\2003\25be"; 
+}
+th.header {
+  cursor: pointer; 
+}
 /* Blog =============================================== */
 .blog-post {
   padding-bottom: 2em;

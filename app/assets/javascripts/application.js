@@ -13,29 +13,3 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-
-$(document).ready(function() {
-	function oneHourInFuture(iso8601NoTimezone) {
-		var date = moment(iso8601NoTimezone);
-		date.set("hour", date.hour() + 1);
-		window.date = date;
-		return date.format("YYYY-MM-DDTHH:mm:SS");
-	}
-
-	$("#event_local_start_time").blur(function() {
-		var $startTime = $(this);
-		var newEndTime = oneHourInFuture($startTime.val())
-		$("#event_local_end_time").val(newEndTime);
-	});
-
-	$("#event_repeat").change(function() {
-		var $repeatInput = $(this);
-		var $repeatUntilFormGroup = $("#event_repeat_until").parents(".form-group").first();
-		console.log($repeatInput, $repeatInput.val());
-		if($repeatInput.val() == "") {
-			$repeatUntilFormGroup.hide();
-		} else {
-			$repeatUntilFormGroup.show();
-		}
-	}).change();
-});
