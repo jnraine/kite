@@ -199,9 +199,9 @@ class Event < ActiveRecord::Base
     ]
   end
 
-  # Format next 7 occurrences into a human readable date format.
+  # Format next 5 occurrences into a human readable date format.
   def upcoming_dates
-    start_times = occurrences.take(7).map(&:start_time)
+    start_times = occurrences.where("start_time > ?", Date.today).take(5).map(&:start_time)
 
     current_month = nil
     formatted_dates = start_times.map do |start_time|

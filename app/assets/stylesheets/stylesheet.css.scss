@@ -256,10 +256,14 @@ a.logo:hover {
 }
 /* Tables ============================================= */
 th.headerSortUp:after {
-  content: "\2003\25b4";
+  content: "\2003 \25B2";
+  font-size: .7em;
+  color: $mutedGrey;
 }
 th.headerSortDown:after {
-  content: "\2003\25be"; 
+  content: "\2003 \25bc";
+  font-size: .7em;
+  color: $mutedGrey;
 }
 th.header {
   cursor: pointer; 
