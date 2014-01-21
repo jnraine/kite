@@ -293,4 +293,34 @@ describe Event do
       event.recurrence_rule.to_hash.fetch(:until).should == next_month
     end
   end
+
+  describe ".on" do
+    before { Timecop.freeze(Time.parse("2014-01-01 at 7pm")) }
+    after  { Timecop.return }
+
+    def event(start_time: Time.now, end_time: Time.now + 1.hour)
+      Event.new.tap do |e|
+        e.start_time = start_time
+        e.end_time = end_time
+        e.title = "Foo"
+        e.cost = "1"
+        e.venue_id = 1
+        e.category_id = 1
+        e.save!
+      end
+    end
+
+    it "returns events that start on given day from 12am to 4am the following day" do
+      seven_pm_event = event(start_time: Time.parse("2014-01-01 at 7pm"), end_time: Time.parse("2014-01-01 at 8pm"))
+      two_am_event   = event(start_time: Time.parse("2014-01-02 at 2am"), end_time: Time.parse("2014-01-02 at 4am"))
+
+      Event.on(Time.parse("2014-01-01")).should == [seven_pm_event, two_am_event]
+    end
+
+    it "returns events that end on given day from 12am to 4am the following day" do
+      new_years_eve_event = event(start_time: Time.parse("2013-12-31 at 7pm"), end_time: Time.parse("2014-01-01 at 3am"))
+
+      Event.on(Time.parse("2014-01-01")).should == [new_years_eve_event]
+    end
+  end
 end
