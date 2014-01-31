@@ -27,11 +27,11 @@ class Event < ActiveRecord::Base
   scope :sort_days, order(:date, "CAST(start_time AS time)")
   
   scope :on, lambda {|date|
-    raw_sql = '("event_occurrences"."start_time" BETWEEN ? AND ?) OR ("event_occurrences"."end_time" BETWEEN ? AND ?)'
-    scope = includes(:occurrences)
-    scope.where(raw_sql, date.beginning_of_day, date.end_of_day + 4.hours, date.beginning_of_day, date.end_of_day + 4.hours)
+    raw_sql = '"event_occurrences"."start_time" BETWEEN ? AND ?'
+    scope = includes(:event)
+    scope.where(raw_sql, date.beginning_of_day+4.hours, date.end_of_day+4.hours)
   }
-  scope :between, lambda {|start_date, end_date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', start_date.beginning_of_day, end_date.end_of_day) }
+  scope :between, lambda {|start_date, end_date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', start_date.beginning_of_day+4.hours, end_date.end_of_day+4.hours) }
 
   # Convert IceCube::Schedule object into hash for database. This is run as
   # part of serialize_schedule_and_generate_occurrences will rarely need to 
