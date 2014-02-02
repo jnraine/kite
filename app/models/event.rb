@@ -28,7 +28,7 @@ class Event < ActiveRecord::Base
   
   scope :on, lambda {|date|
     raw_sql = '"event_occurrences"."start_time" BETWEEN ? AND ?'
-    scope = includes(:event)
+    scope = includes(:occurrences)
     scope.where(raw_sql, date.beginning_of_day+4.hours, date.end_of_day+4.hours)
   }
   scope :between, lambda {|start_date, end_date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', start_date.beginning_of_day+4.hours, end_date.end_of_day+4.hours) }
