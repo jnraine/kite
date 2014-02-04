@@ -25,15 +25,18 @@ class EventOccurrence < ActiveRecord::Base
   }
 
   # Offset date for early morning hours
-  if Time.now.hour < 4
-    scope :upcoming, lambda { between(Date.tomorrow, Date.tomorrow+4.days) }
-    scope :tomorrow, lambda { on(Date.today) }
-    scope :today, lambda { on(Date.yesterday).not_over }
-  else
-    scope :upcoming, lambda { between(Date.tomorrow+1.day, Date.tomorrow+5.days) }
-    scope :tomorrow, lambda { on(Date.tomorrow) }
-    scope :today, lambda { on(Date.today).not_over }
-  end
+  scope :upcoming, lambda { 
+    difference = Time.now.hour < 4 ? 0 : 1
+    between(Date.tomorrow+difference.day, Date.tomorrow+(4+difference).days) 
+  }
+  scope :tomorrow, lambda {
+    difference = Time.now.hour < 4 ? 0 : 1
+    on(Date.today+difference.day)
+  }
+  scope :today, lambda {
+    difference = Time.now.hour < 4 ? 0 : 1
+    on(Date.yesterday+difference.day).not_over
+  }
 
   def humanized_start_time
     if started? and !over?
