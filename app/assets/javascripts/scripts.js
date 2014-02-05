@@ -1,14 +1,3 @@
-$('.event-div').click( function() {
-	var openEvent = $(this).children('.event-details'); //event details open when user clicks an event div
-
-	$('.event-details').not(openEvent).hide(200); //closes all other open events
-	openEvent.toggle(200); //toggle details
-});
-
-$('.event-details').click( function(event){
-  event.stopImmediatePropagation(); //allow links in the details to be clicked on
-});
-
 $(document).ready(function() {
 	function oneHourInFuture(iso8601NoTimezone) {
 		var date = moment(iso8601NoTimezone);
@@ -34,6 +23,7 @@ $(document).ready(function() {
 		}
 	}).change();
 
+	//event and venue lists are sortable
 	$('#events-table').tablesorter({
 		sortList: [[1,0]],
 		headers: { 3: { sorter: false }}
@@ -42,4 +32,23 @@ $(document).ready(function() {
 		sortList: [[0,0]],
 		headers: { 2: { sorter: false }}
 	});
+});
+
+$('.event-div').click( function() {
+	event.preventDefault();
+	openEvent = $(this).children('.event-details'); //event details open when user clicks an event div
+	if(typeof offset === "undefined"){
+		offset = $('.event-details:visible').height();
+	} else {
+		offset = $('.event-details:visible').height()+4;
+	};
+
+	$('.event-details').not(openEvent).hide(200); //closes all other open events
+	openEvent.toggle(200) //toggle details and scrolls
+	scrollAmount = $(this).position().top - 54 - offset;
+	$("body").animate({scrollTop: scrollAmount},800);
+});
+
+$('.event-details').click( function(event){
+  event.stopImmediatePropagation(); //allow links in the details to be clicked on
 });
