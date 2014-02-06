@@ -179,6 +179,17 @@ a.logo:hover {
   };
 }
 .event-missing {
+  min-height: 20px;
+  padding: 10px 19px;
+  border-bottom: 2px solid $medGrey;
+  -o-transition:background-color .2s;
+  -ms-transition:background-color .2s;
+  -moz-transition:background-color .2s;
+  -webkit-transition:background-color .2s;
+  transition:background-color .2s;
+  &:hover {
+    background-color: $lightGrey;
+  };
   color: #AAA;
   font-size: .85em;
   h4 {
