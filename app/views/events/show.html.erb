@@ -2,7 +2,7 @@
   <div class="event-div">
     <div class="event-title">
       <h4>
-        <%= @event.title %>
+        <%= link_to @event.title, event_path(@event) %>
       </h4>
       <p>
         @ <%= @event.venue.name %>&emsp;

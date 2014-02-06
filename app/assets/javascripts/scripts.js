@@ -23,7 +23,7 @@ $(document).ready(function() {
 		}
 	}).change();
 
-	//event and venue lists are sortable
+	//make event and venue lists are sortable
 	$('#events-table').tablesorter({
 		sortList: [[1,0]],
 		headers: { 3: { sorter: false }}
@@ -34,19 +34,30 @@ $(document).ready(function() {
 	});
 });
 
+//event details open when user clicks an event div
+var lastLoad;
 $('.event-div').click( function() {
 	event.preventDefault();
-	openEvent = $(this).children('.event-details'); //event details open when user clicks an event div
-	if(typeof offset === "undefined"){
-		offset = $('.event-details:visible').height();
-	} else {
-		offset = $('.event-details:visible').height()+4;
-	};
+	openEvent = $(this).children('.event-details'); //get the event details
 
-	$('.event-details').not(openEvent).hide(200); //closes all other open events
-	openEvent.toggle(200) //toggle details and scrolls
-	scrollAmount = $(this).position().top - 54 - offset;
-	$("body").animate({scrollTop: scrollAmount},800);
+	if(this===lastLoad){  //if same event?
+		offset = 0;  //clear the offset to restrict scrolling
+	} else {
+		offset = $('.event-details:visible').height();
+		if(offset){
+			offset+=10; //add to offset for event-detail bottom margin
+		}
+	}
+
+	$('.event-details').not(openEvent).hide(300); //closes all other open events
+	openEvent.toggle(300) //toggle details
+
+	$('body').animate({ //scroll to the top of the clicked event
+		scrollTop: $(this).position().top-54-offset},
+		1200
+	);
+
+	lastLoad = this;
 });
 
 $('.event-details').click( function(event){
