@@ -39,14 +39,14 @@ var lastLoad;
 $('.event-div').click( function() {
 	event.preventDefault();
 	openEvent = $(this).children('.event-details'); //get the event details
+	screenSize = $(window).height(); //get the screen height
 
 	if(this===lastLoad){  //if same event?
 		offset = 0;  //clear the offset to restrict scrolling
 	} else {
 		offset = $('.event-details:visible').height();
-		if(offset){
-			offset+=10; //add to offset for event-detail bottom margin
-		}
+		screenSize < offset ? offset=screenSize+42 : offset; //limit offset size to screen height
+		if(offset) offset+=10; //add to offset for event-detail bottom margin
 	}
 
 	$('.event-details').not(openEvent).hide(300); //closes all other open events
