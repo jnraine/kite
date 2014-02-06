@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	//update end_time to 3 hours in the future from start_time when creating events
 	function oneHourInFuture(iso8601NoTimezone) {
 		var date = moment(iso8601NoTimezone);
 		date.set("hour", date.hour() + 3);
@@ -12,6 +13,7 @@ $(document).ready(function() {
 		$("#event_local_end_time").val(newEndTime);
 	});
 
+	//hide repeating event options until repeat is confirmed
 	$("#event_repeat").change(function() {
 		var $repeatInput = $(this);
 		var $repeatUntilFormGroup = $("#event_repeat_until").parents(".form-group").first();
@@ -45,7 +47,7 @@ $('.event-div').click( function() {
 		offset = 0;  //clear the offset to restrict scrolling
 	} else {
 		offset = $('.event-details:visible').height();
-		screenSize < offset ? offset=screenSize+42 : offset; //limit offset size to screen height
+		if(screenSize < offset) offset=screenSize+42; //limit offset size to screen height
 		if(offset) offset+=10; //add to offset for event-detail bottom margin
 	}
 
@@ -53,8 +55,7 @@ $('.event-div').click( function() {
 	openEvent.toggle(300) //toggle details
 
 	$('body').animate({ //scroll to the top of the clicked event
-		scrollTop: $(this).position().top-54-offset},
-		1200
+		scrollTop: $(this).position().top-54-offset},	1200
 	);
 
 	lastLoad = this;
