@@ -38,7 +38,7 @@ $(document).ready(function() {
 
 //event details open when user clicks an event div
 var lastLoad;
-$('.event-div').click( function() {
+$('.event-div').click( function(event) {
 	event.preventDefault();
 	openEvent = $(this).children('.event-details'); //get the event details
 	screenSize = $(window).height(); //get the screen height
