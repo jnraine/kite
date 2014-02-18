@@ -16,7 +16,7 @@
         From <%= @event.start_time.strftime("%l:%M %P") %> to <%= @event.end_time.strftime("%l:%M %P") %> on <%= @event.upcoming_dates %>
       </p>
       <p>
-        <%= auto_link(@event.details, :urls, :target => "_blank" ) %>
+        <%= event_detail_format(@event.details) %>
       </p>
   </div>
 </div>

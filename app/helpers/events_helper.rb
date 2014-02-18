@@ -1,6 +1,7 @@
 module EventsHelper
+	#change icon from heart to empty heart and vice-versa
 	def toggle_fav(event, user)
-		if user_signed_in? #change icon from heart to empty heart and vice-versa
+		if user_signed_in?
 			link_to user.flagged?(event, :fav) ?
 				content_tag(:span, " ", :class => "glyphicon glyphicon-heart") :
 				content_tag(:span, " ", :class => "glyphicon glyphicon-heart-empty"),
@@ -21,7 +22,13 @@ module EventsHelper
 			when 9999
 				"Sold out"
 			else
-				number_to_currency(cost)
+				number_to_currency(cost, strip_insignificant_zeros: true)
 		end
+	end
+
+	def event_detail_format(details)
+		text = sanitize details, tags: %w(a p div br)
+		text = simple_format(text)
+		auto_link(text, :all, :target => "_blank")
 	end
 end

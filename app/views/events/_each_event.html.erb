@@ -18,7 +18,7 @@
         From <%= occurrence.start_time.strftime("%l:%M %P") %> to <%= occurrence.end_time.strftime("%l:%M %P") %>
       </p>
       <p>
-        <%= auto_link(simple_format(event.details), :urls, :target => "_blank" ) %>
+        <%= event_detail_format(event.details) %>
       </p>
     </div>
   </div>

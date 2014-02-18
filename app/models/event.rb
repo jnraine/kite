@@ -10,9 +10,10 @@ class Event < ActiveRecord::Base
 
   has_many :occurrences, class_name: "EventOccurrence", autosave: true, dependent: :destroy
  
-  validates :title, :cost, :venue_id, :category_id, :local_start_time, :local_end_time, presence: true
+  validates :title, :venue_id, :category_id, :local_start_time, :local_end_time, presence: true
   validates_length_of :title, :maximum => 70
   validates_presence_of :repeat_until, :if => :repeat # all repeating events need an ending date
+  validates_presence_of :cost, :unless => :category_is_free?
 
   before_save :serialize_schedule_and_generate_occurrences
   after_create :create_future_occurrences # these are generated for a new record once it has an ID
@@ -32,6 +33,11 @@ class Event < ActiveRecord::Base
     scope.where(raw_sql, date.beginning_of_day+4.hours, date.end_of_day+4.hours)
   }
   scope :between, lambda {|start_date, end_date| includes(:occurrences).where('"event_occurrences"."start_time" BETWEEN ? AND ?', start_date.beginning_of_day+4.hours, end_date.end_of_day+4.hours) }
+
+  # Not all categories need the cost
+  def category_is_free?
+  #  return true if [1,6].include?(category_id)
+  end
 
   # Convert IceCube::Schedule object into hash for database. This is run as
   # part of serialize_schedule_and_generate_occurrences will rarely need to 
