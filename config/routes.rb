@@ -1,9 +1,12 @@
 Kite::Application.routes.draw do
   resources :venues
   resources :events do
-  	member do
-  		get 'fav'
-  	end
+  	collection do
+      delete 'destroy_multiple'
+    end
+    #member do
+  	#	get 'fav'
+  	#end
   end
   devise_for :users, :controllers => { :sessions => 'sessions' }
   devise_for :hosts#, :skip => :sessions

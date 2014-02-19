@@ -75,7 +75,15 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to({action: "list"}, notice: 'Yay! A new event!')}
+        message = case rand(1..2)
+          when 1
+            "Fun!"
+          when 2
+            "This looks awesome."
+          else
+            "That looks good."
+        end
+        format.html { redirect_to({action: "list"}, notice: message)}
         format.json { render json: @event, status: :created, location: @event }
       else
         format.html { render action: "new" }
@@ -101,6 +109,15 @@ class EventsController < ApplicationController
   def destroy
     @event = current_user.events.find(params[:id])
     @event.destroy
+
+    respond_to do |format|
+      format.html { redirect_to list_path }
+      format.json { head :no_content }
+    end
+  end
+
+  def destroy_multiple
+    Event.destroy(params[:events]) if params[:events].present?
 
     respond_to do |format|
       format.html { redirect_to list_path }
