@@ -16,7 +16,7 @@
         From <%= @event.start_time.strftime("%l:%M %P") %> to <%= @event.end_time.strftime("%l:%M %P") %> on <%= @event.upcoming_dates %>
       </p>
       <p>
-        <%= event_detail_format(@event.details) %>
+        <%= event_details_format(@event.details) %>
       </p>
   </div>
 </div>

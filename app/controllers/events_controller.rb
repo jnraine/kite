@@ -75,15 +75,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        message = case rand(1..2)
-          when 1
-            "Fun!"
-          when 2
-            "This looks awesome."
-          else
-            "That looks good."
-        end
-        format.html { redirect_to({action: "list"}, notice: message)}
+        format.html { redirect_to({action: "list"}, notice: create_flash_message)}
         format.json { render json: @event, status: :created, location: @event }
       else
         format.html { render action: "new" }
@@ -97,7 +89,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to({action: "list"}, notice: 'Cool. Got it.')}
+        format.html { redirect_to({action: "list"}, notice: update_flash_message)}
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
