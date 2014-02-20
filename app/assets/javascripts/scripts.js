@@ -41,13 +41,13 @@ var lastLoad;
 $('.event-div').click( function(event) {
 	event.preventDefault();
 	openEvent = $(this).children('.event-details'); //get the event details
-	screenSize = $(window).height(); //get the screen height
+	thisID = $('div').index(this);
+	lastID = $('div').index(lastLoad)
 
-	if(this===lastLoad){  //if same event?
+	if((this===lastLoad)||(thisID<lastID)){  //if same event or this is above last load
 		offset = 0;  //clear the offset to restrict scrolling
 	} else {
 		offset = $('.event-details:visible').height();
-		if(screenSize < offset) offset=screenSize+42; //limit offset size to screen height
 		if(offset) offset+=10; //add to offset for event-detail bottom margin
 	}
 
