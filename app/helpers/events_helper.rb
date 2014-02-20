@@ -22,7 +22,7 @@ module EventsHelper
 			when 9999
 				"Sold out"
 			else
-				number_to_currency(cost, strip_insignificant_zeros: true)
+				number_to_currency(cost).sub('.00', '')
 		end
 	end
 
