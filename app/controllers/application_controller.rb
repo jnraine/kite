@@ -13,11 +13,13 @@ class ApplicationController < ActionController::Base
 
   # Used to make the Create flash message read more human
   def create_flash_message
-    case rand(1..2)
+    case rand(1..3)
       when 1
         "Fun!"
       when 2
         "This looks awesome."
+      when 3
+        "That looks good."
       else
         "That looks good."
     end
@@ -26,12 +28,14 @@ class ApplicationController < ActionController::Base
   # Used to make the Update flash message read more human
   def update_flash_message
     case rand(1..2)
-      when
-        "Cool. Got it."
-      when 
-        "No problem."
-      else
+      when 1
         "Done!"
+      when 2
+        "No problem."
+      when 3
+        "Cool. Got it."
+      else
+        "Cool. Got it."
     end
   end   
 end
