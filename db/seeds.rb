@@ -13,11 +13,10 @@
 # "Games and Trivia",
 # "Workshops and Classes"
 # "Sporting Events",
-# "Nightlife",
 # "Discussions"
 
 ["Live Music",
- "Night Clubs",
+ "Nightlife",
  "Theatre Performances",
  "Art Shows"
  ].each do |category|
