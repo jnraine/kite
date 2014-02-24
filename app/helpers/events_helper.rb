@@ -27,7 +27,7 @@ module EventsHelper
 	end
 
 	def event_details_format(details)
-		text = sanitize details, tags: %w(a p div br)
+		text = sanitize details, tags: %w(a p div br strong)
 		text = simple_format(text)
 		auto_link(text, :all, :target => "_blank")
 	end
