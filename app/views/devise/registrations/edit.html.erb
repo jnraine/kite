@@ -1,12 +1,14 @@
-<% if host_signed_in? %>
-  <div class="row form-header">
-    <h3 class="col-md-offset-2 col-md-10">Manage content</h3>
-  </div>
-  <ul class="nav-list col-md-12" role="navigation"><%= render 'pages/nav' %></ul>
-<% end %>
+<div class="visible-xs">
+  <% if host_signed_in? %>
+    <div class="row form-header">
+      <h3 class="col-md-offset-3 col-md-9">Manage content</h3>
+    </div>
+    <ul class="nav-list col-md-12" role="navigation"><%= render 'pages/nav' %></ul>
+  <% end %>
+</div>
   
 <div class="row form-header">
-  <h3 class="col-md-offset-2 col-md-10">Update account</h3>
+  <h3 class="col-md-offset-3 col-md-9">Update account</h3>
 </div>
 
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), defaults: { input_html: { class: "form-control" }}, :html => { :method => :put }) do |f| %>
@@ -17,7 +19,7 @@
   <%= f.input :current_password %>
 
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+    <div class="col-md-offset-3 col-md-6">
        <%= f.input_field :subscribed, :class => "", inline_label: "Only show subscribed venues" %>
     </div>
   </div>
@@ -27,7 +29,7 @@
   <% end %>
 <% end %>
 <br />
-<div class="col-md-offset-2">
+<div class="col-md-offset-3">
   <p>
    <%= link_to "Close my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>
   </p>

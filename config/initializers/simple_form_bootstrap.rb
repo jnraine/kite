@@ -4,9 +4,9 @@ SimpleForm.setup do |config|
     config.form_class = "form-horizontal"
     b.use :html5
     b.use :placeholder
-    config.label_class = "col-md-2 control-label"
+    config.label_class = "col-md-3 control-label"
     b.use :label
-    b.wrapper :tag => 'div', :class => 'col-md-10' do |ba|
+    b.wrapper :tag => 'div', :class => 'col-md-6' do |ba|
       ba.use :input # :class => "form-control"
       ba.use :error, :wrap_with => { :tag => 'span', :class => 'form-error' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
@@ -16,7 +16,7 @@ SimpleForm.setup do |config|
   config.wrappers :bs_submit_button, :tag => 'div', :class => 'form-group', :error_class => 'has-error' do |b|
     b.use :html5
     b.use :placeholder
-    b.wrapper :bs_submit_button, :tag => 'div', :class => 'col-md-offset-2 col-md-10' do |ba|
+    b.wrapper :bs_submit_button, :tag => 'div', :class => 'col-md-offset-3 col-md-6' do |ba|
       ba.use :input
       ba.use :error, :wrap_with => { :tag => 'span', :class => 'form-error' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }
@@ -26,7 +26,7 @@ SimpleForm.setup do |config|
   config.wrappers :bs_checkbox, :tag => 'div', :class => 'form-group', :error_class => 'has-error' do |b|
     b.use :html5
     b.use :placeholder
-    b.wrapper :bs_checkbox, :tag => 'div', :class => 'col-md-offset-2 col-md-10' do |ba|
+    b.wrapper :bs_checkbox, :tag => 'div', :class => 'col-md-offset-3 col-md-6' do |ba|
       ba.use :input, :wrap_with => { :tag => 'div', :class => 'checkbox' }
       ba.use :error, :wrap_with => { :tag => 'span', :class => 'form-error' }
       ba.use :hint,  :wrap_with => { :tag => 'p', :class => 'help-block' }

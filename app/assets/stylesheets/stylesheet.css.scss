@@ -7,7 +7,7 @@ $medGrey: #e3e3e3;
 $darkGrey: #666666;
 $lightBlue: #a3ebf1; /*#FF6454;*/
 $darkBlue: #00b2c2;
-$transWhite: rgba(255, 255, 255, 0.8);
+$transWhite: rgba(255, 255, 255, 0.7);
 
 /* Application layout ==================== */
 a {
@@ -64,29 +64,17 @@ a.logo:hover {
   color: $mutedGrey;
 }
 /* Translucent header =========================== */
-.blur-box {
-  height: 50px;
-  width: 100%;
-  margin-top: -60px;
-  position: fixed;
-  overflow: hidden;
-}
-.blur {
-  height: 50px;
+.menu-fade {
+  height: 54px;
   width: 100%;
   position: fixed;
-  background-color: $transWhite;
-  -webkit-filter: blur(10px);
-  -moz-filter: blur(10px);
-  -o-filter: blur(10px);
-  -ms-filter: blur(10px);
-  filter: blur(10px);
+  margin-top: -54px;
+  background: linear-gradient(
+    rgba(255,255,255,1)40%,
+    rgba(255,255,255,0));
 }
 /* Forms ======================================== */
 @media (min-width: 768px ) {
-  .form-control {
-    width: 50%;
-  }
   .form-header-list {
     p {
       margin-top: 20px;
@@ -96,11 +84,6 @@ a.logo:hover {
       padding-right: 20px;
     }
   }
-}
-.form-control-time {
-  /* padding: 6px 15px; */
-  display: inline-block;
-  width: auto;
 }
 .form-error { color: #b94a48; }
 .form-header {
