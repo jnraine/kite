@@ -1,20 +1,18 @@
-<nav class="nav navbar navbar-fixed-top">
+<nav class="main-nav">
 	<div class="container">
 	  <%= navigation_icon %>
-	  <% if root_path? %>
-	  	<span class="beta">beta</span>
-	  <% end %>
+	  <%= content_tag(:span, "beta", :class => "beta") if root_path? %> 
 
-		<div class="navbar-right">
+		<div class="main-nav-right">
 		  <% if user_signed_in? %>
-		   	<%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-cog navbar-brand"), edit_user_registration_path %>
+		   	<%= link_to content_tag(:span, " ", :class => "glyphicon glyphicon-cog lg-icon"), edit_user_registration_path %>
 		  <% else %>
-				<%= link_to "Login", new_user_session_path, :class => "navbar-brand size-14" %>
+				<%= link_to "Login", new_user_session_path, :class => "login" %>
 			<% end %>
 		</div>
 
 		<% if user_signed_in? %>
-			<ul class="nav navbar-nav navbar-right hidden-xs right-pad" role="navigation">
+			<ul class="main-nav-list main-nav-right hidden-xs" role="navigation">
 				<% if host_signed_in? %>
 					<li><%= link_to "Add Event", new_event_path %></li>
 					<li><%= link_to "Add Venue", new_venue_path %></li>

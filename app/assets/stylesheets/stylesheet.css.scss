@@ -5,8 +5,6 @@ $mutedGrey: #999999;
 $lightGrey: #f5f5f5;
 $medGrey: #e3e3e3;
 $darkGrey: #666666;
-$lightBlue: #a3ebf1; /*#FF6454;*/
-$darkBlue: #00b2c2;
 $transWhite: rgba(255, 255, 255, 0.7);
 
 /* Application layout ==================== */
@@ -45,33 +43,90 @@ a > span {
     color: $darkRed;
   };
 }
-.size-14 {
-  font-size: 14px;
+/* Navigation =========================== */
+.main-nav {
+  height: 52px;
+  margin-bottom: 0;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  z-index: 1030;
+  border-width: 0 0 1px;
+  border-bottom: 3px solid $red;
+  background-color: $transWhite;
+  .lg-icon {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 18px;
+    line-height: 20px;
+    color: $darkGrey;
+  };
+  .lg-icon:hover,
+  .lg-icon:focus {
+    color: $darkRed;
+    text-decoration: none;
+  };
+  .logo {
+    float: left;
+  }
+  .logo:after {
+    content: "Now";
+    color: $red;
+    font-weight: bold;
+  };
+  a.logo:hover {
+    color: $red;
+  };
+  .beta {
+    font-size: .85em;
+    color: $mutedGrey;
+  };
+  a.login {
+    color: $darkGrey;
+    float: right;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  a.login:hover {
+    color: $red;
+  }
+  .main-nav-left {
+    float: left !important;
+  };
+  .main-nav-right {
+    float: right !important;
+  };
 }
-.right-pad {
-  padding-right: 15px;
+.main-nav-list {
+  float: left;
+  list-style: none;
+  padding-left: 0;
+  padding-top: 0;
+  li {
+    position: relative;
+    display: inline-block;
+    padding: 15px;
+  };
+  li > a {
+    color: $darkGrey;
+    line-height: 20px;
+  };
+  li > a:hover, li > a:focus {
+    color: $darkRed;
+  };
+  li:last-of-type {
+    margin-right: 15px;
+  };
 }
-.logo:after {
-  content: "Now";
-  color: $red;
-  font-weight: bold;
-}
-a.logo:hover {
-  color: $red;
-}
-.beta {
-  font-size: .85em;
-  color: $mutedGrey;
-}
-/* Translucent header =========================== */
 .menu-fade {
-  height: 54px;
+  height: 55px;
   width: 100%;
   position: fixed;
-  margin-top: -54px;
+  margin-top: -55px;
   background: linear-gradient(
-    rgba(255,255,255,1)40%,
-    rgba(255,255,255,0));
+    rgba(255,255,255,.9)80%,
+    rgba(255,255,255,.05));
 }
 /* Forms ======================================== */
 @media (min-width: 768px ) {
