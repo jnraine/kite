@@ -1,7 +1,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: db/development
+  database: kite_development
   pool: 5
   username: brianholt
   password:
