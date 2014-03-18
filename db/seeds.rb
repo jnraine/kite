@@ -22,3 +22,14 @@
  ].each do |category|
     Category.find_or_create_by_name(category)
 end
+
+if Rails.env == "development"
+  user = User.find_by_email("admin@example.com")
+  user.destroy if user
+  
+  Host.new.tap do |u|
+    u.email = "admin@example.com"
+    u.password = "password"
+    u.save!
+  end
+end
