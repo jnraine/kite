@@ -12,4 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery-ui.min
+//= require modernizr
+//= require bootstrap.min
+//= require moment.min
+//= require tablesorter.min
+//= require scripts
+//= require datetime-local-polyfill

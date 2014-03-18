@@ -328,3 +328,8 @@ th.header {
 .blog-date {
   margin-top: -5px;
 }
+
+/* Prettify polyfilled datetime-local and date fields */
+.datetime-local-datepicker-button {
+  margin-right: 0.5em;
+}
