@@ -21,13 +21,5 @@ describe EventOccurrence do
       occurrence.end_time = Time.now + 1.hour
       occurrence.humanized_start_time.should == "now"
     end
-
-    it "returns date for events in the distance future" do
-      occurrence = EventOccurrence.new
-      future_start_time = Time.now + 1.day
-      occurrence.start_time = future_start_time
-      occurrence.end_time = future_start_time + 1.hour
-      occurrence.humanized_start_time.should == future_start_time.strftime("%Y-%-m-%-d")
-    end
   end
 end

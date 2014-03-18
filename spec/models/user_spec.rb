@@ -28,19 +28,5 @@ describe User do
         u.save!
       end
     end
-
-    it "can flag events as favourites" do
-      user.flag(event, :fav)
-      user.flaggings(:fav).first.flaggable.should == event
-    end
-
-    describe "favourite_events" do
-      it "returns favourited events, no other flaggable types" do
-        user.flag(event, :fav)
-        user.flag(venue, :fav)
-        user.favourite_events.count.should == 1
-        user.favourite_events.first.should == event
-      end
-    end
   end
 end

@@ -27,6 +27,7 @@ class Event < ActiveRecord::Base
   scope :not_over, lambda { includes(:occurrences).where("event_occurrences.end_time > ?", Time.now) }
   scope :sort_days, order(:date, "CAST(start_time AS time)")
   
+  # Brian, did you want this to against only the start date? If yes, delete this and carry on!
   scope :on, lambda {|date|
     raw_sql = '"event_occurrences"."start_time" BETWEEN ? AND ?'
     scope = includes(:occurrences)
@@ -127,6 +128,7 @@ class Event < ActiveRecord::Base
 
   # See local_start_time for more info.
   def local_end_time
+    return "" if end_time.nil?
     end_time.iso8601_no_timezone
   end
 
@@ -176,9 +178,9 @@ class Event < ActiveRecord::Base
   # this value.
   def repeat_until=(date)
     if date == ""
-      write_attribute(:repeat_until, date)
+      write_attribute(:repeat_until, "")
     else
-      write_attribute(:repeat_until, Date.parse(date).end_of_day)
+      write_attribute(:repeat_until, Date.parse(date.to_s).end_of_day)
     end
     dump_cached_schedule_attributes
   end
@@ -221,9 +223,9 @@ class Event < ActiveRecord::Base
     ]
   end
 
-  # Format next 5 occurrences into a human readable date format.
-  def upcoming_dates
-    start_times = occurrences.where("start_time > ?", Date.today).take(5).map(&:start_time)
+  # Format next X occurrences into a human readable date format. Defaults to 5.
+  def upcoming_dates(number_of_dates = 5)
+    start_times = occurrences.where("start_time > ?", Date.today).take(number_of_dates).map(&:start_time)
 
     current_month = nil
     formatted_dates = start_times.map do |start_time|
