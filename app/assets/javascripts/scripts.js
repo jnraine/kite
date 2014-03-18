@@ -59,6 +59,17 @@ $(document).ready(function() {
     setTimeout(function() {
         clearInterval(interval);
     }, 2000);
+
+    // Setup pretty checkboxes
+    $(".pretty-checkboxes input[type='checkbox']").change(function() {
+        var $checkbox = $(this);
+        var $button = $checkbox.parents(".btn").first();
+        if($checkbox.is(":checked")) {
+            $button.addClass("active");
+        } else {
+            $button.removeClass("active");
+        }
+    }); 
 });
 
 //event details open when user clicks an event div

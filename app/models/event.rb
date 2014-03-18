@@ -209,6 +209,18 @@ class Event < ActiveRecord::Base
     ]
   end
 
+  def weekday_options
+    [
+      ["Mon", ""],
+      ["Tue", ""],
+      ["Wed", ""],
+      ["Thu", ""],
+      ["Fri", ""],
+      ["Sat", ""],
+      ["Sun", ""]
+    ]
+  end
+
   # Format next 5 occurrences into a human readable date format.
   def upcoming_dates
     start_times = occurrences.where("start_time > ?", Date.today).take(5).map(&:start_time)

@@ -337,3 +337,18 @@ th.header {
 .date-calendar-dialog {
   z-index: 1000;
 }
+
+/* Pretty checkboxes */
+.pretty-checkboxes input {
+  display: none;
+}
+
+.pretty-checkboxes .btn-primary {
+  background-color: #fff;
+  color: #000;
+}
+
+.pretty-checkboxes .btn-primary.active {
+  background-color: #ff1b2b;
+  color: #fff;
+}
