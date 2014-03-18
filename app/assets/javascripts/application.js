@@ -19,3 +19,4 @@
 //= require tablesorter.min
 //= require scripts
 //= require datetime-local-polyfill
+//= require date-polyfill

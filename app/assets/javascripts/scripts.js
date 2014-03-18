@@ -16,7 +16,7 @@ $(document).ready(function() {
     //hide repeating event options until repeat is confirmed
     $("#event_repeat").change(function() {
         var $repeatInput = $(this);
-        var $repeatUntilFormGroup = $("#event_repeat_until").parents(".form-group").first();
+        var $repeatUntilFormGroup = $("[for='event_repeat_until']").parents(".form-group").first();
         if($repeatInput.val() == "") {
             $repeatUntilFormGroup.hide();
         } else {
@@ -34,21 +34,24 @@ $(document).ready(function() {
         headers: { 2: { sorter: false }}
     });
 
+    // 
+    // Make polyfills look better
+    // 
     function markAsUnsupported($inputs) {
         $inputs.each(function(index, input) {
             $(input).parents(".form-group").first().addClass("unsupported-inputtype");
         });
     }
 
-    // 
-    // Make polyfill look better
-    // 
     if(!Modernizr.inputtypes["datetime-local"]) {
         markAsUnsupported($("[type='datetime-local']"));
     }
 
+    if(!Modernizr.inputtypes["date"]) {
+        markAsUnsupported($("[type='date']"));
+    }
 
-    // Hacky
+    // Hacky, but likely to work
     var interval = setInterval(function() {
         $(".unsupported-inputtype span.form-control").removeClass("form-control");
     }, 100);
