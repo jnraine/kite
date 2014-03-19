@@ -343,4 +343,71 @@ describe Event do
       Event.on(Time.parse("2014-01-01")).should == [new_years_eve_event]
     end
   end
+
+  describe "#weekdays=" do
+    before do
+      Timecop.travel(Time.parse("January 1, 2000"))
+    end
+
+    after do
+      Timecop.return
+    end
+
+    it "sets weekdays this event occurs on" do
+      example_event = event
+      example_event.repeat = :weekly
+      example_event.repeat_until = Time.now + 30.days
+      example_event.weekdays = [0, 1, 2] # Mon, Tue, Wed
+      example_event.save!
+      expect(example_event.upcoming_dates(5)).to eq("January 3, 4, 5, 10, 11")
+    end
+  end
+
+  describe "#weekdays" do
+    it "returns an array of weekday indexes" do
+      example_event = event
+      example_event.repeat = :weekly
+      example_event.repeat_until = Time.now + 30.days
+      example_event.weekdays = [0, 1, 2] # Mon, Tue, Wed
+      expect(example_event.weekdays).to eq([0,1,2])
+    end
+
+    it "returns an empty array when the recurrence_rule is nil" do
+      example_event = event
+      example_event.should_receive(:recurrence_rule).and_return(nil)
+      expect(example_event.weekdays).to eq([])
+    end
+
+    it "returns an empty array when the weekdays are not set in the recurrence_rule" do
+      example_event = event
+      example_event.repeat = :weekly
+      example_event.repeat_until = Time.now + 30.days
+      example_event.save! # recurrence rule is created
+      expect(example_event.weekdays).to eq([])
+    end
+  end
+
+  describe ".convert_weekday_indexes_to_symbols" do
+    it "takes indexes (starts with monday) and converts to weekday symbols" do
+      weekday_symbols = event.convert_weekday_indexes_to_symbols([0, 1, 2, 3, 4, 5, 6])
+      expect(weekday_symbols).to eq([:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday])
+      weekday_symbols = event.convert_weekday_indexes_to_symbols([0, 3, 4])
+      expect(weekday_symbols).to eq([:monday, :thursday, :friday])
+    end
+
+    it "only converts number-looking things" do
+      weekday_symbols = event.convert_weekday_indexes_to_symbols([:monday, :tuesday])
+      expect(weekday_symbols).to eq([:monday, :tuesday])
+    end
+
+    it "complains when you give it something silly" do
+      expect {
+        event.convert_weekday_indexes_to_symbols(["pants"])
+      }.to raise_error(ArgumentError)
+    end
+
+    it "returns an empty array when you give it nil" do
+      expect(event.convert_weekday_indexes_to_symbols(nil)).to eq([])
+    end
+  end
 end

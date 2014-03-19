@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
   include IceCube
 
-  attr_accessible :title, :details, :cost, :schedule, :venue_id, :category_id, :local_start_time, :local_end_time, :repeat, :repeat_until
+  attr_accessible :title, :details, :cost, :schedule, :venue_id, :category_id, :local_start_time, :local_end_time, :repeat, :repeat_until, :weekdays
   delegate :end_time, :end_time=, :start_time, :start_time=, :occurs_on?, to: :schedule
 
   belongs_to :host
@@ -238,5 +238,30 @@ class Event < ActiveRecord::Base
     end
 
     formatted_dates.join(", ")
+  end
+
+  def weekdays=(weekday_indexes)
+    weekday_symbols = convert_weekday_indexes_to_symbols(weekday_indexes)
+    recurrence_rule.day(:monday, :tuesday, :wednesday)
+  end
+
+  def weekdays
+    return [] if recurrence_rule.nil?
+    recurrence_rule.to_hash.fetch(:validations).fetch(:day, []).map do |ice_cube_weekday_index| 
+      ice_cube_weekday_index - 1
+    end
+  end
+
+  def convert_weekday_indexes_to_symbols(weekday_indexes)
+    weekday_symbols = [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday]
+    Array(weekday_indexes).map do |weekday_index|
+      if weekday_index.is_a?(Symbol)
+        weekday_index
+      elsif weekday_index.to_s.match(/\d+/)
+        weekday_symbols[weekday_index.to_i]
+      else
+        raise ArgumentError.new("Unknown weekday index: #{weekday_index}")
+      end
+    end
   end
 end
