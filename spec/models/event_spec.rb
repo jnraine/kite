@@ -368,8 +368,8 @@ describe Event do
       example_event = event
       example_event.repeat = :weekly
       example_event.repeat_until = Time.now + 30.days
-      example_event.weekdays = [0, 1, 2] # Mon, Tue, Wed
-      expect(example_event.weekdays).to eq([0,1,2])
+      example_event.weekdays = [0, 1, 2, 3] # Mon, Tue, Wed
+      expect(example_event.weekdays).to eq([0, 1, 2, 3])
     end
 
     it "returns an empty array when the recurrence_rule is nil" do
@@ -384,6 +384,24 @@ describe Event do
       example_event.repeat_until = Time.now + 30.days
       example_event.save! # recurrence rule is created
       expect(example_event.weekdays).to eq([])
+    end
+
+    it "is settable after initial save" do
+      example_event = event
+      example_event.repeat = :weekly
+      example_event.repeat_until = Time.now + 30.days
+      example_event.weekdays = [0, 1, 2]
+      example_event.save!
+      example_event.weekdays = [1, 2]
+      expect(example_event.weekdays).to eq([1,2])
+    end
+
+    it "returns sunday as 6, not -1" do
+      example_event = event
+      example_event.repeat = :weekly
+      example_event.repeat_until = Time.now + 30.days
+      example_event.weekdays = [5, 6]
+      expect(example_event.weekdays).to eq([5, 6])
     end
   end
 

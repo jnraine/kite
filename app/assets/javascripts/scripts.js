@@ -16,11 +16,20 @@ $(document).ready(function() {
     //hide repeating event options until repeat is confirmed
     $("#event_repeat").change(function() {
         var $repeatInput = $(this);
+        // Show/hide "Repeat Until"
         var $repeatUntilFormGroup = $("[for='event_repeat_until']").parents(".form-group").first();
         if($repeatInput.val() == "") {
             $repeatUntilFormGroup.hide();
         } else {
             $repeatUntilFormGroup.show();
+        }
+
+        // Show/hide "Weekdays"
+        var $weekdayFormGroup = $("[for='event_weekdays']").parents(".form-group").first();
+        if($repeatInput.val() == "weekly") {
+            $weekdayFormGroup.show();
+        } else {
+            $weekdayFormGroup.hide();
         }
     }).change();
 
@@ -61,7 +70,7 @@ $(document).ready(function() {
     }, 2000);
 
     // Setup pretty checkboxes
-    $(".pretty-checkboxes input[type='checkbox']").change(function() {
+    $(".weekday_checkboxes input[type='checkbox']").change(function() {
         var $checkbox = $(this);
         var $button = $checkbox.parents(".btn").first();
         if($checkbox.is(":checked")) {
@@ -69,7 +78,7 @@ $(document).ready(function() {
         } else {
             $button.removeClass("active");
         }
-    }); 
+    }).change(); 
 });
 
 //event details open when user clicks an event div

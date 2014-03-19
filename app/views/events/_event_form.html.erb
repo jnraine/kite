@@ -9,7 +9,7 @@
   <%= f.input :local_end_time, label: "To", as: :datetime_local %>
 
   <%= f.input :repeat, label: "Repeat", collection: @event.repeat_options, include_blank: false %>
-  <%= f.input :repeat, label: "Weekdays", collection: @event.weekday_options, as: :weekday_checkboxes %>
+  <%= f.input :weekdays, label: "Weekdays", collection: @event.weekday_options, as: :weekday_checkboxes %>
   <%= f.input :repeat_until, label: "Until", as: :html5_date %>
 
   <%= f.input :cost, as: :string %>

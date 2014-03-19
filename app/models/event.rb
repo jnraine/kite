@@ -160,8 +160,12 @@ class Event < ActiveRecord::Base
   # time, only the repeat_until attribute is stored this way. This is done to
   # allow us to apply aspects to new recurrence rules.
   def dump_cached_schedule_attributes
-    return unless recurrence_rule
+    return if recurrence_rule.nil?
     recurrence_rule.until repeat_until
+  end
+
+  def weekly?
+    repeat == :weekly
   end
 
   # Returns what time of repeat this is. Possible values: :daily, :weekly, or nil.
@@ -242,18 +246,26 @@ class Event < ActiveRecord::Base
 
   def weekdays=(weekday_indexes)
     weekday_symbols = convert_weekday_indexes_to_symbols(weekday_indexes)
-    recurrence_rule.day(:monday, :tuesday, :wednesday)
+    if weekly?
+      repeat_weekly # replaces old rule
+      recurrence_rule.day(weekday_symbols)
+      dump_cached_schedule_attributes
+    end
   end
 
   def weekdays
     return [] if recurrence_rule.nil?
-    recurrence_rule.to_hash.fetch(:validations).fetch(:day, []).map do |ice_cube_weekday_index| 
-      ice_cube_weekday_index - 1
+    foo = recurrence_rule.to_hash.fetch(:validations).fetch(:day, []).map do |ice_cube_weekday_index| 
+      if ice_cube_weekday_index.zero?
+        6
+      else
+        ice_cube_weekday_index - 1
+      end
     end
   end
 
   def convert_weekday_indexes_to_symbols(weekday_indexes)
-    weekday_symbols = [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday]
+    weekday_symbols = self.class.weekday_symbols
     Array(weekday_indexes).map do |weekday_index|
       if weekday_index.is_a?(Symbol)
         weekday_index
@@ -263,5 +275,9 @@ class Event < ActiveRecord::Base
         raise ArgumentError.new("Unknown weekday index: #{weekday_index}")
       end
     end
+  end
+
+  def self.weekday_symbols
+    [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday]
   end
 end

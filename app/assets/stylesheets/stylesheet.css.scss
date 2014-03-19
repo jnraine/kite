@@ -338,17 +338,18 @@ th.header {
   z-index: 1000;
 }
 
-/* Pretty checkboxes */
-.pretty-checkboxes input {
+/* Weekday checkboxes */
+.weekday_checkboxes input {
   display: none;
 }
 
-.pretty-checkboxes .btn-primary {
+.weekday_checkboxes .btn-primary {
   background-color: #fff;
   color: #000;
+  margin-right: 0.5em;
 }
 
-.pretty-checkboxes .btn-primary.active {
+.weekday_checkboxes .btn-primary.active {
   background-color: #ff1b2b;
   color: #fff;
 }
